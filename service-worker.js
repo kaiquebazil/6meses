@@ -87,7 +87,7 @@ self.addEventListener("fetch", (event) => {
       .catch(() => {
         // Fallback para página offline
         if (event.request.headers.get("accept").includes("text/html")) {
-          return caches.match("/index.html");
+          return caches.match("index.html");
         }
       })
   );
@@ -127,6 +127,6 @@ self.addEventListener("notificationclick", (event) => {
   event.notification.close();
 
   if (event.action === "explore") {
-    event.waitUntil(clients.openWindow("/index.html"));
+    event.waitUntil(clients.openWindow("index.html"));
   }
 });
