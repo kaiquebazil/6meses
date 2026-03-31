@@ -1,20 +1,23 @@
-# 6meses
+# Fluência em 6 Meses 🚀
 
-Repositório dedicado ao acompanhamento de metas e progresso em um período de 6 meses.
+Este repositório contém o plano de estudo detalhado para alcançar a fluência em inglês em 6 meses, desenvolvido por [Kaique Bazil](https://github.com/kaiquebazil).
 
-## 🚀 Funcionalidades
+## 📁 Estrutura do Projeto
 
-- Planejamento de longo prazo
-- Registro de marcos importantes
+- `index.html`: Página principal do plano de estudos.
+- `css/`: Estilos da interface.
+- `js/`: Lógica de progresso e interatividade.
+- `data/`: Dados do plano de estudos e recursos.
+- `pages/`: Aulas e conteúdos específicos.
+- `icons/`: Ícones e ativos visuais.
 
-## 🛠️ Tecnologias Utilizadas
+## ✨ Funcionalidades
 
-- Markdown
-
-## 📦 Como Executar
-
-1. Clone o repositório
-2. Siga as instruções específicas do ambiente.
+- Planejamento mensal e semanal.
+- Acompanhamento de progresso em tempo real.
+- Recursos integrados (vídeos, materiais e dicas).
+- Suporte a PWA (pode ser instalado no celular).
+- Modo offline.
 
 ---
 Desenvolvido por [Kaique Bazil](https://github.com/kaiquebazil)

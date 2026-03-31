@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aula: Expressar Prazer em Conhecer Alguém</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/geral.css" />
+    <link rel="shortcut icon" href="../icons/icon.ico" type="image/x-icon">
+
+    <style>
+      /* ===== ANIMAÇÕES ===== */
+      @keyframes containerEntrance {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.8;
+        }
+      }
+
+      /* ===== HEADER ===== */
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        color: var(--accent-color);
+        font-weight: 700;
+      }
+
+      .header p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+      }
+
+      /* ===== BOTÕES DO HEADER ===== */
+      .header-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .download-btn {
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        background: linear-gradient(
+          135deg,
+          var(--accent-green),
+          var(--accent-color)
+        );
+        box-shadow: 0 4px 12px rgba(63, 185, 80, 0.3);
+      }
+
+      .download-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 18px rgba(63, 185, 80, 0.4);
+      }
+
+      /* ===== ÍNDICE DE NAVEGAÇÃO ===== */
+      .category-index {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin: 20px 0;
+      }
+
+      .index-item {
+        background-color: var(--button-bg);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .index-item:hover {
+        background-color: var(--accent-color);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      /* ===== CATEGORIAS ===== */
+      .category {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 30px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        scroll-margin-top: 20px;
+      }
+
+      .category:hover {
+        transform: translateY(-5px);
+      }
+
+      .category h2 {
+        color: var(--accent-green);
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 2px solid var(--accent-green);
+        padding-bottom: 10px;
+      }
+
+      .category h2 i {
+        font-size: 1.5rem;
+      }
+
+      .category h3 {
+        color: var(--accent-orange);
+        margin: 20px 0 15px;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* ===== CARTÕES DE FRASES ===== */
+      .phrase-card {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 4px solid var(--accent-color);
+      }
+
+      .phrase-card:nth-child(2n) {
+        border-left-color: var(--accent-purple);
+      }
+
+      .phrase-card:nth-child(3n) {
+        border-left-color: var(--accent-orange);
+      }
+
+      .phrase-card:last-child {
+        margin-bottom: 0;
+      }
+
+      .phrase-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .phrase-text {
+        flex: 1;
+      }
+
+      .phrase-en {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: var(--text-primary);
+      }
+
+      .phrase-pt {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        font-style: italic;
+      }
+
+      .phrase-note {
+        font-size: 0.85rem;
+        color: var(--accent-yellow);
+        margin-top: 8px;
+        padding: 5px 10px;
+        background-color: rgba(255, 203, 107, 0.1);
+        border-radius: 4px;
+        display: inline-block;
+      }
+
+      .phrase-context {
+        font-size: 0.9rem;
+        color: var(--accent-purple);
+        margin-top: 5px;
+        font-weight: 500;
+      }
+
+      /* ===== NÍVEIS DE FORMALIDADE ===== */
+      .formality-levels {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 25px 0;
+      }
+
+      .formality-card {
+        /* background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); */
+        border-radius: 10px;
+        padding: 20px;
+        border: 1px solid var(--border-color);
+        transition: transform 0.3s ease;
+      }
+
+      .formality-card:hover {
+        transform: translateY(-3px);
+      }
+
+      .formality-card h4 {
+        color: var(--accent-color);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .formality-card.formal {
+        border-top: 4px solid var(--accent-purple);
+      }
+
+      .formality-card.informal {
+        border-top: 4px solid var(--accent-orange);
+      }
+
+      .formality-card.neutral {
+        border-top: 4px solid var(--accent-color);
+      }
+
+      /* ===== CONTROLES DE ÁUDIO ===== */
+      .audio-controls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        min-width: 120px;
+      }
+
+      .play-button {
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.2rem;
+      }
+
+      .play-button:hover {
+        background-color: var(--accent-purple);
+        transform: scale(1.1);
+      }
+
+      .play-button.playing {
+        background-color: var(--accent-pink);
+        animation: pulse 1.5s infinite;
+      }
+
+      .audio-speed {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+      }
+
+      .speed-control {
+        background-color: var(--button-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 3px 8px;
+        color: var(--text-primary);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .speed-control.active {
+        background-color: var(--accent-color);
+        color: white;
+      }
+
+      .speed-control:hover {
+        background-color: var(--button-hover);
+      }
+
+      /* ===== SITUAÇÕES ESPECÍFICAS ===== */
+      .situations-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 25px 0;
+      }
+
+      .situation-card {
+        border-radius: 10px;
+        padding: 20px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .situation-card h3 {
+        color: var(--accent-green);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* ===== DIALOGOS ===== */
+      .dialog-examples {
+        background: linear-gradient(
+          135deg,
+          var(--accent-color),
+          var(--accent-purple)
+        );
+        border-radius: 12px;
+        padding: 30px;
+        margin-top: 40px;
+        color: white;
+      }
+
+      .dialog-examples h2 {
+        color: white;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 1.8rem;
+      }
+
+      .dialog-box {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .dialog-box:last-child {
+        margin-bottom: 0;
+      }
+
+      .dialog-person {
+        font-weight: bold;
+        color: var(--accent-yellow);
+        margin-right: 10px;
+      }
+
+      /* ===== TIPS SECTION ===== */
+      .tips-section {
+        background-color: rgba(241, 196, 15, 0.05);
+        border-radius: 12px;
+        padding: 25px;
+        margin: 30px 0;
+        border: 1px solid var(--accent-yellow);
+      }
+
+      .tips-section h3 {
+        color: var(--accent-yellow);
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .tips-list {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .tips-list li {
+        padding: 10px 0;
+        padding-left: 30px;
+        position: relative;
+        border-bottom: 1px solid rgba(241, 196, 15, 0.2);
+      }
+
+      .tips-list li:before {
+        content: "💡";
+        position: absolute;
+        left: 0;
+        font-size: 1.2rem;
+      }
+
+      /* ===== COMPARISON TABLE ===== */
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 25px 0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .comparison-table th {
+        background-color: var(--accent-color);
+        color: white;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+      }
+
+      .comparison-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .comparison-table tr:nth-child(even) {
+        background-color: rgba(74, 144, 226, 0.05);
+      }
+
+      .comparison-table tr:hover {
+        background-color: rgba(74, 144, 226, 0.1);
+      }
+
+      /* ===== RESPONSE CARDS ===== */
+      .response-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin: 25px 0;
+      }
+
+      .response-card {
+        /* background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); */
+        border-radius: 10px;
+        padding: 20px;
+        border: 1px solid var(--border-color);
+        text-align: center;
+      }
+
+      .response-card h4 {
+        color: var(--accent-purple);
+        margin-bottom: 15px;
+      }
+
+      /* ===== FOOTER ===== */
+      .footer {
+        text-align: center;
+        font-size: 12px;
+        color: var(--text-secondary);
+        padding: 30px 20px;
+        margin-top: 40px;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .teacher-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+        font-size: 1rem;
+      }
+
+      .teacher-info i {
+        color: var(--accent-pink);
+      }
+
+      /* ===== BOTÃO VOLTAR ===== */
+      .back-button {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        z-index: 100;
+      }
+
+      .back-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+      }
+
+      /* ===== RESPONSIVIDADE ===== */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 10px;
+        }
+
+        .category {
+          padding: 20px;
+        }
+
+        .phrase-content {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .audio-controls {
+          flex-direction: row;
+          justify-content: flex-start;
+          width: 100%;
+        }
+
+        .back-button {
+          bottom: 20px;
+          left: 20px;
+          padding: 10px 14px;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .formality-levels,
+        .situations-grid,
+        .response-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .category-index {
+          justify-content: flex-start;
+          overflow-x: auto;
+          padding-bottom: 10px;
+        }
+
+        .index-item {
+          white-space: nowrap;
+        }
+
+        .comparison-table {
+          font-size: 0.9rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 15px 10px;
+        }
+
+        .header h1 {
+          font-size: 1.8rem;
+        }
+
+        .category h2 {
+          font-size: 1.5rem;
+        }
+
+        .phrase-en {
+          font-size: 1.1rem;
+        }
+
+        .dialog-examples {
+          padding: 20px;
+        }
+
+        .header-buttons {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .download-btn {
+          width: 100%;
+          max-width: 300px;
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>
+          <i class="fas fa-handshake"></i> Expressar Prazer em Conhecer Alguém
+        </h1>
+        <p>
+          Aprenda as diferentes formas de expressar prazer ao conhecer pessoas
+          em inglês
+        </p>
+
+        <div class="header-buttons">
+          <button class="download-btn" id="downloadPDF">
+            <i class="fas fa-file-pdf"></i> Baixar em PDF
+          </button>
+        </div>
+
+        <!-- Índice de navegação -->
+        <div class="category-index">
+          <a href="#formalSection" class="index-item">Formal</a>
+          <a href="#informalSection" class="index-item">Informal</a>
+          <a href="#neutralSection" class="index-item">Neutro</a>
+          <a href="#responsesSection" class="index-item">Respostas</a>
+          <a href="#workSection" class="index-item">Trabalho</a>
+          <a href="#socialSection" class="index-item">Social</a>
+          <a href="#comparisonSection" class="index-item">Comparação</a>
+          <a href="#dialogSection" class="index-item">Diálogos</a>
+        </div>
+      </header>
+
+      <main>
+        <!-- Seção: Expressões Formais -->
+        <section class="category" id="formalSection">
+          <h2><i class="fas fa-user-tie"></i> EXPRESSÕES FORMAIS</h2>
+          <p class="phrase-context">
+            Uso: Reuniões de negócios, clientes, pessoas importantes, situações
+            profissionais
+          </p>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">It's a pleasure to meet you.</div>
+                <div class="phrase-pt">É um prazer conhecê-lo(a).</div>
+                <div class="phrase-note">Forma mais comum e educada</div>
+              </div>
+              <div class="audio-controls">
+                <button
+                  class="play-button"
+                  data-text="It's a pleasure to meet you."
+                >
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">How do you do?</div>
+                <div class="phrase-pt">Muito prazer.</div>
+                <div class="phrase-note">
+                  Tradicional britânico, resposta igual: "How do you do?"
+                </div>
+              </div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="How do you do?">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">
+                  I've been looking forward to meeting you.
+                </div>
+                <div class="phrase-pt">Estava ansioso para conhecê-lo(a).</div>
+                <div class="phrase-note">
+                  Quando já ouviu falar da pessoa antes
+                </div>
+              </div>
+              <div class="audio-controls">
+                <button
+                  class="play-button"
+                  data-text="I've been looking forward to meeting you."
+                >
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">It's an honor to meet you.</div>
+                <div class="phrase-pt">É uma honra conhecê-lo(a).</div>
+                <div class="phrase-note">Para pessoas muito importantes</div>
+              </div>
+              <div class="audio-controls">
+                <button
+                  class="play-button"
+                  data-text="It's an honor to meet you."
+                >
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">
+                  I'm honored to make your acquaintance.
+                </div>
+                <div class="phrase-pt">Sinto-me honrado em conhecê-lo(a).</div>
+                <div class="phrase-note">Muito respeitoso e formal</div>
+              </div>
+              <div class="audio-controls">
+                <button
+                  class="play-button"
+                  data-text="I'm honored to make your acquaintance."
+                >
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seção: Expressões Informais -->
+        <section class="category" id="informalSection">
+          <h2><i class="fas fa-users"></i> EXPRESSÕES INFORMAIS</h2>
+          <p class="phrase-context">
+            Uso: Amigos, família, pessoas da mesma idade, situações casuais
+          </p>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">Nice to meet you!</div>
+                <div class="phrase-pt">Prazer em conhecê-lo(a)!</div>
+                <div class="phrase-note">Forma mais comum e versátil</div>
+              </div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="Nice to meet you!">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">Good to meet you!</div>
+                <div class="phrase-pt">Bom te conhecer!</div>
+              </div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="Good to meet you!">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">Great to meet you!</div>
+                <div class="phrase-pt">Ótimo te conhecer!</div>
+              </div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="Great to meet you!">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">Pleasure to meet you!</div>
+                <div class="phrase-pt">Prazer!</div>
+                <div class="phrase-note">Versão curta e casual</div>
+              </div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="Pleasure to meet you!">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">Hey, nice to finally meet you!</div>
+                <div class="phrase-pt">Ei, que bom finalmente te conhecer!</div>
+                <div class="phrase-note">
+                  Quando já se falavam online ou por telefone
+                </div>
+              </div>
+              <div class="audio-controls">
+                <button
+                  class="play-button"
+                  data-text="Hey, nice to finally meet you!"
+                >
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">What's up? Nice to meet you!</div>
+                <div class="phrase-pt">E aí? Prazer em te conhecer!</div>
+                <div class="phrase-note">Muito informal, entre jovens</div>
+              </div>
+              <div class="audio-controls">
+                <button
+                  class="play-button"
+                  data-text="What's up? Nice to meet you!"
+                >
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seção: Expressões Neutras -->
+        <section class="category" id="neutralSection">
+          <h2><i class="fas fa-balance-scale"></i> EXPRESSÕES NEUTRAS</h2>
+          <p class="phrase-context">
+            Uso: Situações onde não se sabe o nível de formalidade necessário
+          </p>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">It's nice to meet you.</div>
+                <div class="phrase-pt">É bom conhecê-lo(a).</div>
+                <div class="phrase-note">
+                  Seguro para quase todas as situações
+                </div>
+              </div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="It's nice to meet you.">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">I'm pleased to meet you.</div>
+                <div class="phrase-pt">Estou satisfeito em conhecê-lo(a).</div>
+                <div class="phrase-note">
+                  Educado mas não excessivamente formal
+                </div>
+              </div>
+              <div class="audio-controls">
+                <button
+                  class="play-button"
+                  data-text="I'm pleased to meet you."
+                >
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">How nice to meet you.</div>
+                <div class="phrase-pt">Que bom conhecê-lo(a).</div>
+              </div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="How nice to meet you.">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="phrase-card">
+            <div class="phrase-content">
+              <div class="phrase-text">
+                <div class="phrase-en">Lovely to meet you.</div>
+                <div class="phrase-pt">Encantado em conhecê-lo(a).</div>
+                <div class="phrase-note">Comum no inglês britânico</div>
+              </div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="Lovely to meet you.">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <h3>Comparação de Níveis de Formalidade</h3>
+          <div class="formality-levels">
+            <div class="formality-card formal">
+              <h4><i class="fas fa-landmark"></i> Formal</h4>
+              <p>"It's a pleasure to meet you."</p>
+              <p>"I'm delighted to make your acquaintance."</p>
+              <p>"How do you do?"</p>
+              <div class="phrase-note">
+                Negócios, autoridades, situações sérias
+              </div>
+            </div>
+
+            <div class="formality-card neutral">
+              <h4><i class="fas fa-user-circle"></i> Neutro</h4>
+              <p>"It's nice to meet you."</p>
+              <p>"I'm pleased to meet you."</p>
+              <p>"Lovely to meet you."</p>
+              <div class="phrase-note">A maioria das situações sociais</div>
+            </div>
+
+            <div class="formality-card informal">
+              <h4><i class="fas fa-smile"></i> Informal</h4>
+              <p>"Nice to meet you!"</p>
+              <p>"Good to meet you!"</p>
+              <p>"Great to meet you!"</p>
+              <div class="phrase-note">Amigos, família, colegas</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seção: Como Responder -->
+        <section class="category" id="responsesSection">
+          <h2><i class="fas fa-reply"></i> COMO RESPONDER</h2>
+          <p class="phrase-context">
+            Quando alguém expressa prazer em conhecê-lo, você precisa responder
+            adequadamente
+          </p>
+
+          <div class="response-grid">
+            <div class="response-card">
+              <h4>Resposta Formal</h4>
+              <div class="phrase-en">The pleasure is mine.</div>
+              <div class="phrase-pt">O prazer é meu.</div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="The pleasure is mine.">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="response-card">
+              <h4>Resposta Neutra</h4>
+              <div class="phrase-en">Nice to meet you too.</div>
+              <div class="phrase-pt">Prazer em conhecê-lo(a) também.</div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="Nice to meet you too.">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="response-card">
+              <h4>Resposta Informal</h4>
+              <div class="phrase-en">You too!</div>
+              <div class="phrase-pt">Você também!</div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="You too!">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="response-card">
+              <h4>Resposta com Sorriso</h4>
+              <div class="phrase-en">Likewise!</div>
+              <div class="phrase-pt">Igualmente!</div>
+              <div class="audio-controls">
+                <button class="play-button" data-text="Likewise!">
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="tips-section">
+            <h3>
+              <i class="fas fa-lightbulb"></i> Regras Importantes para Respostas
+            </h3>
+            <ul class="tips-list">
+              <li>Sempre responda quando alguém diz "Nice to meet you"</li>
+              <li>Use o mesmo nível de formalidade da pessoa</li>
+              <li>
+                "How do you do?" recebe a mesma resposta: "How do you do?"
+              </li>
+              <li>Mantenha contato visual e sorria ao responder</li>
+              <li>
+                Adicione o nome da pessoa se você o souber: "Nice to meet you
+                too, John"
+              </li>
+              <li>Em grupos, responda individualmente a cada pessoa</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Seção: Situações Específicas -->
+        <div class="situations-grid">
+          <!-- Trabalho -->
+          <div class="situation-card" id="workSection">
+            <h3><i class="fas fa-briefcase"></i> No Trabalho</h3>
+            <div class="phrase-card">
+              <div class="phrase-en">
+                I'm looking forward to working with you.
+              </div>
+              <div class="phrase-pt">
+                Estou ansioso para trabalhar com você.
+              </div>
+            </div>
+            <div class="phrase-card">
+              <div class="phrase-en">I've heard great things about you.</div>
+              <div class="phrase-pt">Ouvi coisas ótimas sobre você.</div>
+            </div>
+            <div class="phrase-card">
+              <div class="phrase-en">
+                It's great to finally put a face to the name.
+              </div>
+              <div class="phrase-pt">
+                É ótimo finalmente colocar um rosto no nome.
+              </div>
+              <div class="phrase-note">Quando já se comunicavam por e-mail</div>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div class="situation-card" id="socialSection">
+            <h3><i class="fas fa-glass-cheers"></i> Eventos Sociais</h3>
+            <div class="phrase-card">
+              <div class="phrase-en">
+                So nice to finally meet you in person!
+              </div>
+              <div class="phrase-pt">
+                Que bom finalmente te conhecer pessoalmente!
+              </div>
+            </div>
+            <div class="phrase-card">
+              <div class="phrase-en">
+                I've been wanting to meet you for ages!
+              </div>
+              <div class="phrase-pt">
+                Estava querendo te conhecer há tempos!
+              </div>
+            </div>
+            <div class="phrase-card">
+              <div class="phrase-en">
+                Your friend has told me so much about you.
+              </div>
+              <div class="phrase-pt">Seu amigo me falou tanto sobre você.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seção: Comparação Detalhada -->
+        <section class="category" id="comparisonSection">
+          <h2><i class="fas fa-chart-bar"></i> COMPARAÇÃO DETALHADA</h2>
+
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Expressão</th>
+                <th>Nível</th>
+                <th>Quando Usar</th>
+                <th>Resposta Adequada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>How do you do?</strong></td>
+                <td>Muito Formal</td>
+                <td>Reuniões de negócios importantes, autoridades</td>
+                <td>"How do you do?" (igual)</td>
+              </tr>
+              <tr>
+                <td><strong>It's a pleasure to meet you.</strong></td>
+                <td>Formal</td>
+                <td>Clientes, chefes, entrevistas de trabalho</td>
+                <td>"The pleasure is mine."</td>
+              </tr>
+              <tr>
+                <td><strong>Nice to meet you.</strong></td>
+                <td>Neutro</td>
+                <td>Maioria das situações sociais e profissionais</td>
+                <td>"Nice to meet you too."</td>
+              </tr>
+              <tr>
+                <td><strong>Good to meet you!</strong></td>
+                <td>Informal</td>
+                <td>Amigos de amigos, colegas, situações casuais</td>
+                <td>"You too!" ou "Good to meet you too!"</td>
+              </tr>
+              <tr>
+                <td><strong>Hey, nice to finally meet you!</strong></td>
+                <td>Muito Informal</td>
+                <td>Amigos próximos, pessoas da mesma idade</td>
+                <td>"Yeah, you too!"</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="tips-section">
+            <h3>
+              <i class="fas fa-exclamation-triangle"></i> Erros Comuns a Evitar
+            </h3>
+            <ul class="tips-list">
+              <li>
+                <strong>NÃO</strong> diga "Me too" como resposta - use "You too"
+              </li>
+              <li><strong>NÃO</strong> use gírias em situações formais</li>
+              <li>
+                <strong>NÃO</strong> esqueça de sorrir e manter contato visual
+              </li>
+              <li>
+                <strong>NÃO</strong> use "Pleased to meet you" em contextos
+                muito informais
+              </li>
+              <li>
+                <strong>NÃO</strong> ignore a pessoa se não souber o que dizer -
+                um simples "Nice to meet you" já serve
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Seção: Diálogos -->
+        <section class="dialog-examples" id="dialogSection">
+          <h2><i class="fas fa-comments"></i> DIÁLOGOS EXEMPLOS</h2>
+
+          <div class="dialog-box">
+            <p><strong>Situação: Reunião de Negócios</strong></p>
+            <p>
+              <span class="dialog-person">Mr. Johnson:</span> Good morning. I'm
+              David Johnson, the project manager.
+            </p>
+            <p>
+              <span class="dialog-person">Ms. Rodriguez:</span> Good morning,
+              Mr. Johnson. I'm Maria Rodriguez. It's a pleasure to meet you.
+            </p>
+            <p>
+              <span class="dialog-person">Mr. Johnson:</span> The pleasure is
+              mine. I've heard excellent things about your work.
+            </p>
+            <p>
+              <span class="dialog-person">Ms. Rodriguez:</span> Thank you. I'm
+              looking forward to working with you on this project.
+            </p>
+            <button
+              class="play-button"
+              data-text="Mr. Johnson: Good morning. I'm David Johnson, the project manager. Ms. Rodriguez: Good morning, Mr. Johnson. I'm Maria Rodriguez. It's a pleasure to meet you. Mr. Johnson: The pleasure is mine. I've heard excellent things about your work. Ms. Rodriguez: Thank you. I'm looking forward to working with you on this project."
+              style="
+                margin-top: 15px;
+                background-color: white;
+                color: var(--accent-color);
+              "
+            >
+              <i class="fas fa-play"></i>
+            </button>
+          </div>
+
+          <div class="dialog-box">
+            <p><strong>Situação: Encontro Casual</strong></p>
+            <p>
+              <span class="dialog-person">Sarah:</span> Hi! You must be Tom's
+              friend from college?
+            </p>
+            <p>
+              <span class="dialog-person">Mike:</span> Yes, that's me! I'm Mike.
+              Nice to meet you!
+            </p>
+            <p>
+              <span class="dialog-person">Sarah:</span> Nice to meet you too!
+              Tom has told me so much about you.
+            </p>
+            <p>
+              <span class="dialog-person">Mike:</span> All good things, I hope!
+            </p>
+            <p>
+              <span class="dialog-person">Sarah:</span> Of course! So, how do
+              you know Tom?
+            </p>
+            <button
+              class="play-button"
+              data-text="Sarah: Hi! You must be Tom's friend from college? Mike: Yes, that's me! I'm Mike. Nice to meet you! Sarah: Nice to meet you too! Tom has told me so much about you. Mike: All good things, I hope! Sarah: Of course! So, how do you know Tom?"
+              style="
+                margin-top: 15px;
+                background-color: white;
+                color: var(--accent-color);
+              "
+            >
+              <i class="fas fa-play"></i>
+            </button>
+          </div>
+
+          <div class="dialog-box">
+            <p><strong>Situação: Encontro Formal Britânico</strong></p>
+            <p>
+              <span class="dialog-person">Sir William:</span> How do you do?
+            </p>
+            <p>
+              <span class="dialog-person">Dr. Evans:</span> How do you do? I'm
+              Dr. James Evans.
+            </p>
+            <p>
+              <span class="dialog-person">Sir William:</span> Sir William
+              Thompson. Delighted to make your acquaintance.
+            </p>
+            <p>
+              <span class="dialog-person">Dr. Evans:</span> The honor is mine,
+              Sir William.
+            </p>
+            <button
+              class="play-button"
+              data-text="Sir William: How do you do? Dr. Evans: How do you do? I'm Dr. James Evans. Sir William: Sir William Thompson. Delighted to make your acquaintance. Dr. Evans: The honor is mine, Sir William."
+              style="
+                margin-top: 15px;
+                background-color: white;
+                color: var(--accent-color);
+              "
+            >
+              <i class="fas fa-play"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- Seção: Resumo -->
+        <section class="tips-section">
+          <h3><i class="fas fa-graduation-cap"></i> RESUMO E DICAS FINAIS</h3>
+          <ul class="tips-list">
+            <li>
+              <strong>Para Formal:</strong> "It's a pleasure to meet you", "How
+              do you do?"
+            </li>
+            <li>
+              <strong>Para Neutro:</strong> "Nice to meet you", "It's nice to
+              meet you"
+            </li>
+            <li>
+              <strong>Para Informal:</strong> "Good to meet you!", "Great to
+              meet you!"
+            </li>
+            <li>
+              <strong>Respostas Formais:</strong> "The pleasure is mine",
+              "Likewise"
+            </li>
+            <li>
+              <strong>Respostas Informais:</strong> "You too!", "Nice to meet
+              you too"
+            </li>
+            <li>Sempre observe o nível de formalidade da outra pessoa</li>
+            <li>
+              Em dúvida, use "Nice to meet you" - funciona em quase todas as
+              situações
+            </li>
+            <li>
+              Combine com um aperto de firme (não forte demais) e contato visual
+            </li>
+            <li>No trabalho, adicione "I look forward to working with you"</li>
+            <li>Pratique a pronúncia das expressões mais comuns</li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>Aula: Expressar Prazer em Conhecer Alguém | Teacher: Kaique</p>
+        <p>Inglês em 6 Meses &copy; 2026</p>
+        <p>
+          Use os botões de áudio para ouvir a pronúncia correta de cada
+          expressão.
+        </p>
+        <p><small>Pratique respondendo aos diálogos em voz alta.</small></p>
+      </footer>
+    </div>
+
+    <a href="#" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+      <span>Voltar</span>
+    </a>
+
+    <script>
+      // Sistema de áudio usando Web Speech API
+      document.addEventListener("DOMContentLoaded", function () {
+        // Verificar suporte para Web Speech API
+        if (!("speechSynthesis" in window)) {
+          alert(
+            "Seu navegador não suporta a funcionalidade de áudio. Tente usar Chrome, Edge ou Safari."
+          );
+          return;
+        }
+
+        // Variáveis do sistema de áudio
+        let speechRate = 1;
+        let currentUtterance = null;
+
+        // Elementos da página
+        const playButtons = document.querySelectorAll(".play-button");
+        const speedControls = document.querySelectorAll(".speed-control");
+        const downloadPDFBtn = document.getElementById("downloadPDF");
+        const backButton = document.querySelector(".back-button");
+        const indexItems = document.querySelectorAll(".index-item");
+
+        // Configurar controle de velocidade
+        speedControls.forEach((control) => {
+          control.addEventListener("click", function () {
+            // Remover classe active de todos
+            speedControls.forEach((c) => c.classList.remove("active"));
+
+            // Adicionar classe active ao clicado
+            this.classList.add("active");
+
+            // Atualizar velocidade
+            speechRate = parseFloat(this.getAttribute("data-speed"));
+          });
+        });
+
+        // Configurar botões de play
+        playButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const text = this.getAttribute("data-text");
+
+            // Parar fala atual se estiver falando
+            if (currentUtterance) {
+              window.speechSynthesis.cancel();
+
+              // Remover classe playing de todos os botões
+              playButtons.forEach((btn) => {
+                btn.classList.remove("playing");
+                btn.innerHTML = '<i class="fas fa-play"></i>';
+              });
+            }
+
+            // Se clicou no mesmo botão que estava falando, apenas para
+            if (this.classList.contains("playing")) {
+              this.classList.remove("playing");
+              this.innerHTML = '<i class="fas fa-play"></i>';
+              return;
+            }
+
+            // Remover classe playing de todos os botões
+            playButtons.forEach((btn) => {
+              btn.classList.remove("playing");
+              btn.innerHTML = '<i class="fas fa-play"></i>';
+            });
+
+            // Adicionar classe playing ao botão atual
+            this.classList.add("playing");
+            this.innerHTML = '<i class="fas fa-stop"></i>';
+
+            // Criar e configurar utterance
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = "en-US";
+            currentUtterance.rate = speechRate;
+            currentUtterance.pitch = 1;
+            currentUtterance.volume = 1;
+
+            // Evento quando a fala terminar
+            currentUtterance.onend = function () {
+              playButtons.forEach((btn) => {
+                btn.classList.remove("playing");
+                btn.innerHTML = '<i class="fas fa-play"></i>';
+              });
+              currentUtterance = null;
+            };
+
+            // Evento em caso de erro
+            currentUtterance.onerror = function () {
+              playButtons.forEach((btn) => {
+                btn.classList.remove("playing");
+                btn.innerHTML = '<i class="fas fa-play"></i>';
+              });
+              currentUtterance = null;
+              alert(
+                "Erro ao reproduzir áudio. Verifique se há algum bloqueio no seu navegador."
+              );
+            };
+
+            // Iniciar fala
+            window.speechSynthesis.speak(currentUtterance);
+          });
+        });
+
+        // Botão de download em PDF
+        downloadPDFBtn.addEventListener("click", function () {
+          generatePDF();
+        });
+
+        // Função para gerar PDF
+        async function generatePDF() {
+          try {
+            // Mostrar mensagem de carregamento
+            downloadPDFBtn.innerHTML =
+              '<i class="fas fa-spinner fa-spin"></i> Gerando PDF...';
+            downloadPDFBtn.disabled = true;
+
+            // Carregar a biblioteca jsPDF dinamicamente
+            const script = document.createElement("script");
+            script.src =
+              "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
+
+            script.onload = function () {
+              // Criar novo documento PDF
+              const { jsPDF } = window.jspdf;
+              const pdf = new jsPDF();
+
+              // Configurações do PDF
+              const pageWidth = pdf.internal.pageSize.getWidth();
+              const margin = 15;
+              const lineHeight = 7;
+              let yPos = margin;
+
+              // Função para adicionar texto com quebra de linha
+              function addText(text, fontSize = 12, isBold = false) {
+                pdf.setFontSize(fontSize);
+                pdf.setFont("helvetica", isBold ? "bold" : "normal");
+
+                const lines = pdf.splitTextToSize(text, pageWidth - 2 * margin);
+                lines.forEach((line) => {
+                  if (yPos > pdf.internal.pageSize.getHeight() - margin) {
+                    pdf.addPage();
+                    yPos = margin;
+                  }
+                  pdf.text(line, margin, yPos);
+                  yPos += lineHeight;
+                });
+                yPos += 2;
+              }
+
+              // Título
+              addText("Aula: Expressar Prazer em Conhecer Alguém", 18, true);
+              addText("Teacher: Kaique - Inglês em 6 Meses", 14);
+              addText(
+                `Gerado em: ${new Date().toLocaleDateString("pt-BR")}`,
+                10
+              );
+              yPos += 10;
+
+              // Expressões Formais
+              addText("EXPRESSÕES FORMAIS", 16, true);
+              addText(
+                "It's a pleasure to meet you. - É um prazer conhecê-lo(a)."
+              );
+              addText(
+                "I'm delighted to make your acquaintance. - Estou encantado em fazer sua aquaintância."
+              );
+              addText("How do you do? - Muito prazer. (Tradicional britânico)");
+              addText(
+                "I've been looking forward to meeting you. - Estava ansioso para conhecê-lo(a)."
+              );
+              addText(
+                "It's an honor to meet you. - É uma honra conhecê-lo(a)."
+              );
+              addText(
+                "I'm honored to make your acquaintance. - Sinto-me honrado em conhecê-lo(a)."
+              );
+              yPos += 5;
+
+              // Expressões Informais
+              addText("EXPRESSÕES INFORMAIS", 16, true);
+              addText("Nice to meet you! - Prazer em conhecê-lo(a)!");
+              addText("Good to meet you! - Bom te conhecer!");
+              addText("Great to meet you! - Ótimo te conhecer!");
+              addText("Pleasure to meet you! - Prazer!");
+              addText(
+                "Hey, nice to finally meet you! - Ei, que bom finalmente te conhecer!"
+              );
+              addText(
+                "What's up? Nice to meet you! - E aí? Prazer em te conhecer!"
+              );
+              yPos += 5;
+
+              // Expressões Neutras
+              addText("EXPRESSÕES NEUTRAS", 16, true);
+              addText("It's nice to meet you. - É bom conhecê-lo(a).");
+              addText(
+                "I'm pleased to meet you. - Estou satisfeito em conhecê-lo(a)."
+              );
+              addText("How nice to meet you. - Que bom conhecê-lo(a).");
+              addText("Lovely to meet you. - Encantado em conhecê-lo(a).");
+              yPos += 5;
+
+              // Como Responder
+              addText("COMO RESPONDER", 16, true);
+              addText(
+                "Resposta Formal: The pleasure is mine. - O prazer é meu."
+              );
+              addText(
+                "Resposta Neutra: Nice to meet you too. - Prazer em conhecê-lo(a) também."
+              );
+              addText("Resposta Informal: You too! - Você também!");
+              addText("Resposta com Sorriso: Likewise! - Igualmente!");
+              yPos += 5;
+
+              // Situações Específicas
+              addText("SITUAÇÕES ESPECÍFICAS", 16, true);
+              addText("No Trabalho:");
+              addText("• I'm looking forward to working with you.");
+              addText("• I've heard great things about you.");
+              addText("• It's great to finally put a face to the name.");
+              addText("");
+              addText("Eventos Sociais:");
+              addText("• So nice to finally meet you in person!");
+              addText("• Ive been wanting to meet you for ages!");
+              addText("• Your friend has told me so much about you.");
+              yPos += 5;
+
+              // Dicas Finais
+              addText("DICAS IMPORTANTES:", 16, true);
+              addText("1. Observe o nível de formalidade da outra pessoa");
+              addText('2. Em dúvida, use "Nice to meet you" - funciona sempre');
+              addText("3. Combine com contato visual e aperto de mão firme");
+              addText(
+                '4. Responda sempre quando alguém diz "Nice to meet you"'
+              );
+              addText("5. Use o mesmo nível de formalidade nas respostas");
+              addText("6. Pratique a pronúncia das expressões mais comuns");
+              addText(
+                '7. No trabalho, adicione "I look forward to working with you"'
+              );
+              addText("8. Em eventos sociais, seja mais caloroso e expressivo");
+
+              // Rodapé
+              yPos = pdf.internal.pageSize.getHeight() - margin;
+              pdf.setFontSize(10);
+              pdf.text(
+                `Inglês em 6 Meses © 2026 - Página ${pdf.internal.getNumberOfPages()}`,
+                pageWidth / 2,
+                yPos,
+                { align: "center" }
+              );
+
+              // Salvar PDF
+              pdf.save("Aula-Prazer-Conhecer-Alguém.pdf");
+
+              // Restaurar botão
+              downloadPDFBtn.innerHTML =
+                '<i class="fas fa-file-pdf"></i> Baixar em PDF';
+              downloadPDFBtn.disabled = false;
+            };
+
+            script.onerror = function () {
+              alert(
+                "Erro ao carregar a biblioteca de PDF. Verifique sua conexão com a internet."
+              );
+              downloadPDFBtn.innerHTML =
+                '<i class="fas fa-file-pdf"></i> Baixar em PDF';
+              downloadPDFBtn.disabled = false;
+            };
+
+            document.head.appendChild(script);
+          } catch (error) {
+            console.error("Erro ao gerar PDF:", error);
+            alert("Ocorreu um erro ao gerar o PDF. Tente novamente.");
+            downloadPDFBtn.innerHTML =
+              '<i class="fas fa-file-pdf"></i> Baixar em PDF';
+            downloadPDFBtn.disabled = false;
+          }
+        }
+
+        // Botão de voltar
+        backButton.addEventListener("click", function (e) {
+          e.preventDefault();
+          if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+          }
+          window.history.back();
+        });
+
+        // Navegação suave para links do índice
+        indexItems.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href");
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 20,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+
+        // Parar toda a fala quando a página for fechada ou atualizada
+        window.addEventListener("beforeunload", function () {
+          if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+          }
+        });
+
+        // Inicializar
+        console.log("Página carregada com sucesso!");
+      });
+    </script>
+  </body>
+</html>

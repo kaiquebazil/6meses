@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula: A, An, Some, Any</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/geral.css">
+    <link rel="shortcut icon" href="../icons/icon.ico" type="image/x-icon">
+
+    <style>
+
+
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes containerEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== CONTAINER PRINCIPAL ===== */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: containerEntrance 0.8s ease-out forwards;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* ===== BOTÕES DO HEADER ===== */
+        .header-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .download-btn {
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-color));
+            box-shadow: 0 4px 12px rgba(63, 185, 80, 0.3);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(63, 185, 80, 0.4);
+        }
+
+        /* ===== CONTEÚDO DA AULA ===== */
+        .lesson-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* ===== CARTÕES DE CONTEÚDO ===== */
+        .content-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .content-card h2 {
+            color: var(--accent-purple);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--accent-purple);
+            padding-bottom: 10px;
+        }
+
+        .content-card h2 i {
+            font-size: 1.5rem;
+        }
+
+        .content-card h3 {
+            color: var(--accent-orange);
+            margin: 20px 0 15px;
+            font-size: 1.4rem;
+        }
+
+        .content-card h4 {
+            color: var(--accent-green);
+            margin: 15px 0 10px;
+            font-size: 1.2rem;
+        }
+
+        /* ===== EXEMPLOS E NOTAS ===== */
+        .example-box {
+            background-color: rgba(155, 89, 182, 0.05);
+            border-left: 4px solid var(--accent-purple);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .example-box.correct {
+            border-left-color: var(--accent-green);
+            background-color: rgba(46, 204, 113, 0.05);
+        }
+
+        .example-box.incorrect {
+            border-left-color: var(--accent-pink);
+            background-color: rgba(232, 67, 147, 0.05);
+        }
+
+        .example-box.warning {
+            border-left-color: var(--accent-yellow);
+            background-color: rgba(241, 196, 15, 0.05);
+        }
+
+        .example-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .example-text {
+            font-size: 1.1rem;
+            margin: 5px 0;
+        }
+
+        .example-translation {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+
+        /* ===== LISTAS ===== */
+        .usage-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .usage-list li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .usage-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .warning-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .warning-list li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .warning-list li:before {
+            content: "⚠";
+            position: absolute;
+            left: 0;
+            color: var(--accent-yellow);
+            font-weight: bold;
+        }
+
+        /* ===== TABELA DE EXCEÇÕES ===== */
+        .exceptions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .exceptions-table th {
+            background-color: var(--accent-yellow);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .exceptions-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .exceptions-table tr:nth-child(even) {
+            background-color: rgba(241, 196, 15, 0.05);
+        }
+
+        .exceptions-table tr:hover {
+            background-color: rgba(241, 196, 15, 0.1);
+        }
+
+        /* ===== REGRAS DE USO ===== */
+        .rules-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .rule-card {
+            /* background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); */
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .rule-card h4 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ===== DESTAQUES ===== */
+        .highlight {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 4px;
+            padding: 3px 6px;
+            font-weight: 500;
+            color: var(--accent-color);
+        }
+
+        .important-note {
+            background-color: rgba(241, 196, 15, 0.1);
+            border: 1px solid var(--accent-yellow);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .important-note:before {
+            content: "💡";
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* ===== ÁUDIO CONTROLS ===== */
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .play-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .play-button:hover {
+            background-color: var(--accent-purple);
+            transform: scale(1.1);
+        }
+
+        .play-button.playing {
+            background-color: var(--accent-pink);
+        }
+
+        /* ===== EXERCÍCIOS ===== */
+        .exercises {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-purple));
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            color: white;
+        }
+
+        .exercises h2 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .exercise-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .social-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--accent-purple);
+        }
+
+        /* ===== BOTÃO VOLTAR ===== */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .content-card {
+                padding: 20px;
+            }
+
+            .rules-container {
+                grid-template-columns: 1fr;
+            }
+
+            .exceptions-table {
+                font-size: 0.9rem;
+            }
+
+            .exceptions-table th,
+            .exceptions-table td {
+                padding: 8px;
+            }
+
+            .back-button {
+                bottom: 20px;
+                left: 20px;
+                padding: 10px 14px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .header-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .download-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><img src="../icons/icon.ico" width="40" alt=""> A, An, Some, Any</h1>
+            <p>Domine o uso correto dos artigos e quantificadores em inglês</p>
+
+            <div class="header-buttons">
+                <button class="download-btn" id="downloadPDF">
+                    <i class="fas fa-file-pdf"></i> Baixar Material em PDF
+                </button>
+            </div>
+        </header>
+
+        <main class="lesson-content">
+            <!-- Seção: A, An -->
+            <section class="content-card">
+                <h2><i class="fas fa-article"></i> A, An = um, uma</h2>
+                
+                <p>Significam <span class="highlight">um, uma</span> e são utilizados antes de palavras no <span class="highlight">singular</span>. Precisamos utilizar SEMPRE ao falarmos de uma palavra que aceita ir no plural, porém nesse momento está no singular!</p>
+
+                <div class="example-box correct">
+                    <div class="example-title"><i class="fas fa-check-circle"></i> Correto</div>
+                    <div class="example-text">I have a dog.</div>
+                    <div class="example-translation">Eu tenho um cachorro.</div>
+                </div>
+
+                <div class="example-box incorrect">
+                    <div class="example-title"><i class="fas fa-times-circle"></i> Incorreto</div>
+                    <div class="example-text">I have dog.</div>
+                    <div class="example-translation">(Falta o artigo)</div>
+                </div>
+
+                <div class="example-box correct">
+                    <div class="example-title"><i class="fas fa-check-circle"></i> Correto</div>
+                    <div class="example-text">When I was a child.</div>
+                    <div class="example-translation">Quando eu era criança.</div>
+                </div>
+
+                <div class="example-box incorrect">
+                    <div class="example-title"><i class="fas fa-times-circle"></i> Incorreto</div>
+                    <div class="example-text">When I was child.</div>
+                    <div class="example-translation">(Falta o artigo)</div>
+                </div>
+
+                <h3>Quando usar A ou An?</h3>
+                <p>Não podemos usar qualquer um. Para saber qual usar, precisamos saber que palavra vem logo a seguir, porque depende do <span class="highlight">SOM</span> que inicia essa palavra.</p>
+
+                <div class="rules-container">
+                    <div class="rule-card">
+                        <h4><i class="fas fa-microphone-alt"></i> A</h4>
+                        <p>Utilizamos antes do som de <span class="highlight">consoante</span></p>
+                        <div class="example-box">
+                            <div class="example-text">A giraffe</div>
+                            <div class="example-text">A car</div>
+                            <div class="example-text">A planet</div>
+                            <div class="example-text">A house</div>
+                        </div>
+                        <div class="audio-controls">
+                            <button class="play-button" data-text="A giraffe, a car, a planet, a house">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <span>Ouvir exemplos</span>
+                        </div>
+                    </div>
+
+                    <div class="rule-card">
+                        <h4><i class="fas fa-microphone-alt"></i> An</h4>
+                        <p>Utilizamos antes do som de <span class="highlight">vogal</span></p>
+                        <div class="example-box">
+                            <div class="example-text">An elephant</div>
+                            <div class="example-text">An animal</div>
+                            <div class="example-text">An orange</div>
+                            <div class="example-text">An apple</div>
+                        </div>
+                        <div class="audio-controls">
+                            <button class="play-button" data-text="An elephant, an animal, an orange, an apple">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <span>Ouvir exemplos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Exceções Importantes</h3>
+                <p>Algumas palavras têm pronúncia especial que muda a regra:</p>
+
+                <table class="exceptions-table">
+                    <thead>
+                        <tr>
+                            <th>Letra</th>
+                            <th>SOM</th>
+                            <th>Usar</th>
+                            <th>Exemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>U</strong></td>
+                            <td>Som "ã"</td>
+                            <td><span class="highlight">An</span></td>
+                            <td>umbrella, urban, update</td>
+                        </tr>
+                        <tr>
+                            <td><strong>U</strong></td>
+                            <td>Som "yú"</td>
+                            <td><span class="highlight">A</span></td>
+                            <td>unicorn, uniform, user, university</td>
+                        </tr>
+                        <tr>
+                            <td><strong>H</strong></td>
+                            <td>Com som</td>
+                            <td><span class="highlight">A</span></td>
+                            <td>horse, house, heat, habit</td>
+                        </tr>
+                        <tr>
+                            <td><strong>H</strong></td>
+                            <td>Sem som</td>
+                            <td><span class="highlight">An</span></td>
+                            <td>hour, honor, honest</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="important-note">
+                    <strong>LEMBRETE:</strong> NÃO podemos utilizar A ou An antes de palavras incontáveis, ou que estejam no plural.
+                </div>
+
+                <div class="example-box warning">
+                    <div class="example-title"><i class="fas fa-exclamation-triangle"></i> Atenção</div>
+                    <div class="example-text">I need a money → I need money</div>
+                    <div class="example-translation">(Money é incontável)</div>
+                </div>
+
+                <div class="example-box warning">
+                    <div class="example-title"><i class="fas fa-exclamation-triangle"></i> Atenção</div>
+                    <div class="example-text">They need to buy a sugar → They need to buy sugar</div>
+                    <div class="example-translation">(Sugar é incontável)</div>
+                </div>
+
+                <h4>Casos Especiais:</h4>
+                <div class="example-box">
+                    <div class="example-text">Yesterday I had two coffees.</div>
+                    <div class="example-translation">(= two cups of coffee)</div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-text">I love coffee.</div>
+                    <div class="example-translation">(the liquid that we drink)</div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-text">I found one hair in my soup.</div>
+                    <div class="example-translation">(= one single hair)</div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-text">She has beautiful hair.</div>
+                    <div class="example-translation">(the mass of hair on her head)</div>
+                </div>
+            </section>
+
+            <!-- Seção: Some -->
+            <section class="content-card">
+                <h2><i class="fas fa-boxes"></i> Some</h2>
+                
+                <p>Utilizamos quando não sabemos o número exato de itens ou então quando não queremos informar essa quantidade.</p>
+
+                <ul class="usage-list">
+                    <li>Só é utilizado em frases <span class="highlight">afirmativas</span></li>
+                    <li>Com palavras no <span class="highlight">plural</span> ou <span class="highlight">incontáveis</span></li>
+                    <li>Jamais utilizado para palavras singulares contáveis</li>
+                </ul>
+
+                <div class="example-box correct">
+                    <div class="example-text">You can find some eggs in the fridge.</div>
+                    <div class="example-translation">Você pode encontrar alguns ovos na geladeira.</div>
+                </div>
+
+                <div class="example-box correct">
+                    <div class="example-text">I always drink some milk for breakfast.</div>
+                    <div class="example-translation">Eu sempre bebo um pouco de leite no café da manhã.</div>
+                </div>
+
+                <div class="audio-controls">
+                    <button class="play-button" data-text="You can find some eggs in the fridge. I always drink some milk for breakfast.">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <span>Ouvir exemplos</span>
+                </div>
+
+                <h3>Some em Perguntas</h3>
+                <p>Em perguntas, <span class="highlight">some</span> pode ser utilizado somente quando:</p>
+
+                <div class="rules-container">
+                    <div class="rule-card">
+                        <h4><i class="fas fa-gift"></i> Para Oferecer</h4>
+                        <div class="example-box">
+                            <div class="example-text">Would you like some water?</div>
+                            <div class="example-translation">Você gostaria de um pouco de água?</div>
+                        </div>
+                    </div>
+
+                    <div class="rule-card">
+                        <h4><i class="fas fa-hand-paper"></i> Para Pedir/Solicitar</h4>
+                        <div class="example-box">
+                            <div class="example-text">Can I have some water?</div>
+                            <div class="example-translation">Posso pegar um pouco de água?</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção: Any -->
+            <section class="content-card">
+                <h2><i class="fas fa-question-circle"></i> Any</h2>
+                
+                <p>Utilizamos em frases <span class="highlight">negativas</span> e <span class="highlight">perguntas</span>.</p>
+
+                <ul class="usage-list">
+                    <li>A palavra seguinte vai estar no <span class="highlight">plural</span></li>
+                    <li>Ou então vai ser <span class="highlight">incontável</span></li>
+                    <li>Não utilizado em frases afirmativas (nesse caso, use <span class="highlight">some</span>)</li>
+                </ul>
+
+                <h4>Frases Negativas:</h4>
+                <div class="example-box">
+                    <div class="example-text">We don't have any sugar left.</div>
+                    <div class="example-translation">Não temos mais nenhum açúcar.</div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-text">There aren't any students in the classroom.</div>
+                    <div class="example-translation">Não há nenhum aluno na sala de aula.</div>
+                </div>
+
+                <h4>Perguntas:</h4>
+                <div class="example-box">
+                    <div class="example-text">Are there any lions in the zoo?</div>
+                    <div class="example-translation">Tem leões no zoológico?</div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-text">Do you have any questions?</div>
+                    <div class="example-translation">Você tem alguma pergunta?</div>
+                </div>
+
+                <div class="audio-controls">
+                    <button class="play-button" data-text="We don't have any sugar left. Are there any lions in the zoo? Do you have any questions?">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <span>Ouvir exemplos</span>
+                </div>
+
+                <div class="important-note">
+                    <strong>IMPORTANTE:</strong> As perguntas utilizando o <span class="highlight">Any</span> se referem à existência de alguma coisa, e não para oferecer ou solicitar algo.
+                </div>
+            </section>
+
+            <!-- Seção: Resumo e Exercícios -->
+            <section class="exercises">
+                <h2><i class="fas fa-brain"></i> Resumo e Prática</h2>
+
+                <div class="exercise-item">
+                    <h4>Resumo das Regras:</h4>
+                    <ul class="warning-list">
+                        <li><strong>A/An:</strong> Singular contável (som de consoante/vogal)</li>
+                        <li><strong>Some:</strong> Afirmativas + plural/incontável</li>
+                        <li><strong>Any:</strong> Negativas e perguntas + plural/incontável</li>
+                        <li>Some em perguntas: apenas para oferecer ou pedir</li>
+                    </ul>
+                </div>
+
+                <div class="exercise-item">
+                    <h4>Complete com A, An, Some ou Any:</h4>
+                    <p>1. I need ___ apple for the recipe.</p>
+                    <p>2. Would you like ___ tea?</p>
+                    <p>3. There aren't ___ books on the shelf.</p>
+                    <p>4. She bought ___ new car yesterday.</p>
+                    <p>5. Can I have ___ water, please?</p>
+                    <p>6. We don't have ___ milk left.</p>
+                </div>
+
+                <div class="audio-controls" style="border-color: rgba(255,255,255,0.3);">
+                    <button class="play-button" data-text="Complete the sentences with A, An, Some or Any. I need an apple for the recipe. Would you like some tea? There aren't any books on the shelf. She bought a new car yesterday. Can I have some water, please? We don't have any milk left." style="background-color: white; color: var(--accent-color);">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <span style="color: white;">Ouvir exercício</span>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>Aula: A, An, Some, Any | Teacher: Kaique</p>
+            <p>Inglês em 6 Meses &copy; 2026</p>
+            
+            <!-- <div class="social-links">
+                <a href="" class="social-link"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#" class="social-link"><i class="fab fa-tiktok"></i> TikTok</a>
+                <a href="#" class="social-link"><i class="fab fa-telegram"></i> Telegram</a>
+            </div> -->
+            
+            <p>Use os botões de áudio para ouvir a pronúncia correta dos exemplos.</p>
+        </footer>
+    </div>
+
+    <a href="#" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span>Voltar</span>
+    </a>
+
+    <script>
+        // Sistema de áudio usando Web Speech API
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verificar suporte para Web Speech API
+            if (!('speechSynthesis' in window)) {
+                alert('Seu navegador não suporta a funcionalidade de áudio. Tente usar Chrome, Edge ou Safari.');
+                return;
+            }
+
+            // Variáveis do sistema de áudio
+            let speechRate = 1;
+            let currentUtterance = null;
+
+            // Elementos da página
+            const playButtons = document.querySelectorAll('.play-button');
+            const downloadPDFBtn = document.getElementById('downloadPDF');
+            const backButton = document.querySelector('.back-button');
+
+            // Configurar botões de play
+            playButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const text = this.getAttribute('data-text');
+                    
+                    // Parar fala atual se estiver falando
+                    if (currentUtterance) {
+                        window.speechSynthesis.cancel();
+                        
+                        // Remover classe playing de todos os botões
+                        playButtons.forEach(btn => {
+                            btn.classList.remove('playing');
+                            btn.innerHTML = '<i class="fas fa-play"></i>';
+                        });
+                    }
+                    
+                    // Se clicou no mesmo botão que estava falando, apenas para
+                    if (this.classList.contains('playing')) {
+                        this.classList.remove('playing');
+                        this.innerHTML = '<i class="fas fa-play"></i>';
+                        return;
+                    }
+                    
+                    // Remover classe playing de todos os botões
+                    playButtons.forEach(btn => {
+                        btn.classList.remove('playing');
+                        btn.innerHTML = '<i class="fas fa-play"></i>';
+                    });
+                    
+                    // Adicionar classe playing ao botão atual
+                    this.classList.add('playing');
+                    this.innerHTML = '<i class="fas fa-stop"></i>';
+                    
+                    // Criar e configurar utterance
+                    currentUtterance = new SpeechSynthesisUtterance(text);
+                    currentUtterance.lang = 'en-US';
+                    currentUtterance.rate = speechRate;
+                    currentUtterance.pitch = 1;
+                    currentUtterance.volume = 1;
+                    
+                    // Evento quando a fala terminar
+                    currentUtterance.onend = function() {
+                        playButtons.forEach(btn => {
+                            btn.classList.remove('playing');
+                            btn.innerHTML = '<i class="fas fa-play"></i>';
+                        });
+                        currentUtterance = null;
+                    };
+                    
+                    // Evento em caso de erro
+                    currentUtterance.onerror = function() {
+                        playButtons.forEach(btn => {
+                            btn.classList.remove('playing');
+                            btn.innerHTML = '<i class="fas fa-play"></i>';
+                        });
+                        currentUtterance = null;
+                        alert('Erro ao reproduzir áudio. Verifique se há algum bloqueio no seu navegador.');
+                    };
+                    
+                    // Iniciar fala
+                    window.speechSynthesis.speak(currentUtterance);
+                });
+            });
+            
+            // Botão de download em PDF
+            downloadPDFBtn.addEventListener('click', function() {
+                generatePDF();
+            });
+            
+            // Função para gerar PDF
+            async function generatePDF() {
+                try {
+                    // Mostrar mensagem de carregamento
+                    downloadPDFBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando PDF...';
+                    downloadPDFBtn.disabled = true;
+                    
+                    // Carregar a biblioteca jsPDF dinamicamente
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                    
+                    script.onload = function() {
+                        // Criar novo documento PDF
+                        const { jsPDF } = window.jspdf;
+                        const pdf = new jsPDF();
+                        
+                        // Configurações do PDF
+                        const pageWidth = pdf.internal.pageSize.getWidth();
+                        const margin = 15;
+                        const lineHeight = 7;
+                        let yPos = margin;
+                        
+                        // Função para adicionar texto com quebra de linha
+                        function addText(text, fontSize = 12, isBold = false) {
+                            pdf.setFontSize(fontSize);
+                            pdf.setFont('helvetica', isBold ? 'bold' : 'normal');
+                            
+                            const lines = pdf.splitTextToSize(text, pageWidth - 2 * margin);
+                            lines.forEach(line => {
+                                if (yPos > pdf.internal.pageSize.getHeight() - margin) {
+                                    pdf.addPage();
+                                    yPos = margin;
+                                }
+                                pdf.text(line, margin, yPos);
+                                yPos += lineHeight;
+                            });
+                            yPos += 2;
+                        }
+                        
+                        // Título
+                        addText('Aula: A, An, Some, Any', 18, true);
+                        addText('Teacher: Kaique - Inglês em 6 Meses', 14);
+                        addText(`Gerado em: ${new Date().toLocaleDateString('pt-BR')}`, 10);
+                        yPos += 10;
+                        
+                        // Conteúdo: A, An
+                        addText('A, An = um, uma', 16, true);
+                        addText('Significam um, uma e são utilizados antes de palavras no singular.');
+                        addText('Exemplos corretos:');
+                        addText('• I have a dog.');
+                        addText('• When I was a child.');
+                        addText('');
+                        addText('Exemplos incorretos:');
+                        addText('• I have dog. (Falta o artigo)');
+                        addText('• When I was child. (Falta o artigo)');
+                        yPos += 5;
+                        
+                        addText('Quando usar A ou An?', 14, true);
+                        addText('A: antes do som de consoante');
+                        addText('• A giraffe, A car, A planet, A house');
+                        addText('');
+                        addText('An: antes do som de vogal');
+                        addText('• An elephant, An animal, An orange');
+                        yPos += 5;
+                        
+                        addText('Exceções importantes:', 14, true);
+                        addText('U com som "ã": an umbrella, an urban area, an update');
+                        addText('U com som "yú": a unicorn, a uniform, a user, a university');
+                        addText('H com som: a horse, a house, a heat, a habit');
+                        addText('H sem som: an hour, an honor, an honest person');
+                        yPos += 10;
+                        
+                        // Conteúdo: Some
+                        addText('Some', 16, true);
+                        addText('Utilizado em frases afirmativas com palavras no plural ou incontáveis.');
+                        addText('Exemplos:');
+                        addText('• You can find some eggs in the fridge.');
+                        addText('• I always drink some milk for breakfast.');
+                        addText('');
+                        addText('Some em perguntas: apenas para oferecer ou pedir');
+                        addText('• Would you like some water? (oferecer)');
+                        addText('• Can I have some water? (pedir)');
+                        yPos += 10;
+                        
+                        // Conteúdo: Any
+                        addText('Any', 16, true);
+                        addText('Utilizado em frases negativas e perguntas.');
+                        addText('Exemplos negativos:');
+                        addText('• We don\'t have any sugar left.');
+                        addText('• There aren\'t any students in the classroom.');
+                        addText('');
+                        addText('Exemplos de perguntas:');
+                        addText('• Are there any lions in the zoo?');
+                        addText('• Do you have any questions?');
+                        yPos += 10;
+                        
+                        // Exercícios
+                        addText('Exercícios práticos:', 16, true);
+                        addText('Complete com A, An, Some ou Any:');
+                        addText('1. I need ___ apple for the recipe.');
+                        addText('2. Would you like ___ tea?');
+                        addText('3. There aren\'t ___ books on the shelf.');
+                        addText('4. She bought ___ new car yesterday.');
+                        addText('5. Can I have ___ water, please?');
+                        addText('6. We don\'t have ___ milk left.');
+                        yPos += 5;
+                        addText('Respostas: 1. an, 2. some, 3. any, 4. a, 5. some, 6. any', 10);
+                        
+                        // Rodapé
+                        yPos = pdf.internal.pageSize.getHeight() - margin;
+                        pdf.setFontSize(10);
+                        pdf.text(
+                            `Inglês em 6 Meses © 2026 - Página ${pdf.internal.getNumberOfPages()}`,
+                            pageWidth / 2,
+                            yPos,
+                            { align: 'center' }
+                        );
+                        
+                        // Salvar PDF
+                        pdf.save('Aula-A-An-Some-Any.pdf');
+                        
+                        // Restaurar botão
+                        downloadPDFBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Baixar Material em PDF';
+                        downloadPDFBtn.disabled = false;
+                    };
+                    
+                    script.onerror = function() {
+                        alert('Erro ao carregar a biblioteca de PDF. Verifique sua conexão com a internet.');
+                        downloadPDFBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Baixar Material em PDF';
+                        downloadPDFBtn.disabled = false;
+                    };
+                    
+                    document.head.appendChild(script);
+                } catch (error) {
+                    console.error('Erro ao gerar PDF:', error);
+                    alert('Ocorreu um erro ao gerar o PDF. Tente novamente.');
+                    downloadPDFBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Baixar Material em PDF';
+                    downloadPDFBtn.disabled = false;
+                }
+            }
+            
+            // Botão de voltar
+            backButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                }
+                window.history.back();
+            });
+            
+            // Parar toda a fala quando a página for fechada ou atualizada
+            window.addEventListener('beforeunload', function() {
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                }
+            });
+            
+            // Inicializar
+            console.log('Página de aula carregada com sucesso!');
+        });
+    </script>
+</body>
+</html>

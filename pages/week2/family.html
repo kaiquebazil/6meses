@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Family Tree - English Lesson</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f8fafc;
+        padding: 40px;
+        min-width: 1800px;
+      }
+
+      .tree ul {
+        padding-top: 20px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+      }
+      .tree li {
+        text-align: center;
+        list-style-type: none;
+        position: relative;
+        padding: 20px 5px 0 5px;
+      }
+
+      /* Connections */
+      .tree li::before,
+      .tree li::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 50%;
+        border-top: 2px solid #94a3b8;
+        width: 50%;
+        height: 20px;
+      }
+      .tree li::after {
+        right: auto;
+        left: 50%;
+        border-left: 2px solid #94a3b8;
+      }
+      .tree li:only-child::after,
+      .tree li:only-child::before {
+        display: none;
+      }
+      .tree li:only-child {
+        padding-top: 0;
+      }
+      .tree li:first-child::before,
+      .tree li:last-child::after {
+        border: 0 none;
+      }
+      .tree li:last-child::before {
+        border-right: 2px solid #94a3b8;
+        border-radius: 0 5px 0 0;
+      }
+      .tree li:first-child::after {
+        border-radius: 5px 0 0 0;
+      }
+      .tree ul ul::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        border-left: 2px solid #94a3b8;
+        width: 0;
+        height: 20px;
+      }
+
+      /* Cards */
+      .person {
+        background: #fff;
+        border: 1px solid #cbd5e1;
+        padding: 10px;
+        border-radius: 12px;
+        display: inline-block;
+        min-width: 120px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .photo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #e2e8f0;
+        margin: 0 auto 8px;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 2px #cbd5e1;
+        overflow: hidden;
+      }
+      .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .name {
+        display: block;
+        font-weight: 700;
+        font-size: 14px;
+        color: #1e293b;
+      }
+      .label {
+        display: block;
+        font-size: 10px;
+        color: #64748b;
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+
+      /* Highlighting */
+      .me {
+        background: #00bcd4 !important;
+        border-color: #0097a7;
+        color: #fff;
+      }
+      .me .label,
+      .me .name {
+        color: #fff;
+      }
+      .couple {
+        display: flex;
+        gap: 8px;
+        padding: 10px;
+        border-radius: 15px;
+        border: 2px solid #e2e8f0;
+        background: #fff;
+      }
+      .step {
+        background: #f1f5f9;
+        border: 1px dashed #94a3b8;
+        opacity: 0.8;
+      }
+
+      /* Gen Colors */
+      .paternal {
+        border-bottom: 4px solid #3b82f6;
+      }
+      .maternal {
+        border-bottom: 4px solid #ec4899;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tree">
+      <ul>
+        <li>
+          <div style="display: flex; gap: 50px; justify-content: center">
+            <div class="couple">
+              <div class="person paternal">
+                <div class="photo">
+                  <img src="https://i.pravatar.cc/150?u=carlos" />
+                </div>
+                <span class="label">Grandfather</span
+                ><span class="name">Carlos</span>
+              </div>
+              <div class="person paternal">
+                <div class="photo">
+                  <img src="https://i.pravatar.cc/150?u=marilene" />
+                </div>
+                <span class="label">Grandmother</span
+                ><span class="name">Marilene</span>
+              </div>
+            </div>
+            <div class="couple">
+              <div class="person maternal">
+                <div class="photo">
+                  <img src="https://i.pravatar.cc/150?u=perciliano" />
+                </div>
+                <span class="label">Grandfather</span
+                ><span class="name">Perciliano</span>
+              </div>
+              <div class="person maternal">
+                <div class="photo">
+                  <img src="https://i.pravatar.cc/150?u=marcia" />
+                </div>
+                <span class="label">Grandmother</span
+                ><span class="name">Márcia</span>
+              </div>
+            </div>
+          </div>
+
+          <ul>
+            <li>
+              <div class="couple">
+                <div class="person">
+                  <div class="photo">
+                    <img src="https://i.pravatar.cc/150?u=marcelino" />
+                  </div>
+                  <span class="label">Uncle</span
+                  ><span class="name">Marcelino</span>
+                </div>
+                <div class="person">
+                  <div class="photo">
+                    <img src="https://i.pravatar.cc/150?u=marcela" />
+                  </div>
+                  <span class="label">Aunt</span
+                  ><span class="name">Marcela</span>
+                </div>
+              </div>
+              <ul>
+                <li>
+                  <div class="person">
+                    <div class="photo">
+                      <img src="https://i.pravatar.cc/150?u=mariana" />
+                    </div>
+                    <span class="label">Cousin</span
+                    ><span class="name">Mariana</span>
+                  </div>
+                  <ul>
+                    <li>
+                      <div class="person">
+                        <div class="photo">
+                          <img src="https://i.pravatar.cc/150?u=analivia" />
+                        </div>
+                        <span class="label">Cousin's Daughter</span
+                        ><span class="name">Ana Lívia</span>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <div style="display: flex; gap: 20px">
+                <div class="couple">
+                  <div class="person">
+                    <div class="photo">
+                      <img src="https://i.pravatar.cc/150?u=alex" />
+                    </div>
+                    <span class="label">Father</span
+                    ><span class="name">Alex Sandro</span>
+                  </div>
+                  <div class="person step">
+                    <div class="photo">
+                      <img src="https://i.pravatar.cc/150?u=stepm" />
+                    </div>
+                    <span class="label">Stepmother</span
+                    ><span class="name">Madrasta</span>
+                  </div>
+                </div>
+                <div class="couple">
+                  <div class="person">
+                    <div class="photo">
+                      <img src="https://i.pravatar.cc/150?u=cristina" />
+                    </div>
+                    <span class="label">Mother</span
+                    ><span class="name">Cristina</span>
+                  </div>
+                  <div class="person step">
+                    <div class="photo">
+                      <img src="https://i.pravatar.cc/150?u=stepf" />
+                    </div>
+                    <span class="label">Stepfather</span
+                    ><span class="name">Padrasto</span>
+                  </div>
+                </div>
+              </div>
+              <ul>
+                <li>
+                  <div class="person me">
+                    <div class="photo">
+                      <img src="https://i.pravatar.cc/150?u=me" />
+                    </div>
+                    <span class="label">ME</span
+                    ><span class="name">Student</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="person">
+                    <span class="label">Brother</span
+                    ><span class="name">Brother 1</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="person">
+                    <span class="label">Brother</span
+                    ><span class="name">Brother 2</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="person">
+                    <span class="label">Brother</span
+                    ><span class="name">Brother 3</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="person">
+                    <span class="label">Sister</span
+                    ><span class="name">Sister 1</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="person">
+                    <span class="label">Sister</span
+                    ><span class="name">Sister 2</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <div class="couple">
+                <div class="person">
+                  <div class="photo">
+                    <img src="https://i.pravatar.cc/150?u=rodrigo" />
+                  </div>
+                  <span class="label">Uncle</span
+                  ><span class="name">Rodrigo</span>
+                </div>
+                <div class="person">
+                  <div class="photo">
+                    <img src="https://i.pravatar.cc/150?u=bruna" />
+                  </div>
+                  <span class="label">Aunt</span><span class="name">Bruna</span>
+                </div>
+              </div>
+              <ul>
+                <li>
+                  <div class="person">
+                    <div class="photo">
+                      <img src="https://i.pravatar.cc/150?u=vitor" />
+                    </div>
+                    <span class="label">Cousin</span
+                    ><span class="name">Vitor</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="person">
+                    <div class="photo">
+                      <img src="https://i.pravatar.cc/150?u=hugo" />
+                    </div>
+                    <span class="label">Cousin</span
+                    ><span class="name">Hugo</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

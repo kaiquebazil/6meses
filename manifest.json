@@ -1,0 +1,39 @@
+{
+  "name": "Inglês em 6 Meses",
+  "short_name": "Inglês6Meses",
+  "description": "Plano de estudo completo para aprender inglês em 6 meses",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#58a6ff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Ver Progresso",
+      "short_name": "Progresso",
+      "description": "Veja seu progresso geral",
+      "url": "/index.html"
+    },
+    {
+      "name": "Conteúdos Adicionais",
+      "short_name": "Extras",
+      "description": "Acesse conteúdos complementares",
+      "url": "/index.html#conteudos-adicionais"
+    }
+  ]
+}

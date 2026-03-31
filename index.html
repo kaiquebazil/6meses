@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plano de Estudo de Inglês</title>
+    <link rel="shortcut icon" href="icons/icon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/6meses.css" />
+    <!-- Adicione estas tags no <head> do 6meses.html -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#58a6ff" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Inglês6Meses" />
+    <link rel="apple-touch-icon" href="icons/icon-152x152.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="icons/icon-192x192.png"
+    />
+    <meta name="msapplication-TileColor" content="#58a6ff" />
+    <meta name="msapplication-TileImage" content="icons/icon-144x144.png" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header com data -->
+      <div class="header">
+        <div class="app-info">
+          <div class="app-icon">
+            <img src="icons/icon.ico" width="40" alt="" />
+          </div>
+          <h1 class="app-title">Fluência em 6 Meses</h1>
+        </div>
+        <div class="header-right">
+          <div class="date-info">
+            <div class="current-day" id="currentDay">Segunda-feira</div>
+            <div class="current-date" id="currentDate">
+              21 de Dezembro de 2025
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progresso Global -->
+      <div class="progress-container">
+        <h2 class="section-title">
+          <i class="fas fa-chart-line"></i> Seu Progresso Geral
+        </h2>
+        <div class="progress-bar">
+          <div class="progress" id="global-progress"></div>
+        </div>
+        <p class="progress-text" id="progress-text">0% Completo</p>
+      </div>
+
+      <!-- Estatísticas -->
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number" id="contents-completed">0</div>
+          <div class="stat-label">Concluídos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="total-contents">0</div>
+          <div class="stat-label">Total de Conteúdos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="completion-rate">0%</div>
+          <div class="stat-label">Taxa de Conclusão</div>
+        </div>
+      </div>
+
+      <!-- Controles -->
+      <div class="controls">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">
+            <i class="fas fa-list"></i> Todos
+          </button>
+          <button class="filter-btn" data-filter="completed">
+            <i class="fas fa-check-circle"></i> Concluídos
+          </button>
+          <button class="filter-btn" data-filter="pending">
+            <i class="fas fa-clock"></i> Pendentes
+          </button>
+        </div>
+        <button class="reset-btn" id="reset-btn">
+          <i class="fas fa-redo"></i> Reiniciar
+        </button>
+      </div>
+
+      <!-- <div class="leveltest-container">
+        <a href="test.html" class="leveltest-btn" id="leveltest-btn">
+          <i class="fas fa-flask"></i> Teste de Nivelamento
+        </a>
+      </div> -->
+
+      <!-- Container de Meses -->
+      <div class="months-container" id="months-container">
+        <!-- O JavaScript vai inserir:
+            1. Primeiro: Os Conteúdos Adicionais (complementary-container)
+            2. Depois: Os meses do plano de estudo
+        -->
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>Plano de Estudo de Inglês • 6 Meses •</p>
+        <div class="footer-links">
+          <a href="#" class="footer-link">
+            <i class="fas fa-question-circle"></i>
+          </a>
+          <a href="#" class="footer-link">
+            <i class="fas fa-download"></i>
+          </a>
+          <a href="#" class="footer-link">
+            <i class="fas fa-share-alt"></i>
+          </a>
+        </div>
+        <p style="margin-top: 15px; font-size: 12px; font-weight: 500">
+          Marque cada conteúdo estudado para acompanhar seu progresso!
+        </p>
+      </div>
+    </div>
+
+    <a
+      href="https://wa.me/5524992046467"
+      target="_blank"
+      class="whatsapp-float"
+      title="Enviar mensagem no WhatsApp"
+    >
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <a href="https://kaiquebazil.github.io/links/" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+      <span>Voltar</span>
+    </a>
+
+    <!-- Importação dos scripts -->
+    <script type="module" src="js/6meses.js"></script>
+    <script>
+      // Inicializar o app quando a página carregar
+      document.addEventListener("DOMContentLoaded", function () {
+        window.pwaManager = new PWAManager();
+
+        // Adicionar botão de compartilhar no footer
+        addShareButton();
+      });
+
+      function addShareButton() {
+        const footerLinks = document.querySelector(".footer-links");
+        if (footerLinks && navigator.share) {
+          const shareLink = document.createElement("a");
+          shareLink.href = "#";
+          shareLink.className = "footer-link";
+          shareLink.innerHTML = '<i class="fas fa-share-alt"></i>';
+          shareLink.onclick = function (e) {
+            e.preventDefault();
+            PWAManager.shareProgress();
+          };
+          footerLinks.appendChild(shareLink);
+        }
+      }
+    </script>
+  </body>
+</html>

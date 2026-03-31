@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 Palavras Mais Comuns em Inglês</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/geral.css">
+    <link rel="shortcut icon" href="../../icons/icon.ico" type="image/x-icon">
+
+    <style>
+        /* ===== VARIÁVEIS E CONFIGURAÇÕES ===== */
+        :root {
+            --category-bg: #161b22;
+            --word-bg: rgba(255, 255, 255, 0.05);
+            --search-bg: #21262d;
+            --letter-color: #58a6ff;
+            --difficulty-easy: #3fb950;
+            --difficulty-medium: #ffcb6b;
+            --difficulty-hard: #f78166;
+        }
+
+        /* ===== LAYOUT PRINCIPAL ===== */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: containerEntrance 0.8s ease-out forwards;
+            padding: 0 15px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            line-height: 1.6;
+        }
+
+        /* ===== BARRA DE PESQUISA E FILTROS ===== */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 50px;
+            background-color: var(--search-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .filters-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--button-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        /* ===== CONTADORES E ESTATÍSTICAS ===== */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            height: 6px;
+            background-color: var(--progress-bg);
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-purple));
+            border-radius: 3px;
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        /* ===== NAVEGAÇÃO POR LETRAS ===== */
+        .letters-nav {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .letters-nav h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .letters-grid {
+            display: grid;
+            grid-template-columns: repeat(13, 1fr);
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .letters-grid {
+                grid-template-columns: repeat(7, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .letters-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        .letter-btn {
+            background-color: var(--button-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .letter-btn:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+        }
+
+        .letter-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .letter-btn.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* ===== LISTA DE PALAVRAS ===== */
+        .words-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .words-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .word-card {
+            background-color: var(--word-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .word-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent-color);
+        }
+
+        .word-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .word-en {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .word-number {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            background-color: rgba(88, 166, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .word-pt {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .word-explanation {
+            font-size: 0.95rem;
+            color: var(--accent-yellow);
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(255, 203, 107, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-yellow);
+            line-height: 1.5;
+        }
+
+        .word-examples {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-green);
+            display: none;
+        }
+
+        .word-examples.show {
+            display: block;
+            animation: slideInUp 0.3s ease;
+        }
+
+        .example-item {
+            margin-bottom: 8px;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .example-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .example-en {
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+
+        .example-pt {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        /* ===== CONTROLES DE PALAVRA ===== */
+        .word-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .play-button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .play-button:hover {
+            background-color: var(--accent-purple);
+            transform: scale(1.1);
+        }
+
+        .play-button.playing {
+            background-color: var(--accent-pink);
+            animation: pulse 1.5s infinite;
+        }
+
+        .audio-speed {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .speed-control {
+            background-color: var(--button-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 3px 8px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.8rem;
+        }
+
+        .speed-control.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .speed-control:hover {
+            background-color: var(--button-hover);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .example-toggle, .favorite-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .example-toggle:hover {
+            background-color: rgba(63, 185, 80, 0.1);
+            color: var(--accent-green);
+        }
+
+        .favorite-btn:hover {
+            background-color: rgba(255, 123, 114, 0.1);
+            color: var(--accent-pink);
+        }
+
+        .favorite-btn.active {
+            color: var(--accent-pink);
+        }
+
+        /* ===== DIFICULDADE ===== */
+        .difficulty-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .difficulty-easy {
+            background-color: rgba(63, 185, 80, 0.2);
+            color: var(--difficulty-easy);
+            border: 1px solid rgba(63, 185, 80, 0.3);
+        }
+
+        .difficulty-medium {
+            background-color: rgba(255, 203, 107, 0.2);
+            color: var(--difficulty-medium);
+            border: 1px solid rgba(255, 203, 107, 0.3);
+        }
+
+        .difficulty-hard {
+            background-color: rgba(247, 129, 102, 0.2);
+            color: var(--difficulty-hard);
+            border: 1px solid rgba(247, 129, 102, 0.3);
+        }
+
+        /* ===== RESULTADOS DA PESQUISA ===== */
+        .search-results {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .search-results.show {
+            display: block;
+            animation: slideInUp 0.3s ease;
+        }
+
+        .search-results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-results-title {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .clear-search {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .clear-search:hover {
+            color: var(--accent-pink);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== EXERCÍCIO INTERATIVO ===== */
+        .exercise-section {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-purple));
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .exercise-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .exercise-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .exercise-stat {
+            text-align: center;
+        }
+
+        .exercise-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .exercise-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .exercise-content {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .exercise-question {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .exercise-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .exercise-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .exercise-option {
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .exercise-option:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .exercise-option.correct {
+            background-color: rgba(63, 185, 80, 0.5);
+            border-color: var(--accent-green);
+        }
+
+        .exercise-option.incorrect {
+            background-color: rgba(247, 129, 102, 0.5);
+            border-color: var(--accent-orange);
+        }
+
+        .exercise-feedback {
+            display: none;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .exercise-feedback.show {
+            display: block;
+            animation: slideInUp 0.3s ease;
+        }
+
+        .feedback-correct {
+            color: #a7ffa7;
+        }
+
+        .feedback-incorrect {
+            color: #ffa7a7;
+        }
+
+        .exercise-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .exercise-btn {
+            background-color: white;
+            color: var(--accent-color);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .exercise-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .exercise-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .teacher-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 1rem;
+        }
+
+        .teacher-info i {
+            color: var(--accent-pink);
+        }
+
+        /* ===== BOTÃO VOLTAR ===== */
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        /* ===== MODAL DE FAVORITOS ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .modal-header h2 {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--accent-pink);
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes slideInUp {
+            from {
+                transform: translateY(10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes highlight {
+            0% {
+                background-color: transparent;
+            }
+            50% {
+                background-color: rgba(88, 166, 255, 0.3);
+            }
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        .highlight {
+            animation: highlight 1s ease;
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .word-en {
+                font-size: 1.5rem;
+            }
+
+            .word-pt {
+                font-size: 1.1rem;
+            }
+
+            .back-button {
+                bottom: 20px;
+                left: 20px;
+                padding: 10px 14px;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .exercise-section {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .word-card {
+                padding: 15px;
+            }
+
+            .word-controls {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .audio-controls {
+                justify-content: center;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+
+            .filters-container {
+                gap: 10px;
+            }
+
+            .filter-btn {
+                padding: 8px 15px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal de Favoritos -->
+    <div class="modal-overlay" id="favoritesModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-star"></i> Palavras Favoritas</h2>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="favoritesList"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1><img src="../../icons/icon.ico" width="40" alt=""> 100 Palavras Mais Comuns em Inglês</h1>
+            <p>Domine as palavras mais frequentes da língua inglesa com áudio, exemplos práticos e exercícios interativos.</p>
+            
+            <!-- Barra de pesquisa -->
+            <div class="search-container">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <input type="text" class="search-box" id="searchBox" placeholder="Pesquisar palavras em inglês ou português...">
+            </div>
+
+            <!-- Filtros -->
+            <div class="filters-container">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-layer-group"></i> Todas
+                </button>
+                <button class="filter-btn" data-filter="easy">
+                    <i class="fas fa-check-circle"></i> Fáceis
+                </button>
+                <button class="filter-btn" data-filter="medium">
+                    <i class="fas fa-exclamation-circle"></i> Médias
+                </button>
+                <button class="filter-btn" data-filter="hard">
+                    <i class="fas fa-times-circle"></i> Difíceis
+                </button>
+                <button class="filter-btn" data-filter="favorites">
+                    <i class="fas fa-star"></i> Favoritas
+                </button>
+            </div>
+        </header>
+
+        <!-- Estatísticas -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="totalWords">100</div>
+                <div class="stat-label">Palavras no Total</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="totalProgress"></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="learnedWords">0</div>
+                <div class="stat-label">Aprendidas</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="learnedProgress"></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="favoriteWords">0</div>
+                <div class="stat-label">Favoritas</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="favoriteProgress"></div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="practiceScore">0</div>
+                <div class="stat-label">Pontos de Prática</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="scoreProgress"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegação por letras -->
+        <div class="letters-nav">
+            <h3><i class="fas fa-font"></i> Navegar por Letra</h3>
+            <div class="letters-grid" id="lettersGrid"></div>
+        </div>
+
+        <!-- Resultados da pesquisa -->
+        <div class="search-results" id="searchResults">
+            <div class="search-results-header">
+                <div class="search-results-title" id="resultsTitle">Resultados da Pesquisa</div>
+                <button class="clear-search" id="clearSearch">
+                    <i class="fas fa-times"></i> Limpar
+                </button>
+            </div>
+            <div class="words-grid" id="resultsContainer"></div>
+        </div>
+
+        <!-- Lista de palavras -->
+        <div class="words-grid" id="wordsContainer">
+            <!-- Palavras serão inseridas aqui dinamicamente -->
+        </div>
+
+        <!-- Seção de exercícios -->
+        <div class="exercise-section">
+            <div class="exercise-header">
+                <div class="exercise-title">
+                    <i class="fas fa-brain"></i> Teste Seu Conhecimento
+                </div>
+                <div class="exercise-stats">
+                    <div class="exercise-stat">
+                        <div class="exercise-number" id="exerciseScore">0</div>
+                        <div class="exercise-label">Pontos</div>
+                    </div>
+                    <div class="exercise-stat">
+                        <div class="exercise-number" id="exerciseStreak">0</div>
+                        <div class="exercise-label">Sequência</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-content">
+                <div class="exercise-question" id="exerciseQuestion">Carregando pergunta...</div>
+                <div class="exercise-options" id="exerciseOptions">
+                    <!-- Opções serão inseridas dinamicamente -->
+                </div>
+                <div class="exercise-feedback" id="exerciseFeedback"></div>
+            </div>
+            
+            <div class="exercise-controls">
+                <button class="exercise-btn" id="nextExercise">
+                    <i class="fas fa-forward"></i> Próxima
+                </button>
+                <button class="exercise-btn" id="checkAnswer" disabled>
+                    <i class="fas fa-check"></i> Verificar
+                </button>
+                <button class="exercise-btn" id="showHint">
+                    <i class="fas fa-lightbulb"></i> Dica
+                </button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>100 Palavras Mais Comuns em Inglês | Teacher: Kaique</p>
+            <p>Inglês em 6 Meses &copy; 2026</p>
+            <p>Clique no ícone de áudio para ouvir a pronúncia de cada palavra.</p>
+            <p><small>Use os filtros e a barra de pesquisa para encontrar palavras específicas rapidamente.</small></p>
+        </footer>
+    </div>
+
+    <a href="../links/6meses.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span>Voltar</span>
+    </a>
+
+    <script>
+        // ===== DADOS DAS PALAVRAS =====
+        const wordsData = [
+            { number: 1, en: "a", pt: "um/uma", difficulty: "easy", explanation: "Artigo indefinido usado antes de substantivos singulares" },
+            { number: 2, en: "about", pt: "sobre", difficulty: "easy", explanation: "Preposição usada para indicar assunto ou aproximação" },
+            { number: 3, en: "all", pt: "todo/toda", difficulty: "easy", explanation: "Pronome/adjetivo que significa totalidade" },
+            { number: 4, en: "also", pt: "também", difficulty: "easy", explanation: "Advérbio usado para adicionar informação" },
+            { number: 5, en: "and", pt: "e", difficulty: "easy", explanation: "Conjunção usada para conectar palavras ou frases" },
+            { number: 6, en: "as", pt: "como", difficulty: "medium", explanation: "Conjunção/preposição com múltiplos usos" },
+            { number: 7, en: "at", pt: "em/a", difficulty: "easy", explanation: "Preposição de lugar ou tempo específico" },
+            { number: 8, en: "be", pt: "ser/estar", difficulty: "easy", explanation: "Verbo 'to be' - um dos mais importantes" },
+            { number: 9, en: "because", pt: "porque", difficulty: "easy", explanation: "Conjunção que indica causa ou razão" },
+            { number: 10, en: "but", pt: "mas", difficulty: "easy", explanation: "Conjunção que indica contraste" },
+            { number: 11, en: "by", pt: "por/de", difficulty: "medium", explanation: "Preposição com múltiplos significados" },
+            { number: 12, en: "can", pt: "pode", difficulty: "easy", explanation: "Verbo modal que indica habilidade ou permissão" },
+            { number: 13, en: "come", pt: "vir", difficulty: "easy", explanation: "Verbo que indica movimento em direção ao falante" },
+            { number: 14, en: "could", pt: "poderia", difficulty: "medium", explanation: "Forma passada de 'can', também usada para pedidos educados" },
+            { number: 15, en: "day", pt: "dia", difficulty: "easy", explanation: "Período de 24 horas" },
+            { number: 16, en: "do", pt: "fazer", difficulty: "easy", explanation: "Verbo auxiliar e principal com múltiplos usos" },
+            { number: 17, en: "even", pt: "mesmo", difficulty: "hard", explanation: "Advérbio usado para ênfase ou comparação" },
+            { number: 18, en: "find", pt: "encontrar", difficulty: "easy", explanation: "Verbo que significa descobrir ou localizar" },
+            { number: 19, en: "first", pt: "primeiro", difficulty: "easy", explanation: "Número ordinal, indica posição inicial" },
+            { number: 20, en: "for", pt: "para", difficulty: "medium", explanation: "Preposição que indica propósito ou destinatário" },
+            { number: 21, en: "from", pt: "de", difficulty: "easy", explanation: "Preposição que indica origem ou procedência" },
+            { number: 22, en: "get", pt: "obter", difficulty: "medium", explanation: "Verbo com múltiplos significados e usos" },
+            { number: 23, en: "give", pt: "dar", difficulty: "easy", explanation: "Verbo que significa transferir algo a alguém" },
+            { number: 24, en: "go", pt: "ir", difficulty: "easy", explanation: "Verbo que indica movimento para outro lugar" },
+            { number: 25, en: "have", pt: "ter", difficulty: "easy", explanation: "Verbo que indica posse ou obrigação" },
+            { number: 26, en: "he", pt: "ele", difficulty: "easy", explanation: "Pronome pessoal masculino singular" },
+            { number: 27, en: "her", pt: "dela", difficulty: "easy", explanation: "Pronome possessivo/adjetivo possessivo feminino" },
+            { number: 28, en: "here", pt: "aqui", difficulty: "easy", explanation: "Advérbio que indica localização próxima" },
+            { number: 29, en: "him", pt: "ele", difficulty: "easy", explanation: "Pronome objeto masculino singular" },
+            { number: 30, en: "his", pt: "dele", difficulty: "easy", explanation: "Pronome possessivo masculino singular" },
+            { number: 31, en: "how", pt: "como", difficulty: "easy", explanation: "Advérbio interrogativo para modo ou maneira" },
+            { number: 32, en: "I", pt: "eu", difficulty: "easy", explanation: "Pronome pessoal primeira pessoa singular" },
+            { number: 33, en: "if", pt: "se", difficulty: "medium", explanation: "Conjunção condicional" },
+            { number: 34, en: "in", pt: "em", difficulty: "easy", explanation: "Preposição que indica localização ou tempo" },
+            { number: 35, en: "into", pt: "dentro", difficulty: "medium", explanation: "Preposição que indica movimento para dentro" },
+            { number: 36, en: "it", pt: "isso", difficulty: "easy", explanation: "Pronome neutro para coisas ou animais" },
+            { number: 37, en: "its", pt: "seu/sua (coisa)", difficulty: "medium", explanation: "Pronome possessivo neutro" },
+            { number: 38, en: "just", pt: "apenas", difficulty: "hard", explanation: "Advérbio com múltiplos usos (tempo, ênfase, limitação)" },
+            { number: 39, en: "know", pt: "saber/conhecer", difficulty: "easy", explanation: "Verbo que indica conhecimento ou familiaridade" },
+            { number: 40, en: "like", pt: "gostar de", difficulty: "easy", explanation: "Verbo que indica preferência ou similaridade" },
+            { number: 41, en: "look", pt: "olhar", difficulty: "easy", explanation: "Verbo que indica direcionar os olhos para algo" },
+            { number: 42, en: "make", pt: "fazer", difficulty: "easy", explanation: "Verbo que significa criar ou produzir" },
+            { number: 43, en: "man", pt: "homem", difficulty: "easy", explanation: "Substantivo que designa ser humano masculino adulto" },
+            { number: 44, en: "many", pt: "muitos/muitas", difficulty: "easy", explanation: "Quantificador usado com substantivos contáveis" },
+            { number: 45, en: "me", pt: "mim/me", difficulty: "easy", explanation: "Pronome objeto primeira pessoa singular" },
+            { number: 46, en: "more", pt: "mais", difficulty: "easy", explanation: "Comparativo de quantidade ou grau" },
+            { number: 47, en: "my", pt: "meu/minha", difficulty: "easy", explanation: "Adjetivo possessivo primeira pessoa singular" },
+            { number: 48, en: "new", pt: "novo/nova", difficulty: "easy", explanation: "Adjetivo que indica algo recente ou não usado" },
+            { number: 49, en: "no", pt: "não", difficulty: "easy", explanation: "Determinante negativo ou resposta negativa" },
+            { number: 50, en: "not", pt: "não", difficulty: "easy", explanation: "Advérbio de negação" },
+            { number: 51, en: "now", pt: "agora", difficulty: "easy", explanation: "Advérbio que indica tempo presente" },
+            { number: 52, en: "of", pt: "de", difficulty: "easy", explanation: "Preposição que indica posse, origem ou relação" },
+            { number: 53, en: "on", pt: "em", difficulty: "easy", explanation: "Preposição que indica superfície ou contato" },
+            { number: 54, en: "one", pt: "um/uma", difficulty: "easy", explanation: "Número cardinal ou pronome indefinido" },
+            { number: 55, en: "only", pt: "apenas", difficulty: "easy", explanation: "Advérbio que indica exclusividade ou limitação" },
+            { number: 56, en: "or", pt: "ou", difficulty: "easy", explanation: "Conjunção que indica alternativa" },
+            { number: 57, en: "other", pt: "outro/outra", difficulty: "easy", explanation: "Pronome/adjetivo que indica diferente ou adicional" },
+            { number: 58, en: "our", pt: "nosso/nossa", difficulty: "easy", explanation: "Adjetivo possessivo primeira pessoa plural" },
+            { number: 59, en: "out", pt: "fora", difficulty: "easy", explanation: "Advérbio que indica exterior ou saída" },
+            { number: 60, en: "people", pt: "pessoas", difficulty: "easy", explanation: "Substantivo plural para seres humanos" },
+            { number: 61, en: "say", pt: "dizer", difficulty: "easy", explanation: "Verbo que significa expressar em palavras" },
+            { number: 62, en: "see", pt: "ver", difficulty: "easy", explanation: "Verbo que significa perceber com os olhos" },
+            { number: 63, en: "she", pt: "ela", difficulty: "easy", explanation: "Pronome pessoal feminino singular" },
+            { number: 64, en: "so", pt: "então", difficulty: "hard", explanation: "Conjunção/advérbio com múltiplos usos" },
+            { number: 65, en: "some", pt: "alguns/algumas", difficulty: "easy", explanation: "Determinante que indica quantidade indefinida" },
+            { number: 66, en: "take", pt: "pegar/tomar/levar", difficulty: "medium", explanation: "Verbo com múltiplos significados contextuais" },
+            { number: 67, en: "tell", pt: "contar/dizer", difficulty: "easy", explanation: "Verbo que significa comunicar informação" },
+            { number: 68, en: "than", pt: "do que", difficulty: "medium", explanation: "Conjunção usada em comparações" },
+            { number: 69, en: "that", pt: "isso/aquele/aquela", difficulty: "medium", explanation: "Pronome demonstrativo ou conjunção" },
+            { number: 70, en: "the", pt: "o/a", difficulty: "easy", explanation: "Artigo definido - palavra mais comum em inglês" },
+            { number: 71, en: "their", pt: "deles/delas", difficulty: "easy", explanation: "Adjetivo possessivo terceira pessoa plural" },
+            { number: 72, en: "them", pt: "eles/elas", difficulty: "easy", explanation: "Pronome objeto terceira pessoa plural" },
+            { number: 73, en: "then", pt: "então", difficulty: "medium", explanation: "Advérbio que indica tempo ou consequência" },
+            { number: 74, en: "there", pt: "lá", difficulty: "easy", explanation: "Advérbio que indica localização distante" },
+            { number: 75, en: "these", pt: "esses/essas", difficulty: "easy", explanation: "Pronome demonstrativo plural próximo" },
+            { number: 76, en: "they", pt: "eles/elas", difficulty: "easy", explanation: "Pronome pessoal terceira pessoa plural" },
+            { number: 77, en: "thing", pt: "coisa", difficulty: "easy", explanation: "Substantivo genérico para objeto ou conceito" },
+            { number: 78, en: "think", pt: "pensar", difficulty: "easy", explanation: "Verbo que significa processar mentalmente" },
+            { number: 79, en: "this", pt: "isso/esse/essa", difficulty: "easy", explanation: "Pronome demonstrativo singular próximo" },
+            { number: 80, en: "those", pt: "aqueles/aquelas", difficulty: "easy", explanation: "Pronome demonstrativo plural distante" },
+            { number: 81, en: "time", pt: "tempo", difficulty: "medium", explanation: "Substantivo com múltiplos significados temporais" },
+            { number: 82, en: "to", pt: "para", difficulty: "medium", explanation: "Preposição que indica direção ou infinitivo" },
+            { number: 83, en: "two", pt: "dois/duas", difficulty: "easy", explanation: "Número cardinal" },
+            { number: 84, en: "up", pt: "para cima", difficulty: "easy", explanation: "Advérbio que indica direção ascendente" },
+            { number: 85, en: "use", pt: "usar", difficulty: "easy", explanation: "Verbo que significa empregar ou utilizar" },
+            { number: 86, en: "very", pt: "muito/muita", difficulty: "easy", explanation: "Advérbio que intensifica adjetivos ou advérbios" },
+            { number: 87, en: "want", pt: "querer", difficulty: "easy", explanation: "Verbo que expressa desejo ou necessidade" },
+            { number: 88, en: "way", pt: "caminho/jeito", difficulty: "medium", explanation: "Substantivo com múltiplos significados" },
+            { number: 89, en: "we", pt: "nós", difficulty: "easy", explanation: "Pronome pessoal primeira pessoa plural" },
+            { number: 90, en: "well", pt: "bem", difficulty: "medium", explanation: "Advérbio que indica boa qualidade ou saúde" },
+            { number: 91, en: "what", pt: "o que", difficulty: "easy", explanation: "Pronome interrogativo para coisas" },
+            { number: 92, en: "when", pt: "quando", difficulty: "easy", explanation: "Advérbio interrogativo para tempo" },
+            { number: 93, en: "why", pt: "por que", difficulty: "easy", explanation: "Advérbio interrogativo para razão" },
+            { number: 94, en: "who", pt: "quem", difficulty: "easy", explanation: "Pronome interrogativo para pessoas" },
+            { number: 95, en: "will", pt: "vai (futuro)", difficulty: "medium", explanation: "Verbo modal para futuro ou voluntariedade" },
+            { number: 96, en: "with", pt: "com", difficulty: "easy", explanation: "Preposição que indica companhia ou instrumento" },
+            { number: 97, en: "would", pt: "iria", difficulty: "hard", explanation: "Verbo modal para condicional ou cortesia" },
+            { number: 98, en: "year", pt: "ano", difficulty: "easy", explanation: "Período de 365 dias (ou 366)" },
+            { number: 99, en: "you", pt: "você", difficulty: "easy", explanation: "Pronome pessoal segunda pessoa" },
+            { number: 100, en: "your", pt: "seu/sua", difficulty: "easy", explanation: "Adjetivo possessivo segunda pessoa" }
+        ];
+
+        // ===== SISTEMA DE ÁUDIO =====
+        class AudioSystem {
+            constructor() {
+                this.speechRate = 1;
+                this.currentUtterance = null;
+                this.isSupported = 'speechSynthesis' in window;
+                this.voices = [];
+                this.selectedVoice = null;
+                
+                if (this.isSupported) {
+                    this.loadVoices();
+                    window.speechSynthesis.onvoiceschanged = () => this.loadVoices();
+                }
+            }
+
+            loadVoices() {
+                this.voices = window.speechSynthesis.getVoices();
+                // Preferir vozes em inglês
+                this.selectedVoice = this.voices.find(voice => 
+                    voice.lang.includes('en') && 
+                    voice.name.includes('English')
+                ) || this.voices[0];
+            }
+
+            speak(text) {
+                if (!this.isSupported) {
+                    this.showUnsupportedError();
+                    return;
+                }
+
+                if (this.currentUtterance) {
+                    this.stop();
+                }
+
+                this.currentUtterance = new SpeechSynthesisUtterance(text);
+                this.currentUtterance.lang = 'en-US';
+                this.currentUtterance.rate = this.speechRate;
+                this.currentUtterance.pitch = 1;
+                this.currentUtterance.volume = 1;
+                
+                if (this.selectedVoice) {
+                    this.currentUtterance.voice = this.selectedVoice;
+                }
+
+                this.currentUtterance.onend = () => this.onSpeechEnd();
+                this.currentUtterance.onerror = () => this.onSpeechError();
+
+                window.speechSynthesis.speak(this.currentUtterance);
+            }
+
+            stop() {
+                if (window.speechSynthesis.speaking) {
+                    window.speechSynthesis.cancel();
+                }
+                this.currentUtterance = null;
+            }
+
+            setRate(rate) {
+                this.speechRate = rate;
+            }
+
+            onSpeechEnd() {
+                this.currentUtterance = null;
+                document.querySelectorAll('.play-button.playing').forEach(btn => {
+                    btn.classList.remove('playing');
+                    btn.innerHTML = '<i class="fas fa-play"></i>';
+                });
+            }
+
+            onSpeechError() {
+                this.currentUtterance = null;
+                alert('Erro ao reproduzir áudio. Verifique se há algum bloqueio no seu navegador.');
+            }
+
+            showUnsupportedError() {
+                alert('Seu navegador não suporta a funcionalidade de áudio. Tente usar Chrome, Edge ou Safari.');
+            }
+        }
+
+        // ===== APLICAÇÃO PRINCIPAL =====
+        class WordsApp {
+            constructor() {
+                this.audioSystem = new AudioSystem();
+                this.favorites = new Set();
+                this.learned = new Set();
+                this.currentFilter = 'all';
+                this.searchQuery = '';
+                this.currentLetter = null;
+                this.exerciseScore = 0;
+                this.exerciseStreak = 0;
+                this.currentExercise = null;
+                this.userAnswers = new Set();
+                
+                this.init();
+            }
+
+            init() {
+                this.loadData();
+                this.renderLettersNav();
+                this.renderWords();
+                this.bindEvents();
+                this.updateStats();
+                this.generateExercise();
+            }
+
+            loadData() {
+                // Carregar favoritos
+                const savedFavorites = localStorage.getItem('wordsFavorites');
+                if (savedFavorites) {
+                    this.favorites = new Set(JSON.parse(savedFavorites));
+                }
+
+                // Carregar aprendidas
+                const savedLearned = localStorage.getItem('wordsLearned');
+                if (savedLearned) {
+                    this.learned = new Set(JSON.parse(savedLearned));
+                }
+
+                // Carregar pontuação
+                const savedScore = localStorage.getItem('wordsScore');
+                if (savedScore) {
+                    this.exerciseScore = parseInt(savedScore) || 0;
+                }
+
+                // Carregar respostas
+                const savedAnswers = localStorage.getItem('wordsAnswers');
+                if (savedAnswers) {
+                    this.userAnswers = new Set(JSON.parse(savedAnswers));
+                }
+            }
+
+            saveData() {
+                localStorage.setItem('wordsFavorites', JSON.stringify([...this.favorites]));
+                localStorage.setItem('wordsLearned', JSON.stringify([...this.learned]));
+                localStorage.setItem('wordsScore', this.exerciseScore.toString());
+                localStorage.setItem('wordsAnswers', JSON.stringify([...this.userAnswers]));
+            }
+
+            renderLettersNav() {
+                const lettersGrid = document.getElementById('lettersGrid');
+                lettersGrid.innerHTML = '';
+
+                // Criar botões A-Z
+                for (let i = 65; i <= 90; i++) {
+                    const letter = String.fromCharCode(i);
+                    const button = document.createElement('button');
+                    button.className = 'letter-btn';
+                    button.textContent = letter;
+                    button.dataset.letter = letter;
+
+                    // Verificar se há palavras com essa letra
+                    const hasWords = wordsData.some(word => 
+                        word.en.toLowerCase().startsWith(letter.toLowerCase())
+                    );
+
+                    if (!hasWords) {
+                        button.classList.add('disabled');
+                    }
+
+                    button.addEventListener('click', () => {
+                        if (!hasWords) return;
+                        this.filterByLetter(letter);
+                    });
+
+                    lettersGrid.appendChild(button);
+                }
+            }
+
+            filterByLetter(letter) {
+                this.currentLetter = this.currentLetter === letter ? null : letter;
+                
+                // Atualizar botões
+                document.querySelectorAll('.letter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.letter === letter && this.currentLetter === letter) {
+                        btn.classList.add('active');
+                    }
+                });
+
+                this.renderWords();
+            }
+
+            renderWords() {
+                const container = document.getElementById('wordsContainer');
+                const resultsContainer = document.getElementById('resultsContainer');
+                
+                if (this.searchQuery) {
+                    // Mostrar resultados da pesquisa
+                    this.displaySearchResults();
+                    return;
+                }
+
+                // Filtrar palavras
+                let filteredWords = wordsData;
+
+                // Filtrar por letra
+                if (this.currentLetter) {
+                    filteredWords = filteredWords.filter(word => 
+                        word.en.toLowerCase().startsWith(this.currentLetter.toLowerCase())
+                    );
+                }
+
+                // Filtrar por categoria
+                if (this.currentFilter === 'favorites') {
+                    filteredWords = filteredWords.filter(word => 
+                        this.favorites.has(word.number.toString())
+                    );
+                } else if (this.currentFilter !== 'all') {
+                    filteredWords = filteredWords.filter(word => 
+                        word.difficulty === this.currentFilter
+                    );
+                }
+
+                // Renderizar palavras
+                container.innerHTML = '';
+                filteredWords.forEach(word => {
+                    const wordElement = this.createWordElement(word);
+                    container.appendChild(wordElement);
+                });
+
+                // Esconder resultados da pesquisa
+                document.getElementById('searchResults').classList.remove('show');
+            }
+
+            createWordElement(word) {
+                const isFavorite = this.favorites.has(word.number.toString());
+                const isLearned = this.learned.has(word.number.toString());
+
+                const div = document.createElement('div');
+                div.className = 'word-card';
+                div.dataset.number = word.number;
+                div.dataset.en = word.en.toLowerCase();
+                div.dataset.pt = word.pt.toLowerCase();
+                div.dataset.difficulty = word.difficulty;
+
+                if (isLearned) {
+                    div.style.borderColor = 'var(--accent-green)';
+                }
+
+                // Gerar exemplos baseados na palavra
+                const examples = this.generateExamples(word);
+
+                div.innerHTML = `
+                    <div class="difficulty-badge difficulty-${word.difficulty}">
+                        ${word.difficulty === 'easy' ? 'Fácil' : word.difficulty === 'medium' ? 'Médio' : 'Difícil'}
+                    </div>
+                    <div class="word-header">
+                        <div>
+                            <div class="word-en">${word.en}</div>
+                            <div class="word-number">#${word.number}</div>
+                        </div>
+                        ${isLearned ? '<i class="fas fa-check-circle" style="color: var(--accent-green); font-size: 1.5rem;"></i>' : ''}
+                    </div>
+                    <div class="word-pt">${word.pt}</div>
+                    <div class="word-explanation">${word.explanation}</div>
+                    <div class="word-examples">
+                        ${examples.map(example => `
+                            <div class="example-item">
+                                <div class="example-en">${example.en}</div>
+                                <div class="example-pt">${example.pt}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="word-controls">
+                        <div class="audio-controls">
+                            <button class="play-button" data-text="${word.en}">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <div class="audio-speed">
+                                <span class="speed-control" data-speed="0.5">0.5x</span>
+                                <span class="speed-control active" data-speed="1">1x</span>
+                                <span class="speed-control" data-speed="1.5">1.5x</span>
+                            </div>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="example-toggle">
+                                <i class="fas fa-lightbulb"></i>
+                                <span>Exemplos</span>
+                            </button>
+                            <button class="favorite-btn ${isFavorite ? 'active' : ''}">
+                                <i class="fas fa-star"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                return div;
+            }
+
+            generateExamples(word) {
+                // Exemplos baseados no tipo de palavra
+                const examples = [];
+                
+                switch(word.en) {
+                    case "a":
+                        examples.push(
+                            { en: "I have a cat.", pt: "Eu tenho um gato." },
+                            { en: "She is a teacher.", pt: "Ela é uma professora." }
+                        );
+                        break;
+                    case "about":
+                        examples.push(
+                            { en: "What are you talking about?", pt: "Sobre o que você está falando?" },
+                            { en: "The movie is about love.", pt: "O filme é sobre amor." }
+                        );
+                        break;
+                    case "be":
+                        examples.push(
+                            { en: "I want to be happy.", pt: "Eu quero ser feliz." },
+                            { en: "She will be here soon.", pt: "Ela estará aqui em breve." }
+                        );
+                        break;
+                    case "can":
+                        examples.push(
+                            { en: "I can speak English.", pt: "Eu posso falar inglês." },
+                            { en: "Can you help me?", pt: "Você pode me ajudar?" }
+                        );
+                        break;
+                    case "go":
+                        examples.push(
+                            { en: "Let's go to the park.", pt: "Vamos ao parque." },
+                            { en: "I go to school every day.", pt: "Eu vou à escola todo dia." }
+                        );
+                        break;
+                    case "have":
+                        examples.push(
+                            { en: "I have two brothers.", pt: "Eu tenho dois irmãos." },
+                            { en: "We have to study.", pt: "Nós temos que estudar." }
+                        );
+                        break;
+                    case "like":
+                        examples.push(
+                            { en: "I like chocolate.", pt: "Eu gosto de chocolate." },
+                            { en: "She looks like her mother.", pt: "Ela parece com a mãe dela." }
+                        );
+                        break;
+                    case "time":
+                        examples.push(
+                            { en: "What time is it?", pt: "Que horas são?" },
+                            { en: "I had a great time.", pt: "Eu me diverti muito." }
+                        );
+                        break;
+                    case "will":
+                        examples.push(
+                            { en: "I will call you tomorrow.", pt: "Eu vou te ligar amanhã." },
+                            { en: "Will you marry me?", pt: "Você quer casar comigo?" }
+                        );
+                        break;
+                    case "you":
+                        examples.push(
+                            { en: "How are you?", pt: "Como você está?" },
+                            { en: "I love you.", pt: "Eu te amo." }
+                        );
+                        break;
+                    default:
+                        // Exemplos genéricos
+                        examples.push(
+                            { en: `This is ${word.en}.`, pt: `Isso é ${word.pt}.` },
+                            { en: `I need ${word.en}.`, pt: `Eu preciso de ${word.pt}.` }
+                        );
+                }
+
+                return examples;
+            }
+
+            displaySearchResults() {
+                const resultsContainer = document.getElementById('resultsContainer');
+                const resultsTitle = document.getElementById('resultsTitle');
+                const searchResults = document.querySelector('.search-results');
+
+                if (this.searchQuery) {
+                    const filteredWords = wordsData.filter(word => 
+                        word.en.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
+                        word.pt.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                        word.explanation.toLowerCase().includes(this.searchQuery.toLowerCase())
+                    );
+
+                    if (filteredWords.length === 0) {
+                        resultsContainer.innerHTML = `
+                            <div class="no-results">
+                                <i class="fas fa-search fa-2x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                                <p>Nenhuma palavra encontrada para "${this.searchQuery}".</p>
+                                <p style="font-size: 0.9rem; margin-top: 10px;">Tente palavras diferentes em inglês ou português.</p>
+                            </div>
+                        `;
+                    } else {
+                        resultsContainer.innerHTML = '';
+                        filteredWords.forEach(word => {
+                            const element = this.createWordElement(word);
+                            resultsContainer.appendChild(element);
+                        });
+                    }
+
+                    resultsTitle.textContent = `Resultados (${filteredWords.length})`;
+                    searchResults.classList.add('show');
+
+                    // Esconder lista principal
+                    document.getElementById('wordsContainer').style.display = 'none';
+                } else {
+                    this.clearSearch();
+                }
+            }
+
+            clearSearch() {
+                this.searchQuery = '';
+                document.getElementById('searchBox').value = '';
+                document.getElementById('searchResults').classList.remove('show');
+                document.getElementById('wordsContainer').style.display = 'grid';
+                this.renderWords();
+            }
+
+            bindEvents() {
+                // Barra de pesquisa
+                document.getElementById('searchBox').addEventListener('input', (e) => {
+                    this.searchQuery = e.target.value.trim();
+                    if (this.searchQuery) {
+                        this.displaySearchResults();
+                    } else {
+                        this.clearSearch();
+                    }
+                });
+
+                document.getElementById('clearSearch').addEventListener('click', () => this.clearSearch());
+
+                // Filtros
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        this.currentFilter = btn.dataset.filter;
+                        this.renderWords();
+                    });
+                });
+
+                // Modal de favoritos
+                document.getElementById('closeModal').addEventListener('click', () => {
+                    document.getElementById('favoritesModal').classList.remove('active');
+                });
+
+                // Exercícios
+                document.getElementById('nextExercise').addEventListener('click', () => this.generateExercise());
+                document.getElementById('checkAnswer').addEventListener('click', () => this.checkAnswer());
+                document.getElementById('showHint').addEventListener('click', () => this.showHint());
+
+                // Delegação de eventos para elementos dinâmicos
+                document.addEventListener('click', (e) => {
+                    // Botões de áudio
+                    if (e.target.closest('.play-button')) {
+                        this.handlePlayButton(e.target.closest('.play-button'));
+                    }
+                    
+                    // Controles de velocidade
+                    if (e.target.closest('.speed-control')) {
+                        this.handleSpeedControl(e.target.closest('.speed-control'));
+                    }
+                    
+                    // Botões de favorito
+                    if (e.target.closest('.favorite-btn')) {
+                        this.handleFavoriteButton(e.target.closest('.favorite-btn'));
+                    }
+                    
+                    // Botões de exemplo
+                    if (e.target.closest('.example-toggle')) {
+                        this.handleExampleToggle(e.target.closest('.example-toggle'));
+                    }
+                    
+                    // Opções de exercício
+                    if (e.target.closest('.exercise-option')) {
+                        this.handleExerciseOption(e.target.closest('.exercise-option'));
+                    }
+                });
+
+                // Atalhos de teclado
+                document.addEventListener('keydown', (e) => {
+                    // Ctrl/Cmd + F para focar na busca
+                    if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+                        e.preventDefault();
+                        document.getElementById('searchBox').focus();
+                    }
+                    
+                    // ESC para limpar busca
+                    if (e.key === 'Escape' && this.searchQuery) {
+                        this.clearSearch();
+                    }
+                    
+                    // Espaço para repetir áudio
+                    if (e.key === ' ' && e.target === document.body) {
+                        e.preventDefault();
+                        const playingButton = document.querySelector('.play-button.playing');
+                        if (playingButton) {
+                            this.handlePlayButton(playingButton);
+                        }
+                    }
+                });
+            }
+
+            handlePlayButton(button) {
+                const text = button.getAttribute('data-text');
+                const isPlaying = button.classList.contains('playing');
+
+                if (isPlaying) {
+                    this.audioSystem.stop();
+                    button.classList.remove('playing');
+                    button.innerHTML = '<i class="fas fa-play"></i>';
+                    return;
+                }
+
+                // Parar todos os botões
+                document.querySelectorAll('.play-button.playing').forEach(btn => {
+                    btn.classList.remove('playing');
+                    btn.innerHTML = '<i class="fas fa-play"></i>';
+                });
+
+                // Iniciar novo áudio
+                button.classList.add('playing');
+                button.innerHTML = '<i class="fas fa-stop"></i>';
+                this.audioSystem.speak(text);
+            }
+
+            handleSpeedControl(control) {
+                const container = control.closest('.audio-controls');
+                container.querySelectorAll('.speed-control').forEach(c => c.classList.remove('active'));
+                control.classList.add('active');
+                
+                const speed = parseFloat(control.getAttribute('data-speed'));
+                this.audioSystem.setRate(speed);
+            }
+
+            handleFavoriteButton(button) {
+                const wordCard = button.closest('.word-card');
+                const wordNumber = wordCard.dataset.number;
+
+                if (this.favorites.has(wordNumber)) {
+                    this.favorites.delete(wordNumber);
+                    button.classList.remove('active');
+                } else {
+                    this.favorites.add(wordNumber);
+                    button.classList.add('active');
+                    
+                    // Animação de confirmação
+                    button.style.transform = 'scale(1.3)';
+                    setTimeout(() => {
+                        button.style.transform = 'scale(1)';
+                    }, 300);
+                }
+
+                this.saveData();
+                this.updateStats();
+            }
+
+            handleExampleToggle(button) {
+                const examples = button.closest('.word-card').querySelector('.word-examples');
+                const isShowing = examples.classList.contains('show');
+                
+                if (isShowing) {
+                    examples.classList.remove('show');
+                    button.innerHTML = '<i class="fas fa-lightbulb"></i><span>Exemplos</span>';
+                } else {
+                    examples.classList.add('show');
+                    button.innerHTML = '<i class="fas fa-times"></i><span>Ocultar</span>';
+                }
+            }
+
+            generateExercise() {
+                if (this.userAnswers.size >= wordsData.length) {
+                    this.userAnswers.clear();
+                    this.saveData();
+                }
+
+                // Encontrar palavras não respondidas
+                const unansweredWords = wordsData.filter(word => 
+                    !this.userAnswers.has(word.number.toString())
+                );
+
+                if (unansweredWords.length === 0) {
+                    document.getElementById('exerciseQuestion').textContent = 
+                        "Parabéns! Você completou todos os exercícios!";
+                    document.getElementById('exerciseOptions').innerHTML = '';
+                    document.getElementById('checkAnswer').disabled = true;
+                    return;
+                }
+
+                // Escolher palavra aleatória
+                const randomWord = unansweredWords[Math.floor(Math.random() * unansweredWords.length)];
+                this.currentExercise = randomWord;
+
+                // Gerar opções incorretas
+                const incorrectOptions = wordsData
+                    .filter(word => word.number !== randomWord.number)
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3)
+                    .map(word => word.pt);
+
+                // Misturar opções
+                const allOptions = [randomWord.pt, ...incorrectOptions]
+                    .sort(() => Math.random() - 0.5);
+
+                // Atualizar interface
+                document.getElementById('exerciseQuestion').textContent = 
+                    `Qual é a tradução de "${randomWord.en}"?`;
+
+                const optionsContainer = document.getElementById('exerciseOptions');
+                optionsContainer.innerHTML = '';
+
+                allOptions.forEach((option, index) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'exercise-option';
+                    optionDiv.textContent = `${String.fromCharCode(65 + index)}) ${option}`;
+                    optionDiv.dataset.answer = option;
+                    optionsContainer.appendChild(optionDiv);
+                });
+
+                // Resetar feedback
+                document.getElementById('exerciseFeedback').classList.remove('show');
+                document.getElementById('checkAnswer').disabled = true;
+                document.querySelectorAll('.exercise-option').forEach(opt => {
+                    opt.classList.remove('correct', 'incorrect');
+                });
+            }
+
+            handleExerciseOption(option) {
+                document.querySelectorAll('.exercise-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                option.classList.add('selected');
+                document.getElementById('checkAnswer').disabled = false;
+            }
+
+            checkAnswer() {
+                const selectedOption = document.querySelector('.exercise-option.selected');
+                if (!selectedOption || !this.currentExercise) return;
+
+                const isCorrect = selectedOption.dataset.answer === this.currentExercise.pt;
+                const feedback = document.getElementById('exerciseFeedback');
+
+                if (isCorrect) {
+                    selectedOption.classList.add('correct');
+                    feedback.innerHTML = `
+                        <div class="feedback-correct">
+                            <i class="fas fa-check-circle"></i> Correto! "${this.currentExercise.en}" significa "${this.currentExercise.pt}".
+                        </div>
+                        <div style="margin-top: 10px; font-size: 0.9rem;">
+                            ${this.currentExercise.explanation}
+                        </div>
+                    `;
+                    
+                    // Atualizar estatísticas
+                    this.exerciseScore += 10;
+                    this.exerciseStreak++;
+                    this.learned.add(this.currentExercise.number.toString());
+                    this.userAnswers.add(this.currentExercise.number.toString());
+                } else {
+                    selectedOption.classList.add('incorrect');
+                    
+                    // Marcar a correta
+                    document.querySelectorAll('.exercise-option').forEach(opt => {
+                        if (opt.dataset.answer === this.currentExercise.pt) {
+                            opt.classList.add('correct');
+                        }
+                    });
+                    
+                    feedback.innerHTML = `
+                        <div class="feedback-incorrect">
+                            <i class="fas fa-times-circle"></i> Incorreto! A resposta certa é "${this.currentExercise.pt}".
+                        </div>
+                        <div style="margin-top: 10px; font-size: 0.9rem;">
+                            ${this.currentExercise.explanation}
+                        </div>
+                    `;
+                    
+                    this.exerciseStreak = 0;
+                }
+
+                feedback.classList.add('show');
+                this.saveData();
+                this.updateStats();
+
+                // Atualizar interface da palavra aprendida
+                const wordCard = document.querySelector(`.word-card[data-number="${this.currentExercise.number}"]`);
+                if (wordCard) {
+                    wordCard.style.borderColor = 'var(--accent-green)';
+                    const header = wordCard.querySelector('.word-header');
+                    if (!header.querySelector('.fa-check-circle')) {
+                        const checkIcon = document.createElement('i');
+                        checkIcon.className = 'fas fa-check-circle';
+                        checkIcon.style.color = 'var(--accent-green)';
+                        checkIcon.style.fontSize = '1.5rem';
+                        header.appendChild(checkIcon);
+                    }
+                }
+            }
+
+            showHint() {
+                if (!this.currentExercise) return;
+
+                const feedback = document.getElementById('exerciseFeedback');
+                feedback.innerHTML = `
+                    <div style="color: var(--accent-yellow);">
+                        <i class="fas fa-lightbulb"></i> Dica: ${this.currentExercise.explanation}
+                    </div>
+                `;
+                feedback.classList.add('show');
+            }
+
+            updateStats() {
+                const totalWords = wordsData.length;
+                const learnedWords = this.learned.size;
+                const favoriteWords = this.favorites.size;
+                const maxScore = totalWords * 10;
+
+                // Atualizar números
+                document.getElementById('totalWords').textContent = totalWords;
+                document.getElementById('learnedWords').textContent = learnedWords;
+                document.getElementById('favoriteWords').textContent = favoriteWords;
+                document.getElementById('exerciseScore').textContent = this.exerciseScore;
+                document.getElementById('exerciseStreak').textContent = this.exerciseStreak;
+
+                // Atualizar barras de progresso
+                document.getElementById('totalProgress').style.width = '100%';
+                document.getElementById('learnedProgress').style.width = `${(learnedWords / totalWords) * 100}%`;
+                document.getElementById('favoriteProgress').style.width = `${(favoriteWords / totalWords) * 100}%`;
+                document.getElementById('scoreProgress').style.width = `${(this.exerciseScore / maxScore) * 100}%`;
+
+                // Atualizar estatísticas do exercício
+                document.getElementById('practiceScore').textContent = this.exerciseScore;
+            }
+        }
+
+        // ===== INICIALIZAÇÃO =====
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = new WordsApp();
+            console.log('Aplicação de palavras carregada com sucesso!');
+        });
+    </script>
+</body>
+</html>

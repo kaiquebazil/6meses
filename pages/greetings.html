@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cumprimentos em Inglês | Pronúncia Moderna</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="../css/geral.css" />
+    <link rel="shortcut icon" href="../icons/icon.ico" type="image/x-icon">
+
+    <style>
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .intro {
+        background-color: var(--card-bg);
+        padding: 2rem;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        margin-bottom: 2rem;
+        text-align: center;
+        animation: fadeIn 0.8s ease-out 0.2s both;
+      }
+
+      .intro h2 {
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .categories {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        animation: fadeIn 0.8s ease-out 0.4s both;
+      }
+
+      .category-btn {
+        padding: 0.8rem 1.5rem;
+        background-color: var(--button-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .category-btn:hover {
+        background-color: var(--button-hover);
+        transform: translateY(-3px);
+        border-color: var(--accent-color);
+      }
+
+      .category-btn.active {
+        background: linear-gradient(
+          135deg,
+          var(--accent-color),
+          var(--accent-purple)
+        );
+        color: white;
+        border-color: transparent;
+        animation: pulse 2s infinite;
+      }
+
+      .category-btn i {
+        font-size: 0.9rem;
+      }
+
+      .phrases-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+        animation: fadeIn 0.8s ease-out 0.6s both;
+      }
+
+      .phrase-card {
+        background-color: var(--card-bg);
+        border-radius: 16px;
+        padding: 1.5rem;
+        border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .phrase-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(
+          to bottom,
+          var(--accent-color),
+          var(--accent-purple)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .phrase-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent-color);
+        box-shadow: var(--shadow);
+      }
+
+      .phrase-card:hover::before {
+        opacity: 1;
+      }
+
+      .phrase-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 1rem;
+      }
+
+      .phrase-text {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        line-height: 1.4;
+      }
+
+      .audio-btn {
+        background: linear-gradient(
+          135deg,
+          var(--accent-color),
+          var(--accent-purple)
+        );
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+
+      .audio-btn::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        transform: translate(-50%, -50%) scale(0);
+      }
+
+      .audio-btn.playing::after {
+        animation: ripple 0.6s linear;
+      }
+
+      .audio-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(88, 166, 255, 0.6);
+      }
+
+      .phrase-translation {
+        color: var(--accent-green);
+        font-style: italic;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        font-weight: 500;
+        font-size: 1.1rem;
+      }
+
+      .phrase-context {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        margin-top: auto;
+        line-height: 1.5;
+      }
+
+      .phrase-details {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 0.8rem;
+        padding-top: 0.8rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .phrase-details span {
+        font-size: 0.8rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        background: rgba(88, 166, 255, 0.1);
+        border: 1px solid rgba(88, 166, 255, 0.2);
+      }
+
+      .category-title {
+        color: var(--accent-color);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--accent-color);
+        display: none;
+        font-weight: 700;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+
+      .category-title.active {
+        display: flex;
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      .instructions {
+        background-color: rgba(88, 166, 255, 0.1);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-left: 4px solid var(--accent-color);
+        animation: fadeIn 0.8s ease-out 0.3s both;
+      }
+
+      .instructions h3 {
+        color: var(--accent-color);
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .instructions-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+
+      .instructions-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 0.5rem;
+      }
+
+      .instructions-item i {
+        color: var(--accent-color);
+        margin-top: 0.2rem;
+      }
+
+      .stats-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-color);
+        animation: fadeIn 0.8s ease-out 0.4s both;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--accent-color);
+        display: block;
+      }
+
+      .stat-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .audio-player {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--card-bg);
+        padding: 1.5rem;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+        display: none;
+        z-index: 1000;
+        width: 350px;
+        animation: slideInUp 0.3s ease;
+      }
+
+      .audio-player.active {
+        display: block;
+      }
+
+      .audio-player-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .close-player {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: 1.5rem;
+        transition: color 0.3s ease;
+      }
+
+      .close-player:hover {
+        color: var(--accent-pink);
+      }
+
+      footer {
+        background-color: var(--card-bg);
+        color: var(--text-secondary);
+        text-align: center;
+        padding: 2.5rem;
+        margin-top: 3rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .footer-content {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .footer-content h3 {
+        color: var(--accent-color);
+        margin-bottom: 1rem;
+      }
+
+      .app-fab {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(
+          135deg,
+          var(--accent-color),
+          var(--accent-purple)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        box-shadow: 0 4px 15px rgba(88, 166, 255, 0.4);
+        cursor: pointer;
+        z-index: 100;
+        transition: all 0.3s ease;
+        border: none;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      .app-fab:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(88, 166, 255, 0.6);
+      }
+
+      /* Responsividade */
+      @media (max-width: 768px) {
+        .phrases-container {
+          grid-template-columns: 1fr;
+        }
+
+        .categories {
+          overflow-x: auto;
+          justify-content: flex-start;
+          padding-bottom: 0.5rem;
+        }
+
+        .audio-player {
+          width: calc(100% - 40px);
+          bottom: 80px;
+        }
+
+        header h1 {
+          font-size: 2rem;
+        }
+
+        .app-fab {
+          bottom: 80px;
+        }
+
+        .stats-bar {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .intro,
+        .instructions {
+          padding: 1.5rem;
+        }
+
+        .phrase-text {
+          font-size: 1.2rem;
+        }
+
+        .stat-number {
+          font-size: 1.5rem;
+        }
+      }
+
+      /* Estilos para geração de áudio */
+      .audio-generator {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2rem;
+        z-index: 2000;
+        box-shadow: var(--shadow);
+        display: none;
+        width: 90%;
+        max-width: 500px;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .audio-generator.active {
+        display: block;
+      }
+
+      .generator-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1999;
+        display: none;
+      }
+
+      .generator-overlay.active {
+        display: block;
+      }
+
+      .generator-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .close-generator {
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        cursor: pointer;
+        font-size: 1.5rem;
+      }
+
+      .voice-selector {
+        margin: 1.5rem 0;
+      }
+
+      .voice-options {
+        display: flex;
+        gap: 1rem;
+        margin-top: 0.5rem;
+      }
+
+      .voice-option {
+        flex: 1;
+        padding: 0.8rem;
+        background: var(--button-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .voice-option:hover {
+        border-color: var(--accent-color);
+      }
+
+      .voice-option.active {
+        background: rgba(88, 166, 255, 0.2);
+        border-color: var(--accent-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="intro">
+        <h2>Guia Completo de Cumprimentos Diários</h2>
+        <p>
+          Aprenda variações naturais de cumprimentos usadas por nativos em
+          diferentes situações
+        </p>
+      </div>
+
+      <div class="stats-bar" style="display: none">
+        <div class="stat-item">
+          <span class="stat-number" id="totalPhrases">0</span>
+          <span class="stat-label">Expressões</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="totalCategories">0</span>
+          <span class="stat-label">Categorias</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="totalAudio">0</span>
+          <span class="stat-label">Áudios Gerados</span>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <h3>
+          <i class="fas fa-graduation-cap"></i> Como Dominar Cumprimentos em
+          Inglês
+        </h3>
+        <div class="instructions-content">
+          <div class="instructions-item">
+            <i class="fas fa-headphones"></i>
+            <div>
+              <strong>Ouve atentamente</strong>
+              <p>Clique nos botões de áudio para ouvir pronúncia natural</p>
+            </div>
+          </div>
+          <div class="instructions-item">
+            <i class="fas fa-microphone"></i>
+            <div>
+              <strong>Pratique em voz alta</strong>
+              <p>Repita cada frase após ouvir o áudio</p>
+            </div>
+          </div>
+          <div class="instructions-item">
+            <i class="fas fa-random"></i>
+            <div>
+              <strong>Use variações</strong>
+              <p>Aprenda diferentes formas de dizer a mesma coisa</p>
+            </div>
+          </div>
+          <div class="instructions-item">
+            <i class="fas fa-comments"></i>
+            <div>
+              <strong>Contexto é tudo</strong>
+              <p>Entenda quando usar cada expressão</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="categories">
+        <button class="category-btn active" data-category="all">
+          <i class="fas fa-layer-group"></i> Todos
+        </button>
+        <button class="category-btn" data-category="morning">
+          <i class="fas fa-sun"></i> Manhã
+        </button>
+        <button class="category-btn" data-category="afternoon">
+          <i class="fas fa-cloud-sun"></i> Tarde
+        </button>
+        <button class="category-btn" data-category="evening">
+          <i class="fas fa-moon"></i> Noite
+        </button>
+        <button class="category-btn" data-category="informal">
+          <i class="fas fa-user-friends"></i> Informal
+        </button>
+        <button class="category-btn" data-category="formal">
+          <i class="fas fa-briefcase"></i> Formal
+        </button>
+        <button class="category-btn" data-category="casual">
+          <i class="fas fa-smile"></i> Casual
+        </button>
+        <button class="category-btn" data-category="responses">
+          <i class="fas fa-reply"></i> Respostas
+        </button>
+        <button class="category-btn" data-category="slang">
+          <i class="fas fa-fire"></i> Gírias
+        </button>
+      </div>
+
+      <div class="phrases-container" id="phrasesContainer">
+        <!-- Frases serão inseridas aqui via JavaScript -->
+      </div>
+    </div>
+
+    <!-- Botão de ação do app (agora só gerar áudio) -->
+    <!-- <button class="app-fab" id="appFab">
+      <i class="fas fa-wave-square"></i>
+    </button> -->
+
+    <!-- Player de áudio flutuante -->
+    <div class="audio-player" id="audioPlayer">
+      <div class="audio-player-header">
+        <h4 id="nowPlaying">Reproduzindo áudio</h4>
+      </div>
+      <audio controls id="player">
+        Seu navegador não suporta o elemento de áudio.
+      </audio>
+      <div
+        style="
+          margin-top: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <span
+          id="nextPhrase"
+          style="color: var(--text-secondary); font-size: 0.9rem"
+        ></span>
+      </div>
+    </div>
+
+    <!-- Overlay e gerador de áudio -->
+    <div class="generator-overlay" id="generatorOverlay"></div>
+    <div class="audio-generator" id="audioGenerator">
+      <div class="generator-header">
+        <h3><i class="fas fa-wave-square"></i> Gerar Áudio Personalizado</h3>
+        <button class="close-generator" id="closeGenerator">&times;</button>
+      </div>
+      <div>
+        <label for="customText">Digite um texto em inglês:</label>
+        <textarea
+          id="customText"
+          placeholder="Ex: Hey there! How's it going?"
+          style="
+            width: 100%;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            background: var(--button-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            min-height: 100px;
+          "
+        ></textarea>
+      </div>
+      <div class="voice-selector">
+        <label>Selecione o sotaque:</label>
+        <div class="voice-options">
+          <div class="voice-option active" data-voice="en-US">
+            <i class="fas fa-user"></i>
+            <div>Americano</div>
+          </div>
+          <div class="voice-option" data-voice="en-GB">
+            <i class="fas fa-user-tie"></i>
+            <div>Britânico</div>
+          </div>
+          <div class="voice-option" data-voice="en-AU">
+            <i class="fas fa-globe-asia"></i>
+            <div>Australiano</div>
+          </div>
+        </div>
+      </div>
+      <button
+        id="generateBtn"
+        style="
+          width: 100%;
+          padding: 1rem;
+          background: linear-gradient(
+            135deg,
+            var(--accent-color),
+            var(--accent-purple)
+          );
+          color: white;
+          border: none;
+          border-radius: 8px;
+          cursor: pointer;
+          font-weight: 600;
+          margin-top: 1rem;
+        "
+      >
+        <i class="fas fa-play"></i> Gerar e Ouvir
+      </button>
+    </div>
+
+    <footer>
+      <div class="footer-content">
+        <h3>Fluência em 6 Meses</h3>
+        <p>
+          Parte do projeto
+          <a
+            href="../6meses.html"
+            target="_blank"
+            style="
+              color: var(--accent-color);
+              text-decoration: none;
+              font-weight: 600;
+            "
+            >Fluência em 6 Meses</a
+          >
+        </p>
+        <p><i class="far fa-copyright"></i> 2026 - Fluência em 6 Meses</p>
+      </div>
+    </footer>
+
+    <a href="index.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+      <span>Voltar</span>
+    </a>
+
+    <script>
+      // Dados expandidos das frases de cumprimento
+      const phrasesData = [
+        // CUMPRIMENTOS MATINAIS (Morning Greetings)
+        {
+          id: 1,
+          text: "Good morning!",
+          translation: "Bom dia!",
+          category: "morning",
+          context: "Formal e tradicional. Usado até o meio-dia.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Good%20Morning!",
+        },
+        {
+          id: 2,
+          text: "Morning!",
+          translation: "Bom dia! (informal)",
+          category: "morning",
+          context: "Versão curta e informal de 'Good morning'.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Morning!",
+        },
+        {
+          id: 3,
+          text: "Top of the morning to you!",
+          translation: "Bom dia para você!",
+          category: "morning",
+          context: "Expressão irlandesa, muito amigável.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Top%20of%20the%20morning%20to%20you!",
+        },
+        {
+          id: 4,
+          text: "Rise and shine!",
+          translation: "Acorde e brilhe!",
+          category: "morning",
+          context: "Usado para acordar alguém de forma animada.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Rise%20and%20shine!",
+        },
+        {
+          id: 5,
+          text: "Bright and early!",
+          translation: "Cedo e brilhante!",
+          category: "morning",
+          context: "Quando alguém chega cedo e disposto.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Bright%20and%20early!",
+        },
+        {
+          id: 6,
+          text: "Morning, sunshine!",
+          translation: "Bom dia, raio de sol!",
+          category: "morning",
+          context: "Carinhoso, para pessoas próximas.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Morning%20sunshine!",
+        },
+        {
+          id: 7,
+          text: "How's your morning going?",
+          translation: "Como está indo sua manhã?",
+          category: "morning",
+          context: "Pergunta amigável durante a manhã.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%27s%20your%20morning%20going%3F",
+        },
+        {
+          id: 8,
+          text: "Good day to you!",
+          translation: "Bom dia para você!",
+          category: "morning",
+          context: "Formal e um pouco antiquado, mas educado.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Good%20day%20to%20you!",
+        },
+
+        // CUMPRIMENTOS VESPERTINOS (Afternoon Greetings)
+        {
+          id: 9,
+          text: "Good afternoon!",
+          translation: "Boa tarde!",
+          category: "afternoon",
+          context: "Formal, usado do meio-dia até às 18h.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Good%20afternoon!",
+        },
+        {
+          id: 10,
+          text: "Afternoon!",
+          translation: "Boa tarde! (informal)",
+          category: "afternoon",
+          context: "Versão curta e casual.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Afternoon!",
+        },
+        {
+          id: 11,
+          text: "How's your afternoon?",
+          translation: "Como está sua tarde?",
+          category: "afternoon",
+          context: "Pergunta amigável durante a tarde.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%27s%20your%20afternoon%3F",
+        },
+        {
+          id: 12,
+          text: "Hope you're having a good afternoon!",
+          translation: "Espero que esteja tendo uma boa tarde!",
+          category: "afternoon",
+          context: "Educado e considerado.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Hope%20you%27re%20having%20a%20good%20afternoon!",
+        },
+
+        // CUMPRIMENTOS NOTURNOS (Evening Greetings)
+        {
+          id: 13,
+          text: "Good evening!",
+          translation: "Boa noite! (saudação)",
+          category: "evening",
+          context: "Formal, usado a partir das 18h como saudação.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Good%20evening!",
+        },
+        {
+          id: 14,
+          text: "Evening!",
+          translation: "Boa noite! (informal)",
+          category: "evening",
+          context: "Versão curta e casual.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Evening!",
+        },
+        {
+          id: 15,
+          text: "How's your evening?",
+          translation: "Como está sua noite?",
+          category: "evening",
+          context: "Pergunta amigável durante a noite.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%27s%20your%20evening%3F",
+        },
+        {
+          id: 16,
+          text: "Good night!",
+          translation: "Boa noite! (despedida)",
+          category: "evening",
+          context: "Usado para se despedir à noite ou antes de dormir.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Good%20night!",
+        },
+
+        // CUMPRIMENTOS INFORMAL (Informal Greetings)
+        {
+          id: 17,
+          text: "Hi!",
+          translation: "Oi!",
+          category: "informal",
+          context: "Versão informal de 'Hello'.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Hi!",
+        },
+        {
+          id: 18,
+          text: "Hey!",
+          translation: "Ei!",
+          category: "informal",
+          context: "Informal e casual.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Hey!",
+        },
+        {
+          id: 19,
+          text: "Hey there!",
+          translation: "Ei, olá!",
+          category: "informal",
+          context: "Amigável e descontraído.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Hey%20there!",
+        },
+        {
+          id: 20,
+          text: "Yo!",
+          translation: "E aí!",
+          category: "informal",
+          context: "Muito informal, usado entre amigos.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Yo!",
+        },
+
+        // CUMPRIMENTOS CASUAL (Casual Greetings)
+        {
+          id: 21,
+          text: "What's up?",
+          translation: "E aí? / O que há?",
+          category: "casual",
+          context: "Muito comum entre amigos.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=What%27s%20up%3F",
+        },
+        {
+          id: 22,
+          text: "How's it going?",
+          translation: "Como vai?",
+          category: "casual",
+          context: "Informal e amigável.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%27s%20it%20going%3F",
+        },
+        {
+          id: 23,
+          text: "How are things?",
+          translation: "Como estão as coisas?",
+          category: "casual",
+          context: "Pergunta geral sobre a vida.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%20are%20things%3F",
+        },
+        {
+          id: 24,
+          text: "How's life?",
+          translation: "Como está a vida?",
+          category: "casual",
+          context: "Pergunta pessoal e amigável.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%27s%20life%3F",
+        },
+        {
+          id: 25,
+          text: "How have you been?",
+          translation: "Como você tem passado?",
+          category: "casual",
+          context: "Para alguém que não vê há tempo.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%20have%20you%20been%3F",
+        },
+
+        // CUMPRIMENTOS FORMAL (Formal Greetings)
+        {
+          id: 26,
+          text: "Hello!",
+          translation: "Olá!",
+          category: "formal",
+          context: "Saudação universal, apropriada para qualquer situação.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Hello!",
+        },
+        {
+          id: 27,
+          text: "How do you do?",
+          translation: "Como vai? (formal)",
+          category: "formal",
+          context: "Muito formal, comum no inglês britânico.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%20do%20you%20do%3F",
+        },
+        {
+          id: 28,
+          text: "Pleased to meet you.",
+          translation: "Prazer em conhecê-lo(a).",
+          category: "formal",
+          context: "Educado e formal quando conhece alguém.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Pleased%20to%20meet%20you.",
+        },
+        {
+          id: 29,
+          text: "It's a pleasure to meet you.",
+          translation: "É um prazer conhecê-lo(a).",
+          category: "formal",
+          context: "Muito formal e educado.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=It%27s%20a%20pleasure%20to%20meet%20you.",
+        },
+
+        // RESPOSTAS (Responses)
+        {
+          id: 30,
+          text: "I'm good, thanks!",
+          translation: "Estou bem, obrigado!",
+          category: "responses",
+          context: "Resposta positiva e comum.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=I%27m%20good%2C%20thanks!",
+        },
+        {
+          id: 31,
+          text: "Not too bad.",
+          translation: "Não tão mal.",
+          category: "responses",
+          context: "Resposta modesta e neutra.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Not%20too%20bad.",
+        },
+        {
+          id: 32,
+          text: "Can't complain.",
+          translation: "Não posso reclamar.",
+          category: "responses",
+          context: "Otimista e positiva.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Can%27t%20complain.",
+        },
+        {
+          id: 33,
+          text: "Same old, same old.",
+          translation: "Sempre a mesma coisa.",
+          category: "responses",
+          context: "Quando nada de novo está acontecendo.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Same%20old%20same%20old.",
+        },
+        {
+          id: 34,
+          text: "I'm hanging in there.",
+          translation: "Estou me segurando.",
+          category: "responses",
+          context: "Quando as coisas estão difíceis, mas você está lidando.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=I%27m%20hanging%20in%20there.",
+        },
+        {
+          id: 35,
+          text: "Living the dream!",
+          translation: "Vivendo o sonho!",
+          category: "responses",
+          context: "Ironicamente positivo, geralmente quando não está.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Living%20the%20dream!",
+        },
+
+        // GÍRIAS E EXPRESSÕES (Slang)
+        {
+          id: 36,
+          text: "Sup?",
+          translation: "E aí?",
+          category: "slang",
+          context: "Abreviação muito informal de 'What's up?'",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Sup%3F",
+        },
+        {
+          id: 37,
+          text: "Howdy!",
+          translation: "Olá!",
+          category: "slang",
+          context: "Do oeste americano, muito informal.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Howdy!",
+        },
+        {
+          id: 38,
+          text: "Hey, what's cracking?",
+          translation: "Ei, o que está rolando?",
+          category: "slang",
+          context: "Muito informal, entre jovens.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Hey%20what%27s%20cracking%3F",
+        },
+        {
+          id: 39,
+          text: "What's the vibe?",
+          translation: "Qual é a vibe?",
+          category: "slang",
+          context: "Pergunta sobre o ambiente ou situação.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=What%27s%20the%20vibe%3F",
+        },
+        {
+          id: 40,
+          text: "Long time no see!",
+          translation: "Há quanto tempo!",
+          category: "slang",
+          context: "Quando vê alguém depois de muito tempo.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Long%20time%20no%20see!",
+        },
+        {
+          id: 41,
+          text: "Look who it is!",
+          translation: "Olha quem está aqui!",
+          category: "slang",
+          context: "Surpresa ao ver alguém.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Look%20who%20it%20is!",
+        },
+        {
+          id: 42,
+          text: "Fancy meeting you here!",
+          translation: "Que coincidência encontrá-lo aqui!",
+          category: "slang",
+          context: "Surpresa agradável ao encontrar alguém.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=Fancy%20meeting%20you%20here!",
+        },
+        {
+          id: 43,
+          text: "What's good?",
+          translation: "O que há de bom?",
+          category: "slang",
+          context: "Informal, entre amigos.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=What%27s%20good%3F",
+        },
+        {
+          id: 44,
+          text: "How's everything?",
+          translation: "Como está tudo?",
+          category: "slang",
+          context: "Pergunta geral sobre a vida.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%27s%20everything%3F",
+        },
+        {
+          id: 45,
+          text: "What's happening?",
+          translation: "O que está acontecendo?",
+          category: "slang",
+          context: "Informal, alternativa a 'What's up?'",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=What%27s%20happening%3F",
+        },
+        {
+          id: 46,
+          text: "All good?",
+          translation: "Tudo bem?",
+          category: "slang",
+          context: "Versão curta e informal.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=All%20good%3F",
+        },
+        {
+          id: 47,
+          text: "You alright?",
+          translation: "Você está bem?",
+          category: "slang",
+          context: "Comum no inglês britânico.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=You%20alright%3F",
+        },
+        {
+          id: 48,
+          text: "How's tricks?",
+          translation: "Como vão as coisas?",
+          category: "slang",
+          context: "Informal e um pouco antiquado.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%27s%20tricks%3F",
+        },
+        {
+          id: 49,
+          text: "What's new?",
+          translation: "O que há de novo?",
+          category: "slang",
+          context: "Pergunta sobre novidades.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=What%27s%20new%3F",
+        },
+        {
+          id: 50,
+          text: "How's your day treating you?",
+          translation: "Como o dia está te tratando?",
+          category: "slang",
+          context: "Pergunta carinhosa sobre o dia.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%27s%20your%20day%20treating%20you%3F",
+        },
+        {
+          id: 51,
+          text: "What's the word?",
+          translation: "Qual é a palavra?",
+          category: "slang",
+          context: "Informal, pedindo notícias.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=What%27s%20the%20word%3F",
+        },
+        {
+          id: 52,
+          text: "How's the world treating you?",
+          translation: "Como o mundo está te tratando?",
+          category: "slang",
+          context: "Pergunta filosófica e amigável.",
+          // audioSrc:
+          //   "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=en&q=How%27s%20the%20world%20treating%20you%3F",
+        },
+        {
+          id: 53,
+          text: "Doing great, thanks for asking!",
+          translation: "Indo bem, obrigado por perguntar!",
+          category: "responses",
+          context: "Resposta entusiasmada e educada.",
+        },
+        {
+          id: 54,
+          text: "I've been better.",
+          translation: "Já estive melhor.",
+          category: "responses",
+          context: "Resposta que indica dificuldades.",
+        },
+        {
+          id: 55,
+          text: "Things are looking up!",
+          translation: "As coisas estão melhorando!",
+          category: "responses",
+          context: "Resposta otimista sobre mudanças positivas.",
+        },
+        {
+          id: 56,
+          text: "Just keeping my head above water.",
+          translation: "Apenas mantendo minha cabeça acima da água.",
+          category: "responses",
+          context: "Quando está lutando mas conseguindo lidar.",
+        },
+        {
+          id: 57,
+          text: "Blessed and highly favored!",
+          translation: "Abençoado e muito favorecido!",
+          category: "responses",
+          context: "Resposta muito positiva e grata.",
+        },
+        {
+          id: 58,
+          text: "Better than I deserve!",
+          translation: "Melhor do que mereço!",
+          category: "responses",
+          context: "Resposta modesta e humilde.",
+        },
+        {
+          id: 59,
+          text: "You know, can't complain, life is good.",
+          translation: "Sabe, não posso reclamar, a vida é boa.",
+          category: "responses",
+          context: "Resposta reflexiva e positiva.",
+        },
+        {
+          id: 60,
+          text: "I'm doing my best.",
+          translation: "Estou fazendo o meu melhor.",
+          category: "responses",
+          context: "Resposta honesta em tempos difíceis.",
+        },
+        {
+          id: 61,
+          text: "I'm struggling a bit.",
+          translation: "Estou tendo dificuldades.",
+          category: "responses",
+          context: "Resposta honesta quando as coisas estão difíceis.",
+        },
+        {
+          id: 62,
+          text: "Not having the best day.",
+          translation: "Não estou tendo o melhor dia.",
+          category: "responses",
+          context: "Indicando que o dia não está indo bem.",
+        },
+        {
+          id: 63,
+          text: "Honestly, I've been better.",
+          translation: "Honestamente, já estive melhor.",
+          category: "responses",
+          context: "Resposta sincera sobre dificuldades atuais.",
+        },
+        {
+          id: 64,
+          text: "Things have been tough lately.",
+          translation: "As coisas têm sido difíceis ultimamente.",
+          category: "responses",
+          context: "Compartilhando que está passando por momento difícil.",
+        },
+        {
+          id: 65,
+          text: "I'm going through a rough patch.",
+          translation: "Estou passando por uma fase difícil.",
+          category: "responses",
+          context: "Indicando período desafiador.",
+        },
+        {
+          id: 66,
+          text: "Not gonna lie, it's been hard.",
+          translation: "Não vou mentir, tem sido difícil.",
+          category: "responses",
+          context: "Resposta sincera e vulnerável.",
+        },
+        {
+          id: 67,
+          text: "I could use some good news right now.",
+          translation: "Eu poderia usar uma boa notícia agora.",
+          category: "responses",
+          context: "Sugerindo que está precisando de coisas positivas.",
+        },
+        {
+          id: 68,
+          text: "I'm not doing so great, to be honest.",
+          translation: "Não estou indo tão bem, para ser honesto.",
+          category: "responses",
+          context: "Compartilhando honestamente que está mal.",
+        },
+      ];
+
+      // Elementos DOM
+      const phrasesContainer = document.getElementById("phrasesContainer");
+      const categoryButtons = document.querySelectorAll(".category-btn");
+      const appFab = document.getElementById("appFab");
+      const generatorOverlay = document.getElementById("generatorOverlay");
+      const audioGenerator = document.getElementById("audioGenerator");
+      const closeGenerator = document.getElementById("closeGenerator");
+      const generateBtn = document.getElementById("generateBtn");
+      const customText = document.getElementById("customText");
+      const voiceOptions = document.querySelectorAll(".voice-option");
+
+      // Variáveis globais
+      let currentCategory = "all";
+      let selectedVoice = "en-US";
+
+      // Inicializar o site
+      function init() {
+        renderPhrases("all");
+        setupEventListeners();
+      }
+
+      // Renderizar frases com base na categoria
+      function renderPhrases(category) {
+        phrasesContainer.innerHTML = "";
+
+        const filteredPhrases =
+          category === "all"
+            ? phrasesData
+            : phrasesData.filter((phrase) => phrase.category === category);
+
+        filteredPhrases.forEach((phrase) => {
+          const phraseCard = document.createElement("div");
+          phraseCard.className = "phrase-card";
+          phraseCard.setAttribute("data-category", phrase.category);
+
+          phraseCard.innerHTML = `
+                    <div class="phrase-header">
+                        <div class="phrase-text">${phrase.text}</div>
+                        <button class="audio-btn" data-audio="${
+                          phrase.audioSrc
+                        }" data-text="${phrase.text}">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                    </div>
+                    <div class="phrase-translation">${phrase.translation}</div>
+                    <div class="phrase-context">${phrase.context}</div>
+                    <div class="phrase-details">
+                        <span>${getCategoryName(phrase.category)}</span>
+                        <span>ID: ${phrase.id}</span>
+                    </div>
+                `;
+
+          phrasesContainer.appendChild(phraseCard);
+        });
+      }
+
+      // Obter nome da categoria
+      function getCategoryName(category) {
+        const categoryNames = {
+          morning: "Manhã",
+          afternoon: "Tarde",
+          evening: "Noite",
+          informal: "Informal",
+          formal: "Formal",
+          casual: "Casual",
+          responses: "Resposta",
+          slang: "Gíria",
+        };
+        return categoryNames[category] || category;
+      }
+
+      // Configurar event listeners
+      function setupEventListeners() {
+        // Botões de categoria
+        categoryButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const category = button.getAttribute("data-category");
+
+            // Atualizar botões ativos
+            categoryButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            // Atualizar categoria atual
+            currentCategory = category;
+
+            // Renderizar frases
+            renderPhrases(category);
+          });
+        });
+
+        // Botões de áudio (delegated)
+        phrasesContainer.addEventListener("click", (e) => {
+          if (e.target.closest(".audio-btn")) {
+            const audioBtn = e.target.closest(".audio-btn");
+            const audioSrc = audioBtn.getAttribute("data-audio");
+            const phraseText = audioBtn.getAttribute("data-text");
+
+            // Adicionar efeito visual de playing
+            document.querySelectorAll(".audio-btn").forEach((btn) => {
+              btn.classList.remove("playing");
+            });
+            audioBtn.classList.add("playing");
+
+            playAudio(audioSrc, phraseText);
+          }
+        });
+
+        // Botão de gerar áudio
+        appFab.addEventListener("click", () => {
+          generatorOverlay.classList.add("active");
+          audioGenerator.classList.add("active");
+        });
+
+        // Fechar gerador de áudio
+        closeGenerator.addEventListener("click", () => {
+          closeModal();
+        });
+
+        generatorOverlay.addEventListener("click", () => {
+          closeModal();
+        });
+
+        // Selecionar voz
+        voiceOptions.forEach((option) => {
+          option.addEventListener("click", () => {
+            voiceOptions.forEach((opt) => opt.classList.remove("active"));
+            option.classList.add("active");
+            selectedVoice = option.getAttribute("data-voice");
+          });
+        });
+
+        // Gerar áudio customizado
+        generateBtn.addEventListener("click", generateCustomAudio);
+      }
+
+      // Função para fechar o modal
+      function closeModal() {
+        generatorOverlay.classList.remove("active");
+        audioGenerator.classList.remove("active");
+      }
+
+      // Reproduzir áudio individual
+      function playAudio(audioSrc, phraseText) {
+        const audioPlayer = document.getElementById("audioPlayer");
+        const nowPlaying = document.getElementById("nowPlaying");
+
+        // Parar qualquer áudio anterior
+        if (window.speechSynthesis) {
+          speechSynthesis.cancel();
+        }
+
+        // Criar novo utterance
+        const utterance = new SpeechSynthesisUtterance(phraseText);
+        utterance.lang = "en-US";
+        utterance.rate = 0.9; // Velocidade natural
+        utterance.pitch = 1.0;
+        utterance.volume = 1;
+
+        // Configurar eventos
+        utterance.onstart = () => {
+          // Adicionar efeito visual
+          const audioBtn = document.querySelector(
+            `.audio-btn[data-text="${phraseText}"]`
+          );
+          if (audioBtn) {
+            audioBtn.classList.add("playing");
+            audioBtn.innerHTML = '<i class="fas fa-stop"></i>';
+          }
+
+          nowPlaying.textContent = `Reproduzindo: "${phraseText}"`;
+          audioPlayer.classList.add("active");
+        };
+
+        utterance.onend = () => {
+          // Remover efeito visual
+          const audioBtn = document.querySelector(
+            `.audio-btn[data-text="${phraseText}"]`
+          );
+          if (audioBtn) {
+            audioBtn.classList.remove("playing");
+            audioBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+          }
+
+          // Esconder player após 2 segundos
+          setTimeout(() => {
+            audioPlayer.classList.remove("active");
+          }, 2000);
+        };
+
+        utterance.onerror = (event) => {
+          console.error("Erro na síntese de voz:", event);
+          alert(
+            "Não foi possível reproduzir o áudio. Verifique se seu navegador suporta síntese de voz."
+          );
+        };
+
+        // Selecionar voz
+        const voices = speechSynthesis.getVoices();
+        const englishVoice = voices.find(
+          (voice) =>
+            voice.lang.startsWith("en-") &&
+            (voice.name.includes("Google") || voice.name.includes("English"))
+        );
+
+        if (englishVoice) {
+          utterance.voice = englishVoice;
+        }
+
+        // Falar
+        speechSynthesis.speak(utterance);
+      }
+
+      // Gerar áudio customizado
+      function generateCustomAudio() {
+        const text = customText.value.trim();
+        if (!text) {
+          alert("Por favor, digite um texto para gerar o áudio!");
+          return;
+        }
+
+        // Codificar texto para URL
+        const encodedText = encodeURIComponent(text);
+
+        // Usar a API do Google Translate para TTS
+        const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=${selectedVoice}&q=${encodedText}`;
+
+        // Criar elemento de áudio temporário para tocar
+        const tempAudio = new Audio(audioUrl);
+        tempAudio.play();
+
+        // Mostrar o player principal com o áudio gerado
+        const player = document.getElementById("player");
+        const audioPlayer = document.getElementById("audioPlayer");
+        const nowPlaying = document.getElementById("nowPlaying");
+
+        player.src = audioUrl;
+        nowPlaying.textContent = `Reproduzindo: "${text}"`;
+        audioPlayer.classList.add("active");
+
+        alert("Áudio gerado com sucesso! Modal fechará em 5 segundos...");
+      }
+
+      // Inicializar o site quando o DOM estiver carregado
+      document.addEventListener("DOMContentLoaded", init);
+    </script>
+  </body>
+</html>
