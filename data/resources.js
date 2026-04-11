@@ -150,7 +150,7 @@ export const resourcesDatabase = {
   "🧪 Teste de Nivelamento": {
     videos: [],
     materials: [
-      "Teste de Nivelamento - Projeto Fluente em 6 Meses (link: ../pages/test.html)",
+      "Teste de Nivelamento - Projeto Fluente em 6 Meses (link: ../6meses/pages/test.html)",
     ],
     learning: [
       "60 questões - Rápido e preciso",
@@ -160,9 +160,9 @@ export const resourcesDatabase = {
   "📚 Vocabulário Essencial": {
     videos: [],
     materials: [
-      "Frases de Alta Frequência (link: ../pages/frequentes/frasesfrequentes.html)",
-      "100 Verbos Mais Frequentes (link: ../pages/frequentes/verbosfrequentes.html)",
-      "100 Palavras Mais Frequentes (link: ../pages/frequentes/palavras.html)",
+      "Frases de Alta Frequência (link: ../6meses/pages/frequentes/frasesfrequentes.html)",
+      "100 Verbos Mais Frequentes (link: ../6meses/pages/frequentes/verbosfrequentes.html)",
+      "100 Palavras Mais Frequentes (link: ../6meses/pages/frequentes/palavras.html)",
     ],
     learning: [
       "Mais de 80 frases essenciais para comunicação diária",
@@ -272,7 +272,7 @@ export const resourcesDatabase = {
       },
     ],
     materials: [
-      "Saudações comuns em inglês com áudio (link: ../pages/greetings.html)",
+      "Saudações comuns em inglês com áudio (link: ../6meses/pages/greetings.html)",
       "Exercício: Pratique cumprimentar em diferentes situações do dia a dia. Repita em voz alta.",
     ],
     learning: [
@@ -302,7 +302,7 @@ export const resourcesDatabase = {
       },
     ],
     materials: [
-      "Frases para Autointrodução (link: ../pages/introductions.html)",
+      "Frases para Autointrodução (link: ../6meses/pages/introductions.html)",
       "Exercício: Criar seu Perfil em Inglês",
     ],
     learning: [
@@ -383,7 +383,7 @@ export const resourcesDatabase = {
       },
     ],
     materials: [
-      "Árvore Genealógica (link: ../pages/week2/familyd.html)",
+      "Árvore Genealógica (link: ../6meses/pages/week2/familyd.html)",
       "Jogo: Memory Game - Family Members (link: https://wordwall.net/pt/resource/18546561/family-members-9-members)",
       "Lista de Vocabulário: Pais, irmãos, avós, tios, primos, sobrinhos",
       "Exercício: Crie sua própria árvore genealógica em inglês com nomes e relações",
@@ -413,7 +413,7 @@ export const resourcesDatabase = {
       },
     ],
     materials: [
-      "Árvore Genealógica (link: ../pages/week2/familyinlaw.html)",
+      "Árvore Genealógica (link: ../6meses/pages/week2/familyinlaw.html)",
       "Jogo: Memory Game - Family Members (link: https://wordwall.net/pt/resource/18546561/family-members-9-members)",
       "Lista de Vocabulário: cunhado (brother-in-law), sogro (father-in-law), genro (son-in-law), nora (daughter-in-law)",
       "Exercício: Crie sua própria árvore genealógica em inglês com nomes e relações",
@@ -680,7 +680,7 @@ export const resourcesDatabase = {
       "- Não diga 'I have X years' (errado) → 'I am X years old' (correto)",
       "- Pronuncie 'th' corretamente em 'three', 'thank you'",
       "📚 Recursos para Prática:",
-      "Frases para Autointrodução (link: ../pages/introductions.html)",
+      "Frases para Autointrodução (link: ../6meses/pages/introductions.html)",
       "Vídeo Guia Completo (link: https://youtu.be/TvZ27eIC4O0)",
       "Marcar Aula Prática (link: https://wa.me/5524992046467?text=Vim%20marcar%20a%20aula%20prática%20de%20Diálogo%20de%20apresentação)",
     ],
@@ -719,7 +719,7 @@ export const resourcesDatabase = {
       "Estados civis: single, married, divorced, engaged, widowed",
       "Idades: toddler (1-3), child (4-12), teenager (13-19), adult (20+)",
       "📚 Recursos para Estudo:",
-      "Árvore Genealógica Interativa (link: ../pages/week2/familyd.html)",
+      "Árvore Genealógica Interativa (link: ../6meses/pages/week2/familyd.html)",
       "Jogo Memory da Família (link: https://wordwall.net/pt/resource/18546561/family-members-9-members)",
       "Marcar Aula Prática (link: https://wa.me/5524992046467?text=Vim%20marcar%20a%20aula%20prática%20de%20Conte%20sobre%20sua%20família)",
     ],
