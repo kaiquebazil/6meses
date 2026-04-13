@@ -529,19 +529,3 @@ body {
   font-size: 14px;
 }
 
-/* Estilo para containers de anúncios */
-.ad-container, .ad-card {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    margin: 20px 0;
-}
-
-/* Esconder anúncios em telas muito pequenas se necessário */
-@media (max-width: 320px) {
-    .adsbygoogle { display: none !important; }
-}
