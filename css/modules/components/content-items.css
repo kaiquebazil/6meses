@@ -1,0 +1,201 @@
+/* ============================================
+   CONTENT ITEMS - Itens de Conteúdo e Interações
+   ============================================ */
+
+/* Header do Conteúdo */
+.content-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Checkbox Customizado */
+.content-checkbox {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid var(--border-color);
+  background-color: var(--card-bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.content-checkbox:hover {
+  border-color: var(--accent-color);
+}
+
+.content-checkbox.checked {
+  background-color: var(--accent-green);
+  border-color: var(--accent-green);
+}
+
+.content-checkbox.checked i {
+  color: white;
+  font-size: 10px;
+}
+
+/* Label do Conteúdo */
+.content-label {
+  font-size: 13px;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.content-label.completed {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+/* Botões de Toggle */
+.toggle-btn,
+.toggle-week-btn {
+  background: none;
+  border: none;
+  color: var(--accent-yellow);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.toggle-btn:hover,
+.toggle-week-btn:hover {
+  background-color: rgba(255, 203, 107, 0.1);
+}
+
+.toggle-btn i,
+.toggle-week-btn i {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-btn.expanded i,
+.toggle-week-btn.active i {
+  transform: rotate(180deg);
+}
+
+/* Conteúdo Expandido */
+.expanded-content,
+.week-zero-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  margin-top: 0;
+}
+
+.expanded-content.active,
+.week-zero-content.active {
+  max-height: 1000px;
+  margin-top: 15px;
+}
+
+/* Seções dentro do Conteúdo Expandido */
+.resources-section {
+  margin-bottom: 15px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: var(--accent-color);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.section-header i {
+  font-size: 14px;
+}
+
+/* Seção de Aprendizado */
+.learning-section {
+  background: rgba(59, 185, 80, 0.05);
+  border-radius: var(--border-radius-md);
+  padding: 15px;
+  border-left: 4px solid var(--accent-green);
+  margin-top: 15px;
+}
+
+.learning-header {
+  color: #2d3748;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.learning-header i {
+  color: #4a6bff;
+  font-size: 1.2rem;
+}
+
+.learning-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.learning-item {
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.learning-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.learning-item i {
+  color: #10b981;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.learning-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Estilo quando conteúdo está completo */
+.content-item.completed .learning-section {
+  background: linear-gradient(135deg, #f0fff4 0%, #dcfce7 100%);
+  border-left-color: #10b981;
+}
+
+.content-item.completed .learning-header i {
+  color: #10b981;
+}
+
+.content-item.completed .learning-item {
+  border-left-color: #10b981;
+}
+
+/* Animação de Aprendizado */
+.learning-item {
+  animation: slideInLearning 0.3s ease forwards;
+  animation-delay: calc(var(--item-index, 0) * 0.05s);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .learning-item {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+}

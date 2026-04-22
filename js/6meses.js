@@ -2026,8 +2026,225 @@ document.addEventListener("DOMContentLoaded", function () {
       filterButtons.forEach((btn) => btn.classList.remove("active"));
       this.classList.add("active");
 
+      // Limpar busca ao mudar filtro
+      searchInput.value = "";
+      searchClearBtn.style.display = "none";
+      searchResults.innerHTML = "";
+      document.body.classList.remove("searching");
+      clearSearchHighlights();
+
       renderStudyPlan(filter);
     });
+  });
+
+  // ========== SISTEMA DE BUSCA ==========
+  const searchInput = document.getElementById("search-input");
+  const searchClearBtn = document.getElementById("search-clear");
+  const searchResults = document.getElementById("search-results");
+
+  if (searchInput) {
+    let searchDebounceTimer;
+
+    searchInput.addEventListener("input", function () {
+      const query = this.value.trim().toLowerCase();
+
+      // Mostrar/esconder botão de limpar
+      searchClearBtn.style.display = query ? "flex" : "none";
+
+      // Debounce para busca
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        if (query) {
+          performSearch(query);
+        } else {
+          clearSearch();
+        }
+      }, 150);
+    });
+
+    // Buscar ao pressionar Enter
+    searchInput.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        const query = this.value.trim().toLowerCase();
+        if (query) {
+          performSearch(query);
+        }
+      }
+    });
+  }
+
+  if (searchClearBtn) {
+    searchClearBtn.addEventListener("click", function () {
+      searchInput.value = "";
+      searchClearBtn.style.display = "none";
+      searchResults.innerHTML = "";
+      clearSearch();
+      searchInput.focus();
+    });
+  }
+
+  // Função de busca
+  function performSearch(query) {
+    document.body.classList.add("searching");
+    let matchCount = 0;
+    let totalChecked = 0;
+
+    // Buscar em meses e semanas
+    const monthCards = document.querySelectorAll(".month-card");
+    monthCards.forEach((monthCard) => {
+      let monthHasMatch = false;
+      const weekCards = monthCard.querySelectorAll(".week-card");
+
+      weekCards.forEach((weekCard) => {
+        let weekHasMatch = false;
+        const contentItems = weekCard.querySelectorAll(".content-item");
+
+        contentItems.forEach((item) => {
+          const label = item.querySelector(".content-label");
+          if (!label) return;
+
+          const text = label.textContent.toLowerCase();
+          totalChecked++;
+
+          if (text.includes(query)) {
+            item.classList.add("has-match");
+            highlightText(label, query);
+            weekHasMatch = true;
+            monthHasMatch = true;
+            matchCount++;
+          } else {
+            item.classList.remove("has-match");
+            removeHighlight(label);
+          }
+        });
+
+        if (weekHasMatch) {
+          weekCard.classList.add("has-match");
+        } else {
+          weekCard.classList.remove("has-match");
+        }
+      });
+
+      if (monthHasMatch) {
+        monthCard.classList.add("has-match");
+      } else {
+        monthCard.classList.remove("has-match");
+      }
+    });
+
+    // Buscar em conteúdos complementares
+    const complementaryCards = document.querySelectorAll(".complementary-card");
+    complementaryCards.forEach((card) => {
+      const title = card.querySelector(".complementary-card-title h3");
+      const desc = card.querySelector(".complementary-card-desc");
+
+      let cardHasMatch = false;
+      if (title && title.textContent.toLowerCase().includes(query)) {
+        cardHasMatch = true;
+      }
+      if (desc && desc.textContent.toLowerCase().includes(query)) {
+        cardHasMatch = true;
+      }
+
+      if (cardHasMatch) {
+        card.classList.add("has-match");
+        if (title) highlightText(title, query);
+        if (desc) highlightText(desc, query);
+        matchCount++;
+      } else {
+        card.classList.remove("has-match");
+        if (title) removeHighlight(title);
+        if (desc) removeHighlight(desc);
+      }
+    });
+
+    // Atualizar contador de resultados
+    if (matchCount === 0) {
+      searchResults.innerHTML = `<span class="no-results"><i class="fas fa-exclamation-circle"></i> Nenhum resultado encontrado</span>
+      `;
+    } else {
+      const resultText = matchCount === 1 ? "resultado" : "resultados";
+      searchResults.innerHTML = `
+        <span class="has-results"><i class="fas fa-check-circle"></i> ${matchCount} ${resultText} encontrado${matchCount === 1 ? "" : "s"}</span>
+      `;
+    }
+  }
+
+  // Limpar busca
+  function clearSearch() {
+    document.body.classList.remove("searching");
+    clearSearchHighlights();
+
+    // Remover classes de match
+    document.querySelectorAll(".has-match").forEach((el) => {
+      el.classList.remove("has-match");
+    });
+
+    searchResults.innerHTML = "";
+  }
+
+  // Destacar texto encontrado
+  function highlightText(element, query) {
+    if (!element || element.dataset.hasHighlight) return;
+
+    const originalText = element.textContent;
+    const regex = new RegExp(`(${escapeRegex(query)})`, "gi");
+    const highlighted = originalText.replace(
+      regex,
+      '<span class="search-highlight">$1</span>'
+    );
+
+    element.innerHTML = highlighted;
+    element.dataset.originalText = originalText;
+    element.dataset.hasHighlight = "true";
+  }
+
+  // Remover destaque
+  function removeHighlight(element) {
+    if (!element || !element.dataset.hasHighlight) return;
+
+    element.textContent = element.dataset.originalText || element.textContent;
+    delete element.dataset.hasHighlight;
+    delete element.dataset.originalText;
+  }
+
+  // Limpar todos os destaques
+  function clearSearchHighlights() {
+    document.querySelectorAll(".search-highlight").forEach((el) => {
+      const parent = el.parentElement;
+      if (parent) {
+        parent.textContent = parent.dataset.originalText || parent.textContent;
+        delete parent.dataset.hasHighlight;
+        delete parent.dataset.originalText;
+      }
+    });
+  }
+
+  // Escapar caracteres especiais para regex
+  function escapeRegex(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  // Atalho de teclado Ctrl+K ou Cmd+K para focar na busca
+  document.addEventListener("keydown", function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+
+    // Esc para limpar busca
+    if (e.key === "Escape" && searchInput === document.activeElement) {
+      if (searchInput.value) {
+        searchInput.value = "";
+        searchClearBtn.style.display = "none";
+        searchResults.innerHTML = "";
+        clearSearch();
+      } else {
+        searchInput.blur();
+      }
+    }
   });
 
   // Reiniciar progresso

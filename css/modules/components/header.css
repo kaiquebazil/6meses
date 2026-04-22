@@ -1,0 +1,98 @@
+/* ============================================
+   HEADER - Cabeçalho e Informações da App
+   ============================================ */
+
+/* Header Principal */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  padding: 12px 20px; /* Reduz padding vertical */
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  gap: 15px;
+}
+
+.app-title {
+  font-size: 22px; /* Reduz um pouco se quiser */
+  font-weight: 800;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* App Info */
+.app-info {
+  display: flex;
+  align-items: center;
+}
+
+.app-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.app-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 10px rgba(79, 172, 254, 0.3));
+}
+
+/* Header Direito */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Informações de Data */
+.date-info {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--border-radius-md);
+  padding: 8px 16px;
+  border: 1px solid var(--glass-border);
+  text-align: right;
+}
+
+.current-day {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 2px;
+}
+
+.current-date {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Responsividade do Header */
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .app-title {
+    font-size: 20px;
+  }
+
+  .date-info {
+    text-align: left;
+    width: 100%;
+  }
+}

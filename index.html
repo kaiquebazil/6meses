@@ -15,7 +15,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="css/6meses.css" />
+    <link rel="stylesheet" href="css/d.css">
+    <link rel="stylesheet" href="css/modules/main.css" />
     <!-- Adicione estas tags no <head> do 6meses.html -->
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#58a6ff" />
@@ -47,7 +48,7 @@
           <div class="app-icon">
             <img src="icons/icon.ico" width="40" alt="" />
           </div>
-          <h1 class="app-title">Fluência em 6 Meses</h1>
+          <h1 class="app-title">Fluência Conversacional <br> em 6 Meses</h1>
         </div>
         <div class="header-right">
           <div class="date-info">
@@ -102,6 +103,24 @@
         <button class="reset-btn" id="reset-btn">
           <i class="fas fa-redo"></i> Reiniciar
         </button>
+      </div>
+
+      <!-- Campo de Busca -->
+      <div class="search-container">
+        <div class="search-box">
+          <i class="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="Buscar conteúdo..."
+            autocomplete="off"
+          />
+          <button class="search-clear" id="search-clear" style="display: none">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="search-results-count" id="search-results"></div>
       </div>
 
       <!-- <div class="leveltest-container">

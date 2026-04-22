@@ -1,0 +1,122 @@
+/* ============================================
+   PROGRESS - Barra de Progresso e Estatísticas
+   ============================================ */
+
+/* Container de Progresso */
+.progress-container {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: var(--border-radius-xl);
+  padding: 25px;
+  margin-bottom: 25px;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+}
+
+/* Título da Seção */
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title i {
+  color: var(--accent-color);
+  filter: drop-shadow(0 0 5px rgba(79, 172, 254, 0.5));
+}
+
+/* Barra de Progresso */
+.progress-bar {
+  height: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius-full);
+  margin: 15px 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.progress {
+  height: 100%;
+  border-radius: var(--border-radius-full);
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-purple), var(--accent-color));
+  background-size: 200% 100%;
+  animation: progressShine 3s linear infinite;
+  width: 0%;
+  transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 15px rgba(79, 172, 254, 0.4);
+}
+
+.progress-text {
+  font-weight: 600;
+  color: var(--accent-color);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Estatísticas */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: var(--border-radius-lg);
+  padding: 20px 10px;
+  border: 1px solid var(--glass-border);
+  text-align: center;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  background: var(--card-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-lg);
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+  display: block;
+  background: linear-gradient(135deg, #fff, var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 15px 8px;
+  }
+
+  .stat-number {
+    font-size: 18px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+  }
+}

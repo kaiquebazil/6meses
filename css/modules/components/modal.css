@@ -1,0 +1,258 @@
+/* ============================================
+   MODAL - Modais e Regras de Fluência
+   ============================================ */
+
+/* Overlay do Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(13, 17, 23, 0.95);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal.active {
+  display: flex;
+}
+
+/* Conteúdo do Modal */
+.modal-content {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-xl);
+  width: 100%;
+  max-width: 900px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: modalSlideIn 0.4s ease-out;
+}
+
+/* Header do Modal */
+.modal-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 25px 30px;
+  border-top-left-radius: var(--border-radius-xl);
+  border-top-right-radius: var(--border-radius-xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.modal-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+/* Botão Fechar */
+.modal-close {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+/* Corpo do Modal */
+.modal-body {
+  padding: 30px;
+}
+
+/* Grid de Regras */
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+/* Card de Regra */
+.rule-card {
+  background-color: var(--button-bg);
+  border-radius: var(--border-radius-lg);
+  padding: 25px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.rule-card:hover {
+  transform: translateY(-8px);
+  border-color: #667eea;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.rule-icon {
+  font-size: 40px;
+  color: #667eea;
+  margin-bottom: 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rule-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.rule-card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Conteúdo Estilo Antigo */
+.old-style-content {
+  padding: 20px;
+}
+
+.content-card {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--border-radius-lg);
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.content-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Example Box (estilo antigo) */
+.example-box {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--border-radius-md);
+  padding: 15px;
+  border-left: 3px solid #667eea;
+}
+
+.usage-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.usage-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.usage-list li:last-child {
+  border-bottom: none;
+}
+
+.usage-list li a.highlight {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.usage-list li a.highlight:hover {
+  text-decoration: underline;
+}
+
+/* Nota Importante (estilo antigo) */
+.important-note {
+  background: rgba(59, 185, 80, 0.05);
+  border-radius: var(--border-radius-md);
+  padding: 15px;
+  border-left: 3px solid var(--accent-green);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .modal-content {
+    max-height: 90vh;
+    margin: 10px;
+  }
+
+  .modal-header {
+    padding: 20px;
+  }
+
+  .modal-header h2 {
+    font-size: 20px;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .rules-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .rule-card {
+    padding: 20px;
+  }
+
+  .rule-icon {
+    font-size: 32px;
+    height: 50px;
+  }
+
+  .rule-card h3 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .modal-close {
+    width: 36px;
+    height: 36px;
+    font-size: 24px;
+  }
+
+  .old-style-content {
+    padding: 15px;
+  }
+
+  .content-card {
+    padding: 15px;
+  }
+}
