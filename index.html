@@ -39,8 +39,13 @@
       name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
     />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
   </head>
-  <body>
+  <body id="top">
     <div class="container">
       <!-- Header com data -->
       <div class="header">
@@ -138,7 +143,7 @@
       </div>
 
       <!-- Doação PIX -->
-      <div class="donation-container">
+      <div class="donation-container" id="donation-section">
         <div class="donation-card">
           <div class="donation-icon">
             <i class="fas fa-hand-holding-heart"></i>
@@ -174,14 +179,23 @@
       </div>
     </div>
 
-    <a
-      href="https://wa.me/5524992046467"
-      target="_blank"
-      class="whatsapp-float"
-      title="Enviar mensagem no WhatsApp"
-    >
-      <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Botões Flutuantes -->
+    <div class="floating-controls">
+      <a href="#top" class="float-btn scroll-top" title="Voltar ao topo">
+        <i class="fas fa-arrow-up"></i>
+      </a>
+      <a href="#donation-section" class="float-btn scroll-donation" title="Fazer uma doação">
+        <i class="fas fa-hand-holding-heart"></i>
+      </a>
+      <a
+        href="https://wa.me/5524992046467"
+        target="_blank"
+        class="float-btn whatsapp-float"
+        title="Enviar mensagem no WhatsApp"
+      >
+        <i class="fab fa-whatsapp"></i>
+      </a>
+    </div>
 
     <a href="https://kaiquebazil.github.io/links/" class="back-button">
       <i class="fas fa-arrow-left"></i>
