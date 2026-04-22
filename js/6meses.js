@@ -1922,29 +1922,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               label.classList.add("completed");
 
-              // Expandir automaticamente quando marcar como concluído
-              if (!expandedContent.classList.contains("active")) {
-                const isDesktop = window.innerWidth > 768;
-                
-                // Se for desktop, fechar outros antes de abrir
-                if (isDesktop) {
-                  const allExpanded = monthsContainer.querySelectorAll(".expanded-content.active");
-                  const allToggleBtns = monthsContainer.querySelectorAll(".toggle-btn.expanded");
-                  
-                  allExpanded.forEach(el => {
-                    el.classList.remove("active");
-                    el.style.maxHeight = "0px";
-                  });
-                  
-                  allToggleBtns.forEach(btn => {
-                    btn.classList.remove("expanded");
-                  });
-                }
-
-                expandedContent.classList.add("active");
-                toggleBtn.classList.add("expanded");
-                expandedContent.style.maxHeight = expandedContent.scrollHeight + "px";
-              }
+              // Removida a expansão automática ao marcar como concluído a pedido do usuário
             } else {
               // Desmarcar
               completedContents = completedContents.filter(
