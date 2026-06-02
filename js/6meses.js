@@ -25,9 +25,14 @@ document.addEventListener("DOMContentLoaded", function () {
   languageManager.updateDateTime();
   
   // Listener para mudancas de idioma
-  window.addEventListener('languageChanged', () => {
+  window.addEventListener('languageChanged', (e) => {
+    // O languageManager ja atualizou seu estado interno
+    // Agora atualizamos a UI
     languageManager.updateStaticTexts();
     languageManager.updateDateTime();
+    // Re-renderizar conteudos dinamicos
+    renderStudyPlan();
+    renderComplementaryMaterials();
   });
 
   // Elementos DOM
@@ -107,12 +112,12 @@ document.addEventListener("DOMContentLoaded", function () {
             <i class="fas fa-${getIconForType(content.type)}"></i>
           </div>
           <div class="content-card-title">
-            <h4>${content.title}</h4>
-            <p>${content.description}</p>
+            <h4>${languageManager.t(content.title)}</h4>
+            <p>${languageManager.t(content.description)}</p>
           </div>
           <div class="content-card-meta">
             <span class="meta-difficulty difficulty-${content.difficulty ? content.difficulty.toLowerCase() : 'fácil'}">
-              ${content.difficulty || 'Fácil'}
+              ${languageManager.t(content.difficulty || 'Fácil')}
             </span>
             ${content.duration ? `
               <span class="meta-duration">
@@ -160,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (linkMatch) {
                           const linkText = linkMatch[0].replace("(link:", "").replace(")", "");
                           const displayText = material.replace(linkMatch[0], "").trim();
-                          return `<li>${displayText} <a href="${linkText}" target="_blank" class="highlight">Acessar</a></li>`;
+                          return `<li>${displayText} <a href="${linkText}" target="_blank" class="highlight">${languageManager.t('button.accessPlaylist')}</a></li>`;
                         }
                       }
                       return `<li>${material}</li>`;
@@ -173,10 +178,10 @@ document.addEventListener("DOMContentLoaded", function () {
             <!-- APRENDIZAGEM -->
             ${content.learning && content.learning.length > 0 ? `
               <div class="content-card">
-                <h3><i class="fas fa-graduation-cap"></i> O que você vai aprender</h3>
+                <h3><i class="fas fa-graduation-cap"></i> ${languageManager.t('content.learning')}</h3>
                 <div class="important-note">
                   <ul class="usage-list">
-                    ${content.learning.map(step => `<li>${step}</li>`).join('')}
+                    ${content.learning.map(step => `<li>${languageManager.t(step)}</li>`).join('')}
                   </ul>
                 </div>
               </div>
@@ -186,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <button class="complete-content-btn ${isCompleted ? 'completed' : ''}" 
                     onclick="completeWeekZeroContent('${content.id}')">
               <i class="fas ${isCompleted ? 'fa-check-double' : 'fa-check'}"></i>
-              <span>${isCompleted ? 'Concluído!' : 'Marcar como Concluído'}</span>
+              <span>${isCompleted ? languageManager.t('button.completed') : languageManager.t('button.markComplete')}</span>
             </button>
           </div>
         </div>
@@ -210,7 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="week-zero-header">
           <div style="flex: 1;">
             <h3 class="week-zero-title">
-              <i class="fas fa-${data.icon || 'tools'}"></i> ${data.title}
+              <i class="fas fa-${data.icon || 'tools'}"></i> ${languageManager.t(data.title)}
             </h3>
           </div>
           <button class="toggle-week-btn" id="toggle-week-zero-btn">
@@ -233,13 +238,13 @@ document.addEventListener("DOMContentLoaded", function () {
               <div class="week-zero-tips">
                 <div class="tips-header">
                   <i class="fas fa-lightbulb"></i>
-                  <h4>Dicas para Configuração</h4>
+                  <h4>${languageManager.t('content.tips')}</h4>
                 </div>
                 <div class="tips-list-timeline">
                   ${data.tips.map(tip => `
                     <div class="tip-item-timeline">
                       <i class="fas fa-check"></i>
-                      <span>${tip}</span>
+                      <span>${languageManager.t(tip)}</span>
                     </div>
                   `).join('')}
                 </div>
@@ -436,6 +441,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Renderizar Conteúdos Adicionais
   function renderComplementaryMaterials() {
+    // Remover container existente se houver para evitar duplicação
+    const existingContainer = document.querySelector('.complementary-container');
+    if (existingContainer) {
+      existingContainer.remove();
+    }
+
     // Filtrar para não incluir a Semana 0 nos conteúdos adicionais
     const otherMaterials = complementaryMaterials;
     
@@ -448,7 +459,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="complementary-header">
       <div class="complementary-title">
         <i class="fas fa-plus-circle"></i>
-        <span>📚 Conteúdos Adicionais - Fluência em 6 Meses</span>
+        <span>📚 ${languageManager.t('button.showContent')} - ${languageManager.t('app.title')}</span>
       </div>
       <button class="complementary-toggle" id="complementary-toggle">
         <i class="fas fa-chevron-down"></i>
@@ -480,6 +491,10 @@ document.addEventListener("DOMContentLoaded", function () {
     otherMaterials.forEach((material) => {
       const materialCard = document.createElement("div");
       materialCard.className = "complementary-card";
+      
+      // Mapear IDs para chaves de tradução
+      const titleKey = `complementary.${material.id === 'my-videos' ? 'myVideos' : material.id === 'resources-tools' ? 'resources' : 'podcasts'}`;
+      const descKey = `${titleKey}Desc`;
 
       // Criar conteúdo interno do card
       const cardContent = document.createElement("div");
@@ -494,8 +509,8 @@ document.addEventListener("DOMContentLoaded", function () {
       cardHeader.className = "complementary-card-header";
       cardHeader.innerHTML = `
       <div class="complementary-card-title">
-        <h3>${material.title}</h3>
-        <p class="complementary-card-desc">${material.description}</p>
+        <h3>${languageManager.t(titleKey)}</h3>
+        <p class="complementary-card-desc">${languageManager.t(descKey)}</p>
       </div>
       <button class="complementary-card-toggle" data-target="${material.id}">
         <i class="fas fa-chevron-down"></i>
@@ -534,7 +549,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="video-additional-toggle">
                   <button class="video-additional-btn" data-video="${video.id}">
                     <i class="fas fa-plus-circle"></i>
-                    <span>Conteúdo Adicional</span>
+                    <span>${languageManager.t('button.showContent')}</span>
                   </button>
                 </div>
                 
@@ -544,7 +559,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   <div class="video-additional-section">
                     <div class="complementary-section-title">
                       <i class="fas fa-book"></i>
-                      <span>Materiais Complementares</span>
+                      <span>${languageManager.t('content.materials')}</span>
                     </div>
                     <ul class="complementary-materials-list">
                       ${video.additionalContent.materials
@@ -570,7 +585,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   <div class="video-additional-section">
                     <div class="complementary-section-title">
                       <i class="fas fa-lightbulb"></i>
-                      <span>Dicas de Estudo</span>
+                      <span>${languageManager.t('content.tips')}</span>
                     </div>
                     <ul class="complementary-list">
                       ${video.additionalContent.tips
@@ -594,7 +609,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="complementary-section">
             <div class="complementary-section-title">
               <i class="fas fa-book"></i>
-              <span>Materiais Gerais</span>
+              <span>${languageManager.t('content.materials')}</span>
             </div>
             <ul class="complementary-materials-list">
               ${material.materials
@@ -645,8 +660,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="rule-icon-small">
                   <i class="fas fa-${rule.icon}"></i>
                 </div>
-                <h4>${rule.title}</h4>
-                <p>${rule.description}</p>
+                <h4>${languageManager.t(rule.title)}</h4>
+                <p>${languageManager.t(rule.description)}</p>
               </div>
             `
               )
@@ -662,15 +677,14 @@ document.addEventListener("DOMContentLoaded", function () {
         
         <!-- Introdução -->
         <div class="grammar-intro">
-          <p><strong>Minha filosofia:</strong> Gramática deve ser aprendida em contexto, não em listas de regras. 
-          Estes vídeos focam na <em>aplicação prática</em> para comunicação real.</p>
+          <p>${languageManager.t('Minha filosofia: Gramática deve ser aprendida em contexto, não em listas de regras. Estes vídeos focam na aplicação prática para comunicação real.')}</p>
         </div>
         
         <!-- Playlists organizadas -->
         <div class="complementary-section">
           <div class="complementary-section-title">
             <i class="fas fa-list-ol"></i>
-            <span>Playlists Organizadas</span>
+            <span>${languageManager.t('Playlists Organizadas')}</span>
           </div>
           
           <div class="playlists-grid">
@@ -683,16 +697,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     <i class="fas fa-play-circle"></i>
                   </div>
                   <div class="playlist-info">
-                    <h4>${playlist.name}</h4>
+                    <h4>${languageManager.t(playlist.name)}</h4>
                     <p class="playlist-creator">
-                      <i class="fas fa-user"></i> ${playlist.creator}
+                      <i class="fas fa-user"></i> ${languageManager.t(playlist.creator)}
                     </p>
-                    <p class="playlist-desc">${playlist.description}</p>
+                    <p class="playlist-desc">${languageManager.t(playlist.description)}</p>
                   </div>
                 </div>
                 
                 <div class="playlist-videos">
-                  <h5>Vídeos desta playlist:</h5>
+                  <h5>${languageManager.t('Vídeos desta playlist:')}</h5>
                   ${playlist.videos
                     .map(
                       (video) => `
@@ -734,7 +748,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   <a href="${
                     playlist.link
                   }" target="_blank" class="playlist-link-btn">
-                    <i class="fab fa-youtube"></i> Ver playlist completa
+                    <i class="fab fa-youtube"></i> ${languageManager.t('Ver playlist completa')}
                   </a>
                 </div>
               </div>
@@ -748,7 +762,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="complementary-section">
           <div class="complementary-section-title">
             <i class="fas fa-star"></i>
-            <span>Vídeos Específicos que Recomendo</span>
+            <span>${languageManager.t('Vídeos Específicos que Recomendo')}</span>
           </div>
           
           <div class="individual-videos-grid">
@@ -768,18 +782,18 @@ document.addEventListener("DOMContentLoaded", function () {
                   </div>
                   
                   <div class="video-content">
-                    <h4>${video.title}</h4>
+                    <h4>${languageManager.t(video.title)}</h4>
                     <p class="video-creator">
-                      <i class="fas fa-user"></i> ${video.creator}
+                      <i class="fas fa-user"></i> ${languageManager.t(video.creator)}
                     </p>
-                    <p class="video-description-large">${video.description}</p>
+                    <p class="video-description-large">${languageManager.t(video.description)}</p>
                     
                     ${
                       video.whyRecommend
                         ? `
                       <div class="why-recommend">
-                        <strong><i class="fas fa-thumbs-up"></i> Por que recomendo:</strong>
-                        <p>${video.whyRecommend}</p>
+                        <strong><i class="fas fa-thumbs-up"></i> ${languageManager.t('Por que recomendo:')}</strong>
+                        <p>${languageManager.t(video.whyRecommend)}</p>
                       </div>
                     `
                         : ""
@@ -791,7 +805,7 @@ document.addEventListener("DOMContentLoaded", function () {
                           ? video.difficulty.toLowerCase().split(" ")[0]
                           : "intermediate"
                       }">
-                        ${video.difficulty || "Intermediário"}
+                        ${languageManager.t(video.difficulty || "Intermediário")}
                       </span>
                       <div class="video-tags-large">
                         ${
@@ -944,7 +958,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="tools-category">
             <h4 class="tools-category-title">
               <i class="fas fa-${category.icon || "folder"}"></i>
-              ${category.name}
+              ${languageManager.t(category.name)}
             </h4>
             <div class="tools-items-grid">
               ${category.items
@@ -956,8 +970,8 @@ document.addEventListener("DOMContentLoaded", function () {
                       <i class="fas fa-${item.icon || "link"}"></i>
                     </div>
                     <div class="tool-info">
-                      <h5>${item.name}</h5>
-                      <p class="tool-desc">${item.description}</p>
+                      <h5>${languageManager.t(item.name)}</h5>
+                      <p class="tool-desc">${languageManager.t(item.description)}</p>
                     </div>
                   </div>
                   
@@ -966,8 +980,8 @@ document.addEventListener("DOMContentLoaded", function () {
                       item.myReview
                         ? `
                       <div class="tool-review">
-                        <strong><i class="fas fa-star"></i> Minha avaliação:</strong>
-                        <p>${item.myReview}</p>
+                        <strong><i class="fas fa-star"></i> ${languageManager.t('Minha avaliação:')}</strong>
+                        <p>${languageManager.t(item.myReview)}</p>
                       </div>
                     `
                         : ""
@@ -975,16 +989,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     
                     <div class="tool-actions">
                       <a href="${item.link}" target="_blank" class="tool-link">
-                        <i class="fas fa-external-link-alt"></i> Acessar
+                        <i class="fas fa-external-link-alt"></i> ${languageManager.t('button.accessPlaylist')}
                       </a>
                       ${
                         item.isFree
-                          ? '<span class="tool-badge free">Gratuito</span>'
+                          ? `<span class="tool-badge free">${languageManager.t('Gratuito')}</span>`
                           : ""
                       }
                       ${
                         item.isPaid
-                          ? '<span class="tool-badge paid">Premium</span>'
+                          ? `<span class="tool-badge paid">${languageManager.t('Premium')}</span>`
                           : ""
                       }
                     </div>
@@ -1026,8 +1040,8 @@ document.addEventListener("DOMContentLoaded", function () {
         <!-- Header com filtros -->
         <div class="podcasts-header">
           <div class="podcasts-intro">
-            <h4><i class="fas fa-podcast"></i> Guia de Podcasts por Nível</h4>
-            <p>Selecione podcasts baseado no seu nível atual. A recomendação é ouvir <strong>30-60 minutos por dia</strong> para imersão auditiva eficiente.</p>
+            <h4><i class="fas fa-podcast"></i> ${languageManager.t('Guia de Podcasts por Nível')}</h4>
+            <p>${languageManager.t('Selecione podcasts baseado no seu nível atual. A recomendação é ouvir 30-60 minutos por dia para imersão auditiva eficiente.')}</p>
           </div>
           
           <div class="podcasts-filters">
@@ -1040,7 +1054,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }" 
                         data-filter="${filter.id}">
                   <i class="fas fa-${filter.icon}"></i>
-                  ${filter.name}
+                  ${languageManager.t(filter.name)}
                 </button>
               `
                 )
@@ -1053,11 +1067,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 <strong>${material.levels.reduce(
                   (total, level) => total + level.items.length,
                   0
-                )}</strong> podcasts
+                )}</strong> ${languageManager.t('podcasts')}
               </span>
               <span class="stat">
                 <i class="fas fa-layer-group"></i>
-                <strong>${material.levels.length}</strong> níveis
+                <strong>${material.levels.length}</strong> ${languageManager.t('níveis')}
               </span>
             </div>
           </div>
@@ -1083,13 +1097,13 @@ document.addEventListener("DOMContentLoaded", function () {
               
               <div class="level-header">
                 <div class="level-title">
-                  <h4>${level.name}</h4>
-                  <p class="level-desc">${level.description}</p>
+                  <h4>${languageManager.t(level.name)}</h4>
+                  <p class="level-desc">${languageManager.t(level.description)}</p>
                 </div>
                 <div class="level-badge">
                   <span class="badge-count">${
                     level.items.length
-                  } podcasts</span>
+                  } ${languageManager.t('podcasts')}</span>
                   <i class="fas fa-chevron-down"></i>
                 </div>
               </div>
@@ -1108,8 +1122,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         </div>
                         
                         <div class="podcast-info">
-                          <h5>${podcast.name}</h5>
-                          <p class="podcast-desc">${podcast.description}</p>
+                          <h5>${languageManager.t(podcast.name)}</h5>
+                          <p class="podcast-desc">${languageManager.t(podcast.description)}</p>
                           
                           <div class="podcast-meta">
                             <span class="platform-badge">
@@ -1122,18 +1136,18 @@ document.addEventListener("DOMContentLoaded", function () {
                                   ? "podcast"
                                   : "globe"
                               }"></i>
-                              ${podcast.platform}
+                              ${languageManager.t(podcast.platform)}
                             </span>
                             <span class="frequency-badge">
                               <i class="fas fa-calendar-alt"></i>
-                              ${podcast.frequency}
+                              ${languageManager.t(podcast.frequency)}
                             </span>
                             ${
                               podcast.bestFor
                                 ? `
                               <span class="bestfor-badge">
                                 <i class="fas fa-bullseye"></i>
-                                ${podcast.bestFor}
+                                ${languageManager.t(podcast.bestFor)}
                               </span>
                             `
                                 : ""
@@ -1479,8 +1493,8 @@ document.addEventListener("DOMContentLoaded", function () {
                       (link) => `
                     <a href="${link.url}" target="_blank" class="simple-link">
                       <div class="link-content">
-                        <span class="link-name">${link.name}</span>
-                        <span class="link-desc">${link.description}</span>
+                        <span class="link-name">${languageManager.t(link.name)}</span>
+                        <span class="link-desc">${languageManager.t(link.description)}</span>
                       </div>
                       <i class="fas fa-external-link-alt"></i>
                     </a>
@@ -1494,7 +1508,7 @@ document.addEventListener("DOMContentLoaded", function () {
               .join("")}
             
             <div class="links-tips">
-              <p><strong>💡 Dica:</strong> Faça um teste para saber seu nível, depois foque no vocabulário correspondente.</p>
+              <p><strong>💡 ${languageManager.t('Dica:')}</strong> ${languageManager.t('Faça um teste para saber seu nível, depois foque no vocabulário correspondente.')}</p>
             </div>
           </div>
         </div>
@@ -1504,7 +1518,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cardBodyHTML = `
         <div class="complementary-card-body">
           <p style="text-align: center; color: var(--text-secondary); padding: 20px;">
-            Conteúdo em desenvolvimento
+            ${languageManager.t('Conteúdo em desenvolvimento')}
           </p>
         </div>
       `;
@@ -1553,12 +1567,12 @@ document.addEventListener("DOMContentLoaded", function () {
               additionalContent.scrollHeight + "px";
             icon.classList.remove("fa-plus-circle");
             icon.classList.add("fa-minus-circle");
-            this.querySelector("span").textContent = "Esconder Conteúdo";
+            this.querySelector("span").textContent = languageManager.t('button.hideContent');
           } else {
             additionalContent.style.maxHeight = "0px";
             icon.classList.remove("fa-minus-circle");
             icon.classList.add("fa-plus-circle");
-            this.querySelector("span").textContent = "Conteúdo Adicional";
+            this.querySelector("span").textContent = languageManager.t('button.showContent');
           }
         });
       });
@@ -1655,6 +1669,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Renderizar o plano de estudos
   function renderStudyPlan(filter = "all") {
+    if (!monthsContainer) return;
     monthsContainer.innerHTML = "";
 
     studyPlan.forEach((monthData, monthIndex) => {
@@ -1673,7 +1688,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const monthTitle = document.createElement("div");
       monthTitle.className = "month-title";
-      monthTitle.textContent = monthData.month;
+      // Tentar usar chave específica do i18n primeiro (ex: month.1)
+      const monthKey = `month.${monthIndex}`;
+      const translatedTitle = languageManager.t(monthKey);
+      monthTitle.textContent = translatedTitle !== monthKey ? translatedTitle : languageManager.t(monthData.month);
 
       const monthProgress = document.createElement("div");
       monthProgress.className = "month-progress";
@@ -1692,7 +1710,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const weekTitle = document.createElement("div");
         weekTitle.className = "week-title";
-        weekTitle.innerHTML = `<span>${week.title}</span> <i class="fas fa-book-open"></i>`;
+        
+        // Tentar usar chave específica do i18n para semanas
+        let weekKey = '';
+        if (week.title.toLowerCase().includes('preparação')) weekKey = 'week.preparation';
+        else if (week.title.toLowerCase().includes('configuração')) weekKey = 'week.environment';
+        else if (week.title.toLowerCase().includes('fundamentos')) weekKey = 'week.basics';
+        else {
+          const weekNum = week.title.match(/\d+/);
+          if (weekNum) weekKey = `week.${weekNum[0]}`;
+        }
+        
+        const translatedWeekTitle = weekKey ? languageManager.t(weekKey) : languageManager.t(week.title);
+        weekTitle.innerHTML = `<span>${translatedWeekTitle}</span> <i class="fas fa-book-open"></i>`;
         weekCard.appendChild(weekTitle);
 
         const contentList = document.createElement("ul");
@@ -1727,7 +1757,8 @@ document.addEventListener("DOMContentLoaded", function () {
           // Label - agora usando content.title se for objeto
           const label = document.createElement("span");
           label.className = `content-label ${isCompleted ? "completed" : ""}`;
-          label.textContent = typeof content === 'object' ? content.title : content;
+          const rawTitle = typeof content === 'object' ? content.title : content;
+          label.textContent = languageManager.t(rawTitle);
 
           // Botão toggle
           const toggleBtn = document.createElement("button");
@@ -1752,7 +1783,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (resources.videos && resources.videos.length > 0) {
               const videosSection = document.createElement("div");
               videosSection.className = "content-card";
-              videosSection.innerHTML = `<h3><i class="fas fa-video"></i> Vídeos da Aula</h3>`;
+              videosSection.innerHTML = `<h3><i class="fas fa-video"></i> ${languageManager.t('content.videos')}</h3>`;
               
               const videosGrid = document.createElement("div");
               videosGrid.className = "videos-grid";
@@ -1770,7 +1801,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (resources.materials && resources.materials.length > 0) {
               const materialsSection = document.createElement("div");
               materialsSection.className = "content-card";
-              materialsSection.innerHTML = `<h3><i class="fas fa-book"></i> Materiais de Apoio</h3>`;
+              materialsSection.innerHTML = `<h3><i class="fas fa-book"></i> ${languageManager.t('content.materials')}</h3>`;
               
               const materialsBox = document.createElement("div");
               materialsBox.className = "example-box";
@@ -1784,9 +1815,9 @@ document.addEventListener("DOMContentLoaded", function () {
                   const linkMatch = material.match(/\((link:[^)]+)\)/);
                   const linkText = linkMatch[0].replace("(link:", "").replace(")", "");
                   const displayText = material.replace(linkMatch[0], "").trim();
-                  li.innerHTML = `${displayText} <a href="${linkText}" target="_blank" class="highlight">Acessar</a>`;
+                  li.innerHTML = `${languageManager.t(displayText)} <a href="${linkText}" target="_blank" class="highlight">${languageManager.t('button.accessPlaylist')}</a>`;
                 } else {
-                  li.textContent = material;
+                  li.textContent = languageManager.t(material);
                 }
                 materialsList.appendChild(li);
               });
@@ -1810,7 +1841,7 @@ document.addEventListener("DOMContentLoaded", function () {
               
               resources.learning.forEach((item) => {
                 const li = document.createElement("li");
-                li.textContent = item;
+                li.textContent = languageManager.t(item);
                 learningList.appendChild(li);
               });
               
@@ -1828,7 +1859,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             const videosHeader = document.createElement("div");
             videosHeader.className = "section-header";
-            videosHeader.innerHTML = '<i class="fas fa-video"></i> Vídeos Recomendados';
+            videosHeader.innerHTML = `<i class="fas fa-video"></i> ${languageManager.t('content.videos')}`;
             
             const videosGrid = document.createElement("div");
             videosGrid.className = "videos-grid";
@@ -1848,7 +1879,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
             const materialsHeader = document.createElement("div");
             materialsHeader.className = "section-header";
-            materialsHeader.innerHTML = '<i class="fas fa-book"></i> Materiais Complementares';
+            materialsHeader.innerHTML = `<i class="fas fa-book"></i> ${languageManager.t('content.materials')}`;
             
             const materialsList = document.createElement("ul");
             materialsList.className = "materials-list";
@@ -1869,7 +1900,7 @@ document.addEventListener("DOMContentLoaded", function () {
               
               const learningHeader = document.createElement("div");
               learningHeader.className = "section-header learning-header";
-              learningHeader.innerHTML = '<i class="fas fa-graduation-cap"></i> O que você vai aprender';
+              learningHeader.innerHTML = `<i class="fas fa-graduation-cap"></i> ${languageManager.t('content.learning')}`;
               
               const learningList = document.createElement("ul");
               learningList.className = "learning-list";
@@ -1877,7 +1908,7 @@ document.addEventListener("DOMContentLoaded", function () {
               resources.learning.forEach((item) => {
                 const learningItem = document.createElement("li");
                 learningItem.className = "learning-item";
-                learningItem.innerHTML = `<i class="fas fa-check-circle"></i> ${item}`;
+                learningItem.innerHTML = `<i class="fas fa-check-circle"></i> ${languageManager.t(item)}`;
                 learningList.appendChild(learningItem);
               });
               

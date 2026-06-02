@@ -2,6 +2,7 @@
 // Gerenciador de Idioma - Controla a troca de idioma e renderização
 
 import { translations, getCurrentLanguage, setLanguage, toggleLanguage } from '../data/i18n.js';
+import { dynamicTranslations } from '../data/dynamicTranslations.js';
 
 export class LanguageManager {
   constructor() {
@@ -11,7 +12,15 @@ export class LanguageManager {
 
   // Obter tradução
   t(key) {
-    return translations[this.currentLanguage]?.[key] || key;
+    // Tenta buscar nas traduções estáticas primeiro
+    const staticTranslation = translations[this.currentLanguage]?.[key];
+    if (staticTranslation) return staticTranslation;
+
+    // Se não encontrar, tenta buscar nas traduções dinâmicas
+    const dynamicTranslation = dynamicTranslations[this.currentLanguage]?.[key];
+    if (dynamicTranslation) return dynamicTranslation;
+
+    return key;
   }
 
   // Alternar idioma
@@ -261,7 +270,13 @@ export class LanguageManager {
     const currentDateElement = document.getElementById('currentDate');
 
     if (currentDayElement) currentDayElement.textContent = dayName;
-    if (currentDateElement) currentDateElement.textContent = `${day} de ${month} de ${year}`;
+    if (currentDateElement) {
+      if (this.currentLanguage === 'en') {
+        currentDateElement.textContent = `${month} ${day}, ${year}`;
+      } else {
+        currentDateElement.textContent = `${day} de ${month} de ${year}`;
+      }
+    }
   }
 }
 

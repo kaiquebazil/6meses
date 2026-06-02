@@ -119,7 +119,7 @@
             type="text"
             id="search-input"
             class="search-input"
-            placeholder="Buscar conteúdo..."
+            data-i18n-placeholder="search.placeholder"
             autocomplete="off"
           />
           <button class="search-clear" id="search-clear" style="display: none">
@@ -191,6 +191,8 @@
     </a>
 
     <!-- Importação dos scripts -->
+    <script type="module" src="data/i18n.js"></script>
+    <script type="module" src="data/dynamicTranslations.js"></script>
     <script type="module" src="js/languageManager.js"></script>
     <script type="module" src="js/6meses.js"></script>
     <script>
