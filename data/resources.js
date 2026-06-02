@@ -171,16 +171,6 @@ export const resourcesDatabase = {
     ],
   },
 
-  "⚡ Ferramentas Rápidas": {
-    videos: [],
-    materials: [
-      "AnkiWeb (link: https://ankiweb.net)",
-    ],
-    learning: [
-      "Flashcards grátis",
-    ],
-  },
-
   "Alfabeto inglês: letras, pronúncia e soletração": {
     videos: [
       {

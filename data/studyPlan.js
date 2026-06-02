@@ -6,30 +6,21 @@ export const studyPlan = [
     month: "Mês 0: Alfabetização e Fundamentos",
     weeks: [
       {
-        title: "Preparação e Configuração do Ambiente",
+        title: "Preparação",
         contents: [
           "🗺️ Visão Geral do Plano",
           "🧠 Técnica de Imersão (Modo Difuso)",
           "🎯 Técnica de Imersão (Modo Focado)",
+          "🧪 Teste de Nivelamento",
+          "📚 Vocabulário Essencial",
+        ],
+      },
+      {
+        title: "Configuração de Ambiente",
+        contents: [
           "🔧 Configuração Anki para aprendizado eficiente",
           "📝 Configuração do Notion para Aprender Inglês",
           "🤖 Configuração do ChatGPT para Aprender Inglês",
-        ],
-      },
-      {
-        title: "Links Rápidos - Testes & Vocabulário",
-        contents: [
-          "🧪 Teste de Nivelamento",
-          "📚 Vocabulário Essencial",
-          "⚡ Ferramentas Rápidas",
-        ],
-      },
-      {
-        title: "Fundamentos Básicos",
-        contents: [
-          "Alfabeto inglês: letras, pronúncia e soletração",
-          "Números: 1 a 1 Trilhão",
-          "TESTE: Soletrar palavras simples e contar números",
         ],
       },
     ],
@@ -38,6 +29,14 @@ export const studyPlan = [
     month: "Mês 1: Fundamentos e Sobrevivência",
     focus: "Vocabulário essencial e frases de sobrevivência",
     weeks: [
+      {
+        title: "Fundamentos Básicos",
+        contents: [
+          "Alfabeto inglês: letras, pronúncia e soletração",
+          "Números: 1 a 1 Trilhão",
+          "TESTE: Soletrar palavras simples e contar números",
+        ],
+      },
       {
         title: "Semana 1: Conexões Humanas Básicas",
         contents: [
