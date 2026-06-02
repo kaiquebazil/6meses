@@ -55,6 +55,7 @@ export class LanguageManager {
     button.id = 'language-toggle-btn';
     button.className = 'language-toggle-btn';
     button.setAttribute('aria-label', 'Toggle language');
+    button.setAttribute('data-lang', this.currentLanguage === 'pt' ? 'EN' : 'PT');
     button.innerHTML = `
       <i class="fas fa-globe"></i>
       <span class="language-label">${this.t('language.toggle')}</span>
@@ -76,6 +77,7 @@ export class LanguageManager {
   updateLanguageButtonText() {
     const button = document.getElementById('language-toggle-btn');
     if (button) {
+      button.setAttribute('data-lang', this.currentLanguage === 'pt' ? 'EN' : 'PT');
       const label = button.querySelector('.language-label');
       if (label) {
         label.textContent = this.t('language.toggle');
