@@ -3,6 +3,7 @@
 import { studyPlan } from "../data/studyPlan.js";
 import { resourcesDatabase, defaultResources } from "../data/resources.js";
 import { complementaryMaterials } from "../data/complementaryData.js";
+import { languageManager } from "./languageManager.js";
 import {
   getFormattedDate,
   createVideoCard,
@@ -12,6 +13,23 @@ import {
 } from "./utils/helpers.js";
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Inicializar botao de troca de idioma
+  const languageToggleContainer = document.getElementById('language-toggle-container');
+  if (languageToggleContainer) {
+    const toggleButton = languageManager.createLanguageToggleButton();
+    languageToggleContainer.appendChild(toggleButton);
+  }
+  
+  // Atualizar textos estaticos na inicializacao
+  languageManager.updateStaticTexts();
+  languageManager.updateDateTime();
+  
+  // Listener para mudancas de idioma
+  window.addEventListener('languageChanged', () => {
+    languageManager.updateStaticTexts();
+    languageManager.updateDateTime();
+  });
+
   // Elementos DOM
   const monthsContainer = document.getElementById("months-container");
   const globalProgress = document.getElementById("global-progress");

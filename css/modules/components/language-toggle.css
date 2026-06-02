@@ -1,0 +1,90 @@
+/* css/modules/components/language-toggle.css */
+/* Estilos para o botão de troca de idioma */
+
+.language-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, var(--accent-blue), #0969da);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(9, 105, 218, 0.2);
+  white-space: nowrap;
+}
+
+.language-toggle-btn:hover {
+  background: linear-gradient(135deg, #0969da, #0860ca);
+  box-shadow: 0 4px 12px rgba(9, 105, 218, 0.3);
+  transform: translateY(-2px);
+}
+
+.language-toggle-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(9, 105, 218, 0.2);
+}
+
+.language-toggle-btn i {
+  font-size: 16px;
+}
+
+.language-label {
+  font-size: 13px;
+  letter-spacing: 0.5px;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+  .language-toggle-btn {
+    padding: 7px 12px;
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .language-toggle-btn i {
+    font-size: 14px;
+  }
+
+  .language-label {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .language-toggle-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+    gap: 4px;
+  }
+
+  .language-toggle-btn i {
+    font-size: 13px;
+  }
+
+  .language-label {
+    display: none;
+  }
+
+  .language-toggle-btn::after {
+    content: attr(data-lang);
+  }
+}
+
+/* Animação de rotação do ícone */
+@keyframes rotateGlobe {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.language-toggle-btn:active i {
+  animation: rotateGlobe 0.6s ease;
+}
